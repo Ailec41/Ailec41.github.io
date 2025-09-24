@@ -1,4 +1,67 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://ailec41.github.io/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Chinese Test</title><link>https://ailec41.github.io/p/test-chinese/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/test-chinese/</guid><description>&lt;img src="https://ailec41.github.io/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;h2 id="正文测试"&gt;正文测试
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://ailec41.github.io/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 24 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>lecture02 bits,bytes and integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 bits,bytes and integer" /&gt;&lt;h2 id="bits"&gt;Bits
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
+&lt;li&gt;能在有噪声且不精确的电线上可靠传输&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/Users/infiniteejl/Desktop/my-blog/content/post/lecture02-bits-bytes-and-integer/why-bits.jpg"
+loading="lazy"
+alt="why-bits"
+&gt;&lt;/p&gt;
+&lt;p&gt;​ 我们可以用二进制来表示浮点数，在一个二进制的小数点中，小数点左边的第一位权重为$2^0$，小数点右边第一位权重为$2^{-1}$，以此类推，这就是浮点数的二进制表示方法，所以如果将数字写成32位或者64位的字符串，这样会变的很麻烦，所以通常将4bits的数据为一个集合分组，用十六进制表示，因此十六进制和二进制的转换是非常方便的&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/Users/infiniteejl/Desktop/my-blog/content/post/lecture02-bits-bytes-and-integer/encoding.png"
+loading="lazy"
+alt="encoding"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;字节&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个字节等于8比特&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;布尔代数&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比特之间的关系（操作）&lt;/li&gt;
+&lt;li&gt;1代表true，0代表false&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/Users/infiniteejl/Desktop/my-blog/content/post/lecture02-bits-bytes-and-integer/boolenan.png"
+loading="lazy"
+alt="boolenan"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example：表示与操作集合&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;表示方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一个长度为w的位向量表示集合{0,1,&amp;hellip;,w-1}的子集&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果$a_j = 1,j \in A$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;for example：{0,3,5,6}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;01101001&lt;/li&gt;
+&lt;li&gt;76543210&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于上面的这个例子，“01101001”代表的就是&amp;quot;76543210&amp;quot;中各个位的数字在集合中是否出现，出现即为1，反之为0&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;对比逻辑运算符&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;amp;&amp;amp;,||,!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;!0x41 $\rightarrow$ 0x00&lt;/li&gt;
+&lt;li&gt;!0x99 $\rightarrow$ 0x01&lt;/li&gt;
+&lt;li&gt;!!ox41 $\rightarrow$ 0x01&lt;/li&gt;
+&lt;li&gt;0x69 &amp;amp;&amp;amp; 0x55 $\rightarrow$ 0x01&lt;/li&gt;
+&lt;li&gt;p &amp;amp;&amp;amp; *p(避免空指针访问，如果p是NULL，就不会解引用)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="移位操作"&gt;移位操作
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;左移:x &amp;laquo; y&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Chinese Test</title><link>https://ailec41.github.io/p/test-chinese/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/test-chinese/</guid><description>&lt;img src="https://ailec41.github.io/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;h2 id="正文测试"&gt;正文测试
 &lt;/h2&gt;&lt;p&gt;Ewsjhdgfkbskbfnjdsbfjsf&lt;/p&gt;
 &lt;h2 id="引用"&gt;引用
 &lt;/h2&gt;&lt;blockquote&gt;
@@ -60,7 +123,10 @@ data-flex-basis="160px"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;相册语法来自 &lt;a class="link" href="https://typlog.com/" target="_blank" rel="noopener"
-&gt;Typlog&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Markdown Syntax Guide</title><link>https://ailec41.github.io/p/markdown-syntax-guide/</link><pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/markdown-syntax-guide/</guid><description>&lt;img src="https://ailec41.github.io/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;test deplay&lt;/p&gt;</description></item><item><title>Placeholder Text</title><link>https://ailec41.github.io/p/placeholder-text/</link><pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/placeholder-text/</guid><description>&lt;img src="https://ailec41.github.io/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
+&gt;Typlog&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Markdown Syntax Guide</title><link>https://ailec41.github.io/p/markdown-syntax-guide/</link><pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/markdown-syntax-guide/</guid><description>&lt;img src="https://ailec41.github.io/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;test deplay&lt;img src="https://ailec41.github.io/Users/infiniteejl/Desktop/my-blog/content/post/markdown-syntax/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg"
+loading="lazy"
+alt="pawel-czerwinski-8uZPynIu-rQ-unsplash"
+&gt;&lt;/p&gt;</description></item><item><title>Placeholder Text</title><link>https://ailec41.github.io/p/placeholder-text/</link><pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/placeholder-text/</guid><description>&lt;img src="https://ailec41.github.io/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
 &lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Exierant elisi ambit vivere dedere&lt;/li&gt;
@@ -83,7 +149,7 @@ data-flex-basis="160px"
 &lt;h2 id="mane-refeci-capiebant-unda-mulcebat"&gt;Mane refeci capiebant unda mulcebat
 &lt;/h2&gt;&lt;p&gt;Victa caducifer, malo vulnere contra dicere aurato, ludit regale, voca! Retorsit colit est profanae esse virescere furit nec; iaculi matertera et visa est, viribus. Divesque creatis, tecta novat collumque vulnus est, parvas. &lt;strong&gt;Faces illo pepulere&lt;/strong&gt; tempus adest. Tendit flamma, ab opes virum sustinet, sidus sequendo urbis.&lt;/p&gt;
 &lt;p&gt;Iubar proles corpore raptos vero auctor imperium; sed et huic: manus caeli Lelegas tu lux. Verbis obstitit intus oblectamina fixis linguisque ausus sperare Echionides cornuaque tenent clausit possit. Omnia putatur. Praeteritae refert ausus; ferebant e primus lora nutat, vici quae mea ipse. Et iter nil spectatae vulnus haerentia iuste et exercebat, sui et.&lt;/p&gt;
-&lt;p&gt;Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong&gt;mitis temploque&lt;/strong&gt; vocatus, inque alis, &lt;em&gt;oculos nomen&lt;/em&gt; non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong&gt;parte&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>First Test</title><link>https://ailec41.github.io/p/first-test/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/first-test/</guid><description>&lt;p&gt;My first&lt;/p&gt;</description></item><item><title>lecture02 bits,bytes and integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description/></item><item><title>Math Typesetting</title><link>https://ailec41.github.io/p/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/math-typesetting/</guid><description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
+&lt;p&gt;Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong&gt;mitis temploque&lt;/strong&gt; vocatus, inque alis, &lt;em&gt;oculos nomen&lt;/em&gt; non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong&gt;parte&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>First Test</title><link>https://ailec41.github.io/p/first-test/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/first-test/</guid><description>&lt;p&gt;My first&lt;/p&gt;</description></item><item><title>Math Typesetting</title><link>https://ailec41.github.io/p/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/math-typesetting/</guid><description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
 &lt;p&gt;In this example we will be using &lt;a class="link" href="https://katex.org/" target="_blank" rel="noopener"
 &gt;KaTeX&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
