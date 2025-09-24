@@ -75,7 +75,347 @@ data-flex-basis="487px"
 &lt;li&gt;p &amp;amp;&amp;amp; *p（避免空指针访问，如果 p 是 NULL，就不会解引用）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="移位操作"&gt;移位操作
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;左移：x &amp;laquo; y&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>归档</title><link>https://ailec41.github.io/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/archives/</guid><description/></item><item><title>关于</title><link>https://ailec41.github.io/%E5%85%B3%E4%BA%8E/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/%E5%85%B3%E4%BA%8E/</guid><description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;</description></item><item><title>搜索</title><link>https://ailec41.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/search/</guid><description/></item><item><title>友链</title><link>https://ailec41.github.io/%E5%8F%8B%E9%93%BE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/%E5%8F%8B%E9%93%BE/</guid><description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
+&lt;/h2&gt;&lt;h3 id="左移x--y"&gt;左移：x &amp;laquo; y
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;向左移动位次，多余的bits扔掉，添加相对应数目的0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="右移x--y"&gt;右移：x &amp;raquo; y
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;逻辑右移&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;和左移类似&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;算数右移&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若第一个数为1，把原本填充的0改为填充1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="整数编码"&gt;整数编码
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;无符号数&lt;/p&gt;
+&lt;p&gt;$B2U(X) = \sum_{i = 0}^{w-1} x_i \cdot 2^i $&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;补码(Two&amp;rsquo;s Complement)&lt;/p&gt;
+&lt;p&gt;$B2T(X) = -x_{w-1} \cdot 2^{w-1} + \sum_{i=0}^{w-2} x_i \cdot 2^i$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;数值范围&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;W = 16&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Value Type&lt;/th&gt;
+&lt;th&gt;Formula / Binary Pattern&lt;/th&gt;
+&lt;th&gt;Decimal&lt;/th&gt;
+&lt;th&gt;Hex&lt;/th&gt;
+&lt;th&gt;Binary&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Unsigned Values&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;UMin&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0x0000&lt;/td&gt;
+&lt;td&gt;00000000 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;UMax&lt;/td&gt;
+&lt;td&gt;2&lt;sup&gt;W&lt;/sup&gt; - 1&lt;/td&gt;
+&lt;td&gt;65535&lt;/td&gt;
+&lt;td&gt;0xFFFF&lt;/td&gt;
+&lt;td&gt;11111111 11111111&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Two&amp;rsquo;s Complement Values&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TMin&lt;/td&gt;
+&lt;td&gt;-2&lt;sup&gt;W-1&lt;/sup&gt; / 100&amp;hellip;0&lt;/td&gt;
+&lt;td&gt;-32768&lt;/td&gt;
+&lt;td&gt;0x8000&lt;/td&gt;
+&lt;td&gt;10000000 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TMax&lt;/td&gt;
+&lt;td&gt;2&lt;sup&gt;W-1&lt;/sup&gt; - 1 / 011&amp;hellip;1&lt;/td&gt;
+&lt;td&gt;32767&lt;/td&gt;
+&lt;td&gt;0x7FFF&lt;/td&gt;
+&lt;td&gt;01111111 11111111&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Other Values&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-1&lt;/td&gt;
+&lt;td&gt;111&amp;hellip;1&lt;/td&gt;
+&lt;td&gt;-1&lt;/td&gt;
+&lt;td&gt;0xFFFF&lt;/td&gt;
+&lt;td&gt;11111111 11111111&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;000&amp;hellip;0&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0x0000&lt;/td&gt;
+&lt;td&gt;00000000 00000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;因此我们可以得到一个关系如下：&lt;/p&gt;
+&lt;p&gt;​ $TMin = TMax + 1$&lt;/p&gt;
+&lt;p&gt;​ $UMax = 2 \times TMax + 1$&lt;/p&gt;
+&lt;h3 id="转换"&gt;转换
+&lt;/h3&gt;&lt;p&gt;有符号整型和无符号整型和十进制的转换关系如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/123.jpg"
+width="398"
+height="604"
+srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/123_hu_6784bc7cf29f5567.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/123_hu_e942a054b6ee95f.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="65"
+data-flex-basis="158px"
+&gt;&lt;/p&gt;
+&lt;p&gt;显然上述转换是可逆的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\text{U2B}(x)=\text{B2U}^{-1}(x)$&lt;/li&gt;
+&lt;li&gt;$\text{T2B}(x)=\text{B2T}^{-1}(x)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;利用复合关系可以得到有符号整型以及无符号整型的转换关系：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/111.jpg"
+width="980"
+height="420"
+srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/111_hu_86e9a1bb8947973c.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/111_hu_40f3ead3eb4aaf9b.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="233"
+data-flex-basis="560px"
+&gt;&lt;/p&gt;
+&lt;p&gt;对于$\text {TMin} \leqslant x \leqslant \text{TMax}$
+&lt;/p&gt;
+$$
+T 2 U_w(x)=\left\{\begin{array}{ll}
+x+2^{w}, &amp; x&lt;0 \\
+x, &amp; x \geqslant 0
+\end{array}\right.
+$$&lt;p&gt;
+对于$0 \leqslant x \leqslant \text{UMax}$
+&lt;/p&gt;
+$$
+U 2 T_{w}(u)=\left\{\begin{array}{ll}
+u, &amp; u \leqslant \text{TMax} \\
+u-2^{w}, &amp; u&gt;\text{TMax}
+\end{array}\right.
+$$&lt;p&gt;下图为补码到无符号数的转换关系&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/222.jpg"
+width="2078"
+height="1344"
+srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/222_hu_c8b3373b4ae2d50.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/222_hu_334248bba9997460.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="154"
+data-flex-basis="371px"
+&gt;&lt;/p&gt;
+&lt;p&gt;C语言中的转换如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;tx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uy&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;//显示转换
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="n"&gt;tx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;uy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;//隐式转换
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="n"&gt;tx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;uy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="表达式求值规则"&gt;表达式求值规则
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;若单个表达式中&lt;strong&gt;同时出现无符号数与有符号数&lt;/strong&gt;，则&lt;strong&gt;有符号值会被隐式转换为无符号数&lt;/strong&gt;（包括比较运算 &lt;code&gt;&amp;lt;&lt;/code&gt;、&lt;code&gt;&amp;gt;&lt;/code&gt;、&lt;code&gt;==&lt;/code&gt;、&lt;code&gt;&amp;lt;=&lt;/code&gt;、&lt;code&gt;&amp;gt;=&lt;/code&gt;）。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;举例：W = 32 位&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;常量定义&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TMIN = -2,147,483,648&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TMAX = 2,147,483,647&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;常量 1&lt;/th&gt;
+&lt;th&gt;常量 2&lt;/th&gt;
+&lt;th&gt;实际类型&lt;/th&gt;
+&lt;th&gt;关系&lt;/th&gt;
+&lt;th&gt;结果&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0U&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;无符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;假&lt;/td&gt;
+&lt;td&gt;两者均为 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;有符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;普通有符号比较&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0U&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;无符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;-1&lt;/code&gt; 被转成 &lt;code&gt;4294967295U&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;2147483647&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;-2147483648&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;有符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;普通有符号比较&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;2147483647U&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;-2147483648&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;无符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;-2147483648&lt;/code&gt; 被转成 &lt;code&gt;2147483648U&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;-2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;有符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;普通有符号比较&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;(unsigned)-1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;-2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;无符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;-2&lt;/code&gt; 被转成 &lt;code&gt;4294967294U&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;2147483647&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;2147483648U&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;无符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;前者 &amp;lt; 后者&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;2147483647&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;(int)2147483648U&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;有符号&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;后者溢出成 &lt;code&gt;-2147483648&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="小结有符号与无符号强制转换的基本规则"&gt;小结：有符号与无符号强制转换的基本规则
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;位模式保持不变&lt;/strong&gt;&lt;br&gt;
+强制转换时，内存中的 0/1 序列原样复制。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;仅重新解释&lt;/strong&gt;&lt;br&gt;
+同一段位模式，按目标类型（有符号或无符号）重新解读。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;可能产生“意外”&lt;/strong&gt;&lt;br&gt;
+数值可能突然加上或减去 2^W（W 为位数）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;表达式中的混合类型&lt;/strong&gt;&lt;br&gt;
+只要表达式里&lt;strong&gt;同时出现&lt;/strong&gt;&lt;code&gt;signed int&lt;/code&gt;与&lt;code&gt;unsigned int&lt;/code&gt; ，&lt;strong&gt;编译器会把 &lt;code&gt;signed int&lt;/code&gt; 隐式转换成 &lt;code&gt;unsigned int&lt;/code&gt;&lt;/strong&gt;，再参与运算。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="扩展截断"&gt;扩展，截断
+&lt;/h2&gt;&lt;h3 id="扩展"&gt;扩展
+&lt;/h3&gt;&lt;p&gt;无符号扩展至需要在前面的bits补0,有符号扩展如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;任务：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;给定w-bit的有符号整型x&lt;/li&gt;
+&lt;li&gt;将其转换为w+k-bit的有符号整型，值不变&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;规则：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;将符号位复制k份&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$X&amp;rsquo; = X_{w-1},\dots,X_{w-1},X_{w-1},X_{w-2},\dots,X_0$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="截断"&gt;截断
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;无符号截断&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;原始 $w$ 位：&lt;br&gt;
+$\mathrm{B2U}&lt;em&gt;w(X)=\sum&lt;/em&gt;{i=0}^{w-1} x_i\cdot2^i$&lt;/p&gt;
+&lt;p&gt;截断为 $k$ 位后：&lt;br&gt;
+$\mathrm{B2U}&lt;em&gt;k(X)=\sum&lt;/em&gt;{i=0}^{k-1} x_i\cdot2^i = \mathrm{B2U}_w(X)\bmod 2^k$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;有符号截断&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;原始 $w$ 位：&lt;br&gt;
+&lt;/p&gt;
+$$
+\mathrm{B2T}_w(X)=-x_{w-1}\cdot2^{w-1}+\sum_{i=0}^{w-2} x_i\cdot2^i
+$$&lt;p&gt;
+截断为 $k$ 位后：&lt;br&gt;
+&lt;/p&gt;
+$$
+\mathrm{B2T}_k(X)=-x_{k-1}\cdot2^{k-1}+\sum_{i=0}^{k-2} x_i\cdot2^i = \mathrm{U2T}_k\!\bigl(\mathrm{B2U}_w(X)\bmod 2^k\bigr)
+$$</description></item><item><title>归档</title><link>https://ailec41.github.io/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/archives/</guid><description/></item><item><title>关于</title><link>https://ailec41.github.io/%E5%85%B3%E4%BA%8E/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/%E5%85%B3%E4%BA%8E/</guid><description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;</description></item><item><title>搜索</title><link>https://ailec41.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/search/</guid><description/></item><item><title>友链</title><link>https://ailec41.github.io/%E5%8F%8B%E9%93%BE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/%E5%8F%8B%E9%93%BE/</guid><description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
