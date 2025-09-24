@@ -415,4 +415,4 @@ $$&lt;p&gt;
 &lt;/p&gt;
 $$
 \mathrm{B2T}_k(X)=-x_{k-1}\cdot2^{k-1}+\sum_{i=0}^{k-2} x_i\cdot2^i = \mathrm{U2T}_k\!\bigl(\mathrm{B2U}_w(X)\bmod 2^k\bigr)
-$$</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://ailec41.github.io/csapp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;</description></item></channel></rss>
+$$</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;</description></item></channel></rss>
