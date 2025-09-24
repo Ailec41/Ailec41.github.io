@@ -4,14 +4,24 @@
 &lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
 &lt;li&gt;能在有噪声且不精确的电线上可靠传输&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/Users/infiniteejl/Desktop/my-blog/content/post/lecture02-bits-bytes-and-integer/why-bits.jpg"
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/why-bits.jpg"
+width="796"
+height="249"
+srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/why-bits_hu_db0e1589287f0e6f.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/why-bits_hu_544ef48d82bcf07.jpg 1024w"
 loading="lazy"
-alt="why-bits"
+class="gallery-image"
+data-flex-grow="319"
+data-flex-basis="767px"
 &gt;&lt;/p&gt;
 &lt;p&gt;​ 我们可以用二进制来表示浮点数，在一个二进制的小数点中，小数点左边的第一位权重为$2^0$，小数点右边第一位权重为$2^{-1}$，以此类推，这就是浮点数的二进制表示方法，所以如果将数字写成32位或者64位的字符串，这样会变的很麻烦，所以通常将4bits的数据为一个集合分组，用十六进制表示，因此十六进制和二进制的转换是非常方便的&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/Users/infiniteejl/Desktop/my-blog/content/post/lecture02-bits-bytes-and-integer/encoding.png"
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/encoding.jpg"
+width="1970"
+height="1236"
+srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/encoding_hu_90858520df601cc9.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/encoding_hu_c9b2f1c44445d012.jpg 1024w"
 loading="lazy"
-alt="encoding"
+class="gallery-image"
+data-flex-grow="159"
+data-flex-basis="382px"
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;字节&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -22,9 +32,14 @@ alt="encoding"
 &lt;li&gt;比特之间的关系（操作）&lt;/li&gt;
 &lt;li&gt;1代表true，0代表false&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/Users/infiniteejl/Desktop/my-blog/content/post/lecture02-bits-bytes-and-integer/boolenan.png"
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/boolenan.jpg"
+width="1454"
+height="716"
+srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/boolenan_hu_47fd8da15e9935a9.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/boolenan_hu_b0cc73e741231d31.jpg 1024w"
 loading="lazy"
-alt="boolenan"
+class="gallery-image"
+data-flex-grow="203"
+data-flex-basis="487px"
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Example：表示与操作集合&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
