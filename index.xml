@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://ailec41.github.io/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 24 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>lecture02 bits,bytes and integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 bits,bytes and integer" /&gt;&lt;h1 id="bits"&gt;Bits
-&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://ailec41.github.io/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 24 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>lecture02 bits,bytes and integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 bits,bytes and integer" /&gt;&lt;h2 id="bits"&gt;Bits
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
 &lt;li&gt;能在有噪声且不精确的电线上可靠传输&lt;/li&gt;
@@ -68,7 +68,7 @@ data-flex-basis="487px"
 &lt;/ul&gt;
 &lt;p&gt;Example：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;$!0x41 → 0x00$&lt;/li&gt;
+&lt;li&gt;!0x41 → 0x00&lt;/li&gt;
 &lt;li&gt;!0x99 → 0x01&lt;/li&gt;
 &lt;li&gt;!!ox41 → 0x01&lt;/li&gt;
 &lt;li&gt;0x69 &amp;amp;&amp;amp; 0x55 → 0x01&lt;/li&gt;
