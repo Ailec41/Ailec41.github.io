@@ -402,10 +402,14 @@ data-flex-basis="371px"
 &lt;h3 id="截断"&gt;截断
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;无符号截断&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;原始 $w$ 位：&lt;br&gt;
-$\mathrm{B2U}&lt;em&gt;w(X)=\sum&lt;/em&gt;{i=0}^{w-1} x_i\cdot2^i$&lt;/p&gt;
-&lt;p&gt;截断为 $k$ 位后：&lt;br&gt;
-$\mathrm{B2U}&lt;em&gt;k(X)=\sum&lt;/em&gt;{i=0}^{k-1} x_i\cdot2^i = \mathrm{B2U}_w(X)\bmod 2^k$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;有符号截断&lt;/strong&gt;&lt;/p&gt;
+&lt;/p&gt;
+$$
+\mathrm{B2U}_w(X)=\sum_{i=0}^{w-1} x_i\cdot2^i
+$$&lt;p&gt;截断为 $k$ 位后：&lt;br&gt;
+&lt;/p&gt;
+$$
+\mathrm{B2U}_k(X)=\sum_{i=0}^{k-1} x_i\cdot2^i = \mathrm{B2U}_w(X)\bmod 2^k
+$$&lt;p&gt;&lt;strong&gt;有符号截断&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;原始 $w$ 位：&lt;br&gt;
 &lt;/p&gt;
 $$
