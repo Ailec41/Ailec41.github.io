@@ -49,8 +49,8 @@ $$&lt;p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id="方法的证明"&gt;方法的证明：
-&lt;/h4&gt;&lt;p&gt;假设 $x$ 的 $w$ 位二进制表示为 $\left[x_{w-1}, x_{w-2}, \cdots, x_{0}\right]$，那么 $\left[x_{w-1}, x_{w-2}, \cdots, x_{0}, 0, \cdots, 0\right]$ 给出了 $x2^k$ 的 $w+k$ 位二进制表示：&lt;/p&gt;
+&lt;p&gt;方法的证明：&lt;/p&gt;
+&lt;p&gt;假设 $x$ 的 $w$ 位二进制表示为 $\left[x_{w-1}, x_{w-2}, \cdots, x_{0}\right]$，那么 $\left[x_{w-1}, x_{w-2}, \cdots, x_{0}, 0, \cdots, 0\right]$ 给出了 $x2^k$ 的 $w+k$ 位二进制表示：&lt;/p&gt;
 $$
 \begin{aligned}
 B2U_{w+k}\left(\left[x_{w-1}, x_{w-2}, \cdots, x_{0}, 0, \cdots, 0\right]\right) &amp;= \sum_{i=0}^{w-1} x_{i} 2^{i+k} \\
@@ -80,8 +80,8 @@ $$
 \text{TMult}_w(u,v) = U2T_w((u \cdot v) \mod 2^w)
 $$&lt;p&gt;
 可以得到相同的结果。&lt;/p&gt;
-&lt;h4 id="一般情形"&gt;一般情形
-&lt;/h4&gt;&lt;p&gt;现在考虑一般的情形，假设我们需要计算 $u \times K$，其中 $K$ 为常数，将 $K$ 表达为一组 $0$ 和 $1$ 交替的序列
+&lt;p&gt;一般情形&lt;/p&gt;
+&lt;p&gt;现在考虑一般的情形，假设我们需要计算 $u \times K$，其中 $K$ 为常数，将 $K$ 表达为一组 $0$ 和 $1$ 交替的序列
 &lt;/p&gt;
 $$
 [(0 \cdots 0)(1 \cdots 1)(0 \cdots 0) \cdots (1 \cdots 1)]
@@ -92,7 +92,8 @@ $$
 &amp;(x &lt;&lt; n) + (x &lt;&lt; (n-1)) + \cdots + (x &lt;&lt; m) \\
 &amp;(x &lt;&lt; (n+1)) - (x &lt;&lt; m)
 \end{aligned}
-$$&lt;h4 id="使用移位操作代替除以-2-的幂无符号"&gt;使用移位操作代替除以 2 的幂（无符号）
+$$&lt;h3 id="移位操作和二进制乘除法的联系"&gt;移位操作和二进制乘除法的联系
+&lt;/h3&gt;&lt;h4 id="使用移位操作代替除以-2-的幂无符号"&gt;使用移位操作代替除以 2 的幂（无符号）
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;$u &amp;raquo; k$ 给出 $\lfloor u / 2^{k} \rfloor$&lt;/li&gt;
 &lt;li&gt;使用逻辑移位&lt;/li&gt;
