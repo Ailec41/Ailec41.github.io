@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CMU 15-213 on LunaTide's Blog</title><link>https://ailec41.github.io/categories/cmu-15-213/</link><description>Recent content in CMU 15-213 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 24 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/categories/cmu-15-213/index.xml" rel="self" type="application/rss+xml"/><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CMU 15-213 on LunaTide's Blog</title><link>https://ailec41.github.io/categories/cmu-15-213/</link><description>Recent content in CMU 15-213 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/categories/cmu-15-213/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab1 DataLab</title><link>https://ailec41.github.io/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lab1-datalab/</guid><description>&lt;img src="https://ailec41.github.io/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
@@ -389,16 +389,32 @@ data-flex-basis="371px"
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;规则：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
 &lt;p&gt;将符号位复制k份&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
 &lt;p&gt;$X&amp;rsquo; = X_{w-1},\dots,X_{w-1},X_{w-1},X_{w-2},\dots,X_0$&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;补码的符号扩展&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;定义宽度为 $w$ 的位向量 $\vec{x} = [x_{w-1}, x_{w-2}, \dots, x_0]$ 和宽度为 $w&amp;rsquo;$ 的位向量 $\vec{x}&amp;rsquo; = [x&amp;rsquo;&lt;em&gt;{w&amp;rsquo;-1}, x&amp;rsquo;&lt;/em&gt;{w&amp;rsquo;-2}, \dots, x&amp;rsquo;&lt;em&gt;0]$，其中 $w&amp;rsquo; &amp;gt; w$。则$B2T_w(\vec{x}) = B2T&lt;/em&gt;{w&amp;rsquo;}(\vec{x}&amp;rsquo;)$，&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;补码数值的符号扩展&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;令$w&amp;rsquo; = w + k$，我们想要证明的是
+&lt;/p&gt;
+$$
+B2T_{w+k} ([x_{w-1}, \cdots, x_{w-1}, x_{w-2}, \cdots, x_0]) = B2T_w([x_{w-1}, x_{w-2}, \cdots, x_0])
+$$&lt;p&gt;下面的证明是对$k$进行归纳。也就是说，如果我们能够证明符号扩展一位保持了数值不变，那么符号扩展任意位都能保持这种属性。因此，证明的任务就变为了：
+&lt;/p&gt;
+$$
+B2T_{w+1} ([x_{w-1}, x_{w-1}, x_{w-2}, \cdots, x_0]) = B2T_w([x_{w-1}, x_{w-2}, \cdots, x_0])
+$$&lt;p&gt;展开左边的表达式，得到：
+&lt;/p&gt;
+$$
+\begin{aligned}
+B2T_{w+1} ([x_{w-1}, x_{w-1}, x_{w-2}, \cdots, x_0]) &amp;= -x_{w-1}2^w + \sum_{i=0}^{w-1}x_i2^i \\
+&amp;= -x_{w-1}2^w + x_{w-1}2^{w-1} + \sum_{i=0}^{w-2}x_i2^i \\
+&amp;= -x_{w-1}(2^w - 2^{w-1}) + \sum_{i=0}^{w-2}x_i2^i \\
+&amp;= -x_{w-1}2^{w-1} + \sum_{i=0}^{w-2}x_i2^i \\
+&amp;= B2T_w([x_{w-1}, x_{w-2}, \cdots, x_0])
+\end{aligned}
+$$&lt;p&gt;我们使用的关键属性是$2^w - 2^{w-1} = 2^{w-1}$。因此，加上一个权值为$-2^w$的位，和将一个权值为 $-2^{w-1}$的位转换为一个权值为 $2^{w-1}$ 的位，这两项运算的综合效果就会保持原始的数值。&lt;/p&gt;
 &lt;h3 id="截断"&gt;截断
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;无符号截断&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;原始 $w$ 位：&lt;br&gt;
@@ -409,6 +425,15 @@ $$&lt;p&gt;截断为 $k$ 位后：&lt;br&gt;
 &lt;/p&gt;
 $$
 \mathrm{B2U}_k(X)=\sum_{i=0}^{k-1} x_i\cdot2^i = \mathrm{B2U}_w(X)\bmod 2^k
+$$&lt;p&gt;&lt;strong&gt;推导&lt;/strong&gt;
+&lt;/p&gt;
+$$
+\begin{aligned}
+B2U_w([x_{w-1}, x_{w-2}, \cdots, x_0]) \mod 2^k &amp;= \left[ \sum_{i=0}^{w-1} x_i 2^i \right] \mod 2^k \\
+&amp;= \left[ \sum_{i=0}^{k-1} x_i 2^i \right] \mod 2^k \\
+&amp;= \sum_{i=0}^{k-1} x_i 2^i \\
+&amp;= B2U_k([x_{k-1}, x_{k-2}, \cdots, x_0])
+\end{aligned}
 $$&lt;p&gt;&lt;strong&gt;有符号截断&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;原始 $w$ 位：&lt;br&gt;
 &lt;/p&gt;
