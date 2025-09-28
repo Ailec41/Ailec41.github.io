@@ -1,4 +1,144 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://ailec41.github.io/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab1 DataLab</title><link>https://ailec41.github.io/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lab1-datalab/</guid><description>&lt;img src="https://ailec41.github.io/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://ailec41.github.io/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab1 DataLab</title><link>https://ailec41.github.io/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lab1-datalab/</guid><description>&lt;img src="https://ailec41.github.io/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;&lt;h2 id="整型"&gt;整型
+&lt;/h2&gt;&lt;h3 id="加法"&gt;加法
+&lt;/h3&gt;&lt;h4 id="无符号加法"&gt;无符号加法
+&lt;/h4&gt;&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition.jpg"
+width="1902"
+height="1160"
+srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition_hu_716bbff97dd22ccf.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition_hu_e5b30f30f868aa0e.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="163"
+data-flex-basis="393px"
+&gt;&lt;/p&gt;
+&lt;p&gt;无符号的加法很简单，和二进制加法一样，只不过要把overflow的删除，并且把结果取模即可&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/visualizing.jpg"
+width="1072"
+height="1038"
+srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_f2f3910ed996a27e.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_c860ff4384a3d7c5.jpg 1024w"
+loading="lazy"
+alt="可视化整数加法图"
+class="gallery-image"
+data-flex-grow="103"
+data-flex-basis="247px"
+&gt;&lt;/p&gt;
+&lt;p&gt;![可视化无符号加法图](截屏2025-09-28 15.51.13.jpg)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;检测无符号数中加法的溢出&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;令 $s = U +_w^u V$ 为无符号整数 $U$ 和 $V$ 的和，那么当且仅当 $s &amp;lt; U$（或等价的 $s &amp;lt; V$）时产生溢出，这是因为：&lt;/p&gt;
+$$
+\begin{aligned}
+s &amp;= U + V - 2^w &lt; U \\
+s &amp;= U + V - 2^w &lt; V
+\end{aligned}
+$$&lt;h3 id="补码加法"&gt;补码加法
+&lt;/h3&gt;&lt;p&gt;![](截屏2025-09-28 15.57.52.jpg)&lt;/p&gt;
+&lt;p&gt;对满足 $-2^{w-1} \leq x$，$y \leq 2^{w-1}-1$ 的整数 $x$ 和 $y$，有：&lt;/p&gt;
+$$
+x +_w^t y =
+\begin{cases}
+x + y - 2^w, &amp; 2^{w-1} \leq x + y \quad \text{正溢出} \\
+x + y, &amp; -2^{w-1} \leq x + y &lt; 2^{w-1} \quad \text{正常} \\
+x + y + 2^w, &amp; x + y &lt; -2^{w-1} \quad \text{负溢出}
+\end{cases}
+$$&lt;p&gt;
+两个数的$w$位补码之和与无符号之和有完全相同的位级表示&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;利用左移做乘法&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;大多数机器中左移比乘法快
+&lt;ul&gt;
+&lt;li&gt;编译器会自动生成这样的代码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="方法的证明"&gt;方法的证明：
+&lt;/h4&gt;&lt;p&gt;假设 $x$ 的 $w$ 位二进制表示为 $\left[x_{w-1}, x_{w-2}, \cdots, x_{0}\right]$，那么 $\left[x_{w-1}, x_{w-2}, \cdots, x_{0}, 0, \cdots, 0\right]$ 给出了 $x2^k$ 的 $w+k$ 位二进制表示：&lt;/p&gt;
+$$
+\begin{aligned}
+B2U_{w+k}\left(\left[x_{w-1}, x_{w-2}, \cdots, x_{0}, 0, \cdots, 0\right]\right) &amp;= \sum_{i=0}^{w-1} x_{i} 2^{i+k} \\
+&amp;= \left[\sum_{i=0}^{w-1} x_{i} 2^{i}\right] \cdot 2^{k} \\
+&amp;= x 2^{k}
+\end{aligned}
+$$&lt;p&gt;对于固定长度的表示，高 $k$ 位被丢弃，左移 $k$ 位的二进制表示为
+&lt;/p&gt;
+$$
+\left[x_{w-k-1}, x_{w-k-2}, \cdots, x_{0}, 0, \cdots, 0\right]
+$$&lt;p&gt;所以
+&lt;/p&gt;
+$$
+\begin{aligned}
+B2U_{w}\left(\left[x_{w-k-1}, x_{w-k-2}, \cdots, x_{0}, 0, \cdots, 0\right]\right) &amp;= \sum_{i=0}^{w-k-1} x_{i} 2^{i+k} \\
+&amp;= \left[\sum_{i=0}^{w-k-1} x_{i} 2^{i}\right] \cdot 2^{k} \\
+&amp;= \left[\sum_{i=0}^{w-1} x_{i} 2^{i}\right] \cdot 2^{k} \mod 2^w \\
+&amp;= x2^k \mod 2^w
+\end{aligned}
+$$&lt;p&gt;所以对于无符号整数
+&lt;/p&gt;
+$$
+B2U_{w}\left(\left[x_{w-k-1}, x_{w-k-2}, \cdots, x_{0}, 0, \cdots, 0\right]\right) = \text{UMult}_w(x,2^k)
+$$&lt;p&gt;对于有符号整数，利用
+&lt;/p&gt;
+$$
+\text{TMult}_w(u,v) = U2T_w((u \cdot v) \mod 2^w)
+$$&lt;p&gt;
+可以得到相同的结果。&lt;/p&gt;
+&lt;h4 id="一般情形"&gt;一般情形
+&lt;/h4&gt;&lt;p&gt;现在考虑一般的情形，假设我们需要计算 $u \times K$，其中 $K$ 为常数，将 $K$ 表达为一组 $0$ 和 $1$ 交替的序列
+&lt;/p&gt;
+$$
+[(0 \cdots 0)(1 \cdots 1)(0 \cdots 0) \cdots (1 \cdots 1)]
+$$&lt;p&gt;考虑一组从位置 $n$ 到位置 $m$ 的连续 $1$，那么可以用如下方式计算这部分的对于乘积的影响：
+&lt;/p&gt;
+$$
+\begin{aligned}
+&amp;(x &lt;&lt; n) + (x &lt;&lt; (n-1)) + \cdots + (x &lt;&lt; m) \\
+&amp;(x &lt;&lt; (n+1)) - (x &lt;&lt; m)
+\end{aligned}
+$$&lt;h4 id="使用移位操作代替除以-2-的幂无符号"&gt;使用移位操作代替除以 2 的幂（无符号）
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;$u &amp;raquo; k$ 给出 $\lfloor u / 2^{k} \rfloor$&lt;/li&gt;
+&lt;li&gt;使用逻辑移位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/mul.jpg"
+width="958"
+height="268"
+srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/mul_hu_8caa170d186c95.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/mul_hu_f99fbeb6eb694c06.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="357"
+data-flex-basis="857px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;证明：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;假设 $x$ 的 $w$ 位二进制表示为 $\left[x_{w-1}, x_{w-2}, \cdots, x_{0}\right]$，右移 $k$ 位的二进制表示为 $\left[0, \cdots, 0, x_{w-1}, x_{w-2}, \cdots, x_{k}\right]$&lt;/p&gt;
+$$
+\begin{aligned}
+B2U_w(\left[0, \cdots, 0, x_{w-1}, x_{w-2}, \cdots, x_{k}\right]) &amp;= \sum_{i=0}^{w-k-1} x_{i+k} 2^{i} \\
+B2U_{w}\left(\left[x_{w-1}, x_{w-2}, \cdots, x_{0}\right]\right) &amp;= \sum_{i=0}^{w-1} x_{i} 2^{i} \\
+&amp;= 2^k \sum_{i=0}^{w-k-1} x_{i+k} 2^{i} + \sum_{i=0}^{k-1} x_{i} 2^{i} \\
+&amp;= 2^k B2U_w(\left[0, \cdots, 0, x_{w-1}, x_{w-2}, \cdots, x_{k}\right]) + \sum_{i=0}^{k-1} x_{i} 2^{i}
+\end{aligned}
+$$&lt;p&gt;所以
+&lt;/p&gt;
+$$
+\lfloor x / 2^{k} \rfloor = x &gt;&gt; k
+$$&lt;h4 id="使用移位操作代替除以-2-的幂有符号"&gt;使用移位操作代替除以 2 的幂（有符号）
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;$u &amp;raquo; k$ 给出 $\lfloor u / 2^{k} \rfloor$&lt;/li&gt;
+&lt;li&gt;使用算数移位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当 $u &amp;gt; 0$ 时上述方法和无符号情形一致，但是当 $u &amp;lt; 0$ 时则会产生有问题的结果，例如取 $u = -12340$：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/power.jpg"
+width="946"
+height="330"
+srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/power_hu_d9c418a63cbd7841.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/power_hu_52ca23a0fce2f661.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="286"
+data-flex-basis="688px"
+&gt;&lt;/p&gt;
+&lt;p&gt;考虑 $k=4,8$ 时的结果，在 C 语言中实际结果为 $-771$ 和 $-48$，之所以和 C 语言中的结果不同，是因为上述算法朝着离 $0$ 更远的方向舍入，所以当 $u &amp;lt; 0$ 时要向上舍入，达到上述效果利用如下事实即可
+&lt;/p&gt;
+$$
+\lceil x / y \rceil = \lfloor (x + y - 1) / y \rfloor
+$$</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
@@ -444,4 +584,4 @@ $$&lt;p&gt;
 &lt;/p&gt;
 $$
 \mathrm{B2T}_k(X)=-x_{k-1}\cdot2^{k-1}+\sum_{i=0}^{k-2} x_i\cdot2^i = \mathrm{U2T}_k\!\bigl(\mathrm{B2U}_w(X)\bmod 2^k\bigr)
-$$</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;</description></item></channel></rss>
+$$</description></item></channel></rss>
