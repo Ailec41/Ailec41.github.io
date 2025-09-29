@@ -20,7 +20,16 @@ class="gallery-image"
 data-flex-grow="103"
 data-flex-basis="247px"
 &gt;&lt;/p&gt;
-&lt;p&gt;![可视化无符号加法图](截屏2025-09-28 15.51.13.jpg)&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE.jpg"
+width="1080"
+height="1060"
+srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_8494c559604648a0.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_da4b3da714285c.jpg 1024w"
+loading="lazy"
+alt="可视化无符号加法图"
+class="gallery-image"
+data-flex-grow="101"
+data-flex-basis="244px"
+&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;检测无符号数中加法的溢出&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;令 $s = U +_w^u V$ 为无符号整数 $U$ 和 $V$ 的和，那么当且仅当 $s &amp;lt; U$（或等价的 $s &amp;lt; V$）时产生溢出，这是因为：&lt;/p&gt;
 $$
@@ -252,7 +261,15 @@ data-flex-basis="159px"
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;![](截屏2025-09-29 11.17.43.jpg)&lt;/p&gt;</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/123.jpg"
+width="2124"
+height="584"
+srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/123_hu_ca0ae2f247279d91.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/123_hu_d775fa03b9dc0007.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="363"
+data-flex-basis="872px"
+&gt;&lt;/p&gt;</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
