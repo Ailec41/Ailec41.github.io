@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CMU 15-213 on LunaTide's Blog</title><link>https://ailec41.github.io/categories/cmu-15-213/</link><description>Recent content in CMU 15-213 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/categories/cmu-15-213/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab1 DataLab</title><link>https://ailec41.github.io/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lab1-datalab/</guid><description>&lt;img src="https://ailec41.github.io/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;&lt;h2 id="整型"&gt;整型
-&lt;/h2&gt;&lt;h3 id="加法"&gt;加法
-&lt;/h3&gt;&lt;h4 id="无符号加法"&gt;无符号加法
-&lt;/h4&gt;&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition.jpg"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CMU 15-213 on LunaTide's Blog</title><link>https://ailec41.github.io/categories/cmu-15-213/</link><description>Recent content in CMU 15-213 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/categories/cmu-15-213/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab1 DataLab</title><link>https://ailec41.github.io/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lab1-datalab/</guid><description>&lt;img src="https://ailec41.github.io/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;&lt;h2 id="加法"&gt;加法
+&lt;/h2&gt;&lt;h3 id="无符号加法"&gt;无符号加法
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition.jpg"
 width="1902"
 height="1160"
 srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition_hu_716bbff97dd22ccf.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition_hu_e5b30f30f868aa0e.jpg 1024w"
@@ -29,8 +28,8 @@ $$
 s &amp;= U + V - 2^w &lt; U \\
 s &amp;= U + V - 2^w &lt; V
 \end{aligned}
-$$&lt;h3 id="补码加法"&gt;补码加法
-&lt;/h3&gt;&lt;p&gt;![](截屏2025-09-28 15.57.52.jpg)&lt;/p&gt;
+$$&lt;h2 id="补码加法"&gt;补码加法
+&lt;/h2&gt;&lt;p&gt;![](截屏2025-09-28 15.57.52.jpg)&lt;/p&gt;
 &lt;p&gt;对满足 $-2^{w-1} \leq x$，$y \leq 2^{w-1}-1$ 的整数 $x$ 和 $y$，有：&lt;/p&gt;
 $$
 x +_w^t y =
@@ -92,9 +91,9 @@ $$
 &amp;(x &lt;&lt; n) + (x &lt;&lt; (n-1)) + \cdots + (x &lt;&lt; m) \\
 &amp;(x &lt;&lt; (n+1)) - (x &lt;&lt; m)
 \end{aligned}
-$$&lt;h3 id="移位操作和二进制乘除法的联系"&gt;移位操作和二进制乘除法的联系
-&lt;/h3&gt;&lt;h4 id="使用移位操作代替除以-2-的幂无符号"&gt;使用移位操作代替除以 2 的幂（无符号）
-&lt;/h4&gt;&lt;ul&gt;
+$$&lt;h2 id="移位操作和二进制乘除法的联系"&gt;移位操作和二进制乘除法的联系
+&lt;/h2&gt;&lt;h3 id="使用移位操作代替除以-2-的幂无符号"&gt;使用移位操作代替除以 2 的幂（无符号）
+&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;$u &amp;raquo; k$ 给出 $\lfloor u / 2^{k} \rfloor$&lt;/li&gt;
 &lt;li&gt;使用逻辑移位&lt;/li&gt;
 &lt;/ul&gt;
@@ -120,8 +119,8 @@ $$&lt;p&gt;所以
 &lt;/p&gt;
 $$
 \lfloor x / 2^{k} \rfloor = x &gt;&gt; k
-$$&lt;h4 id="使用移位操作代替除以-2-的幂有符号"&gt;使用移位操作代替除以 2 的幂（有符号）
-&lt;/h4&gt;&lt;ul&gt;
+$$&lt;h3 id="使用移位操作代替除以-2-的幂有符号"&gt;使用移位操作代替除以 2 的幂（有符号）
+&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;$u &amp;raquo; k$ 给出 $\lfloor u / 2^{k} \rfloor$&lt;/li&gt;
 &lt;li&gt;使用算数移位&lt;/li&gt;
 &lt;/ul&gt;
@@ -139,7 +138,121 @@ data-flex-basis="688px"
 &lt;/p&gt;
 $$
 \lceil x / y \rceil = \lfloor (x + y - 1) / y \rfloor
-$$</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
+$$&lt;h2 id="unsigned"&gt;Unsigned
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;必须做一个明确的分配而不是暗示&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;容易犯错误，例如下面的代码会出现无限循环&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;unsigend&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cnt&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可能会变的很诡异&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#define DELTA sizeof(int)&lt;/span&gt;&lt;span class="c1"&gt;//默认int的size是一个unsigned的size_t
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;CNT&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;DELTA&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt;&lt;span class="n"&gt;DELTA&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;//和上面的代码出现一样的问题
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;正确的代码如下&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cnt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;cnt&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;什么时候用无符号整数&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;执行模块化算术时使用&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;多精度算术&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在使用位表示集时使用&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;逻辑右移，无符号扩展&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;（最好不要用unsigned）&lt;/p&gt;
+&lt;h2 id="内存中数字的一些底层表示"&gt;内存中数字的一些底层表示
+&lt;/h2&gt;&lt;h3 id="word-size"&gt;Word Size
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;硬件本身并不一定定义字长大小&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;任何给定的计算机都具有字长&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;直到现在，大部份机器都采用32 bits(4 bytes)作为字长&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;地址限制为4 GB($2^{32}$bytes)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;越来越多机器具有64位字长&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;机器仍然支持多种数据格式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字长的分数或整数倍&lt;/li&gt;
+&lt;li&gt;但总是整数比特&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/2020050814.jpg"
+width="416"
+height="626"
+srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_236969b163c8f936.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_5c8827325c770696.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="159px"
+&gt;&lt;/p&gt;
+&lt;h3 id="比特顺序"&gt;比特顺序
+&lt;/h3&gt;&lt;p&gt;分为大端法和小端法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Example
+&lt;ul&gt;
+&lt;li&gt;变量x的value是0x01234567&lt;/li&gt;
+&lt;li&gt;地址是0x100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;![](截屏2025-09-29 11.17.43.jpg)&lt;/p&gt;</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
