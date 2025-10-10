@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://ailec41.github.io/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>ICPC日常训练01</title><link>https://ailec41.github.io/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</link><pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</guid><description>&lt;img src="https://ailec41.github.io/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post ICPC日常训练01" /&gt;&lt;p&gt;日常的训练，回顾一下做的几道题，实现不发&lt;/p&gt;
+&lt;h2 id="icpc-hangzhou-reginal-f-fuzzy-ranking"&gt;ICPC Hangzhou Reginal F Fuzzy Ranking
+&lt;/h2&gt;&lt;p&gt;不太会做，看了一下题解，下面是看完题解后的思路&lt;/p&gt;
+&lt;p&gt;直接为任意“前→后”对连边会太多，在同一排列中，只连相邻元素 $a_j\to a_{j+1}$ 即可：因为一条从前往后的有向路径已经能覆盖该排列中任意“前→后”的可达关系。对所有 $k$ 个排列加边&lt;/p&gt;
+&lt;p&gt;对图做一次 Tarjan/Kosaraju缩点，得到每个学校所属的 SCC 编号bel[x]，以及按拓扑序逆序排列的分量列表 scc。把每个榜单按 bel重新映射成“分量编号序列”。&lt;/p&gt;
+&lt;p&gt;在某个榜单中，原先相邻的两点之间有边，缩点后相同分量的编号在该榜单上必然连成一段。因此每个榜单都可以被切成若干段，每段恰好由同一个 SCC 的元素组成。这个性质让我们可以把任意区间 $[l,r]$ 拆解为：左端一个不完整段 + 中间若干完整段 + 右端一个不完整段。&lt;/p&gt;
+&lt;p&gt;对每个榜单i:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Segment：对位置轴进行分段。令 Segment= (L, R) 表示pos所在的那段在该榜单上的左右端点下标。线性扫，遇到一段相同编号的区间 $[L,R]$ 就把这对端点填给其中的每个位置。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;dp 前缀：统计从开头到位置 $j$ 为止、同段内能形成的“模糊对”数量。若 $j$ 落在段 $[L,R]$，新增的成对数等于该段里被纳入的元素个数减一，即 $j-L$。因此定义
+&lt;/p&gt;
+$$
+dp[id][j] = dp[id][j-1] + (j-L).
+$$&lt;p&gt;
+这样任意区间 $[x,y]$ 的“在同一段内形成的对数”就能通过 $dp$ 差分 $dp[id][y]-dp[id][x]$ 得到。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;总计复杂度$O(nk)$&lt;/p&gt;
 &lt;h2 id="cf1841e-fill-the-matrix"&gt;CF1841E Fill the Matrix
 &lt;/h2&gt;&lt;p&gt;题目说有一个$n * n$的正方形矩阵，在第$i$列，前$a_i$个格子都是黑色，剩下的格子是白色，在矩阵放入1到m到整数，每个格子最多放一个且黑色格子不能放，定义美丽值为数字 $j$ 和 $j+1$ 位于&lt;strong&gt;同一行&lt;/strong&gt;，且 $j+1$ 位于 $j$ 的&lt;strong&gt;右边相邻的格子&lt;/strong&gt;，求放置m个整数后最大美丽值&lt;/p&gt;
 &lt;p&gt;我们一定先选一个最长的白色格子全填进去，直到填满或者数不够。因为如果不继续填等于说最后填的那个数旁边的格子就浪费了，所以关键就在于要把所有行的白色连续横段都计算出来，按长度分组，记为cnt[n]，代表长度n的横段有几个，直接暴力扫迷线维护复杂度是$O(n^2)$的，直接炸了，所以我们用线段树来维护最大值和位置然后再分治来统计cnt数组，相当于构建一颗笛卡尔树，每次把区间按最大值分为左右两部分，统计每层能产生的白格段，最后用贪心计算答案就可以了，这样最后复杂度就控制在$O(nlogn)$&lt;/p&gt;
