@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://ailec41.github.io/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ailec41.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>ICPC日常训练01</title><link>https://ailec41.github.io/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</link><pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</guid><description>&lt;img src="https://ailec41.github.io/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post ICPC日常训练01" /&gt;&lt;p&gt;日常的训练，回顾一下做的几道题，实现不发&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://lunatide.tech/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>ICPC日常训练01</title><link>https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</link><pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</guid><description>&lt;img src="https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post ICPC日常训练01" /&gt;&lt;p&gt;日常的训练，回顾一下做的几道题，实现不发&lt;/p&gt;
 &lt;h2 id="icpc-hangzhou-reginal-f-fuzzy-ranking"&gt;ICPC Hangzhou Reginal F Fuzzy Ranking
 &lt;/h2&gt;&lt;p&gt;不太会做，看了一下题解，下面是看完题解后的思路&lt;/p&gt;
 &lt;p&gt;直接为任意“前→后”对连边会太多，在同一排列中，只连相邻元素 $a_j\to a_{j+1}$ 即可：因为一条从前往后的有向路径已经能覆盖该排列中任意“前→后”的可达关系。对所有 $k$ 个排列加边&lt;/p&gt;
@@ -31,7 +31,7 @@ $$&lt;p&gt;
 &lt;/h2&gt;&lt;p&gt;一道思维题，给了一个数组，可以对于$i,j$的元素进行操作，使得$a_i := a_i + a_j$&lt;/p&gt;
 &lt;p&gt;要求在31次操作内让数组不递减&lt;/p&gt;
 &lt;p&gt;首先当所有元素都大于等于0或者全部都小于等于0的时候很显然，我们只需要把右边的数依次加上左边的数肯定是对的（小于等于0同理反过来就行）&lt;/p&gt;
-&lt;p&gt;所以关键是要看数组里有正有负，我们设最大的正数是mx，绝对值最大的负数是mi，正数数量是cp，负数数量是cm，那么我们有两种选择，一种是都统一成非负，一种是统一成非正，只要符号统一我们就方便了，拿统一非负举例（非正同理），我们其实就是要让最大的正数足够大，能够覆盖所有负数，我们首先计算mx经过几次翻倍可以大于mi，然后让他翻倍，之后让所有的负数都加上这个mx它们都变成正数了，然后我们就判断一下这两种选择哪个更优即可&lt;/p&gt;</description></item><item><title>Codeforces 2149G Solution</title><link>https://ailec41.github.io/p/codeforces-2149g-solution/</link><pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/codeforces-2149g-solution/</guid><description>&lt;img src="https://ailec41.github.io/p/codeforces-2149g-solution/codeforce.jpg" alt="Featured image of post Codeforces 2149G Solution" /&gt;&lt;h1 id="g-buratsuta-3"&gt;G. Buratsuta 3
+&lt;p&gt;所以关键是要看数组里有正有负，我们设最大的正数是mx，绝对值最大的负数是mi，正数数量是cp，负数数量是cm，那么我们有两种选择，一种是都统一成非负，一种是统一成非正，只要符号统一我们就方便了，拿统一非负举例（非正同理），我们其实就是要让最大的正数足够大，能够覆盖所有负数，我们首先计算mx经过几次翻倍可以大于mi，然后让他翻倍，之后让所有的负数都加上这个mx它们都变成正数了，然后我们就判断一下这两种选择哪个更优即可&lt;/p&gt;</description></item><item><title>Codeforces 2149G Solution</title><link>https://lunatide.tech/p/codeforces-2149g-solution/</link><pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/codeforces-2149g-solution/</guid><description>&lt;img src="https://lunatide.tech/p/codeforces-2149g-solution/codeforce.jpg" alt="Featured image of post Codeforces 2149G Solution" /&gt;&lt;h1 id="g-buratsuta-3"&gt;G. Buratsuta 3
 &lt;/h1&gt;&lt;p&gt;&lt;strong&gt;time limit per test:&lt;/strong&gt; 4.5 seconds&lt;br&gt;
 &lt;strong&gt;memory limit per test:&lt;/strong&gt; 256 megabytes&lt;/p&gt;
 &lt;p&gt;In the ruthless world of &lt;em&gt;Blue Lock&lt;/em&gt;, &lt;strong&gt;Buratsuta 3&lt;/strong&gt; is a trio selected to overthrow the reigning champions and lead the Japan U-20 team to glory. &lt;em&gt;Sae Itoshi&lt;/em&gt; has already secured his place as the first participant; the remaining two spots will be contested in the tough Side-B selection.&lt;/p&gt;
@@ -173,32 +173,32 @@ The length of the segment $len = 4$, the threshold $\lfloor len/3 \rfloor + 1 = 
 Occurrences of numbers: $4 \to 1$, $5 \to 3$.&lt;br&gt;
 Only the number $5$ occurs at least $2$ times, so the answer is: &lt;strong&gt;5&lt;/strong&gt;.&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>Lab1 DataLab</title><link>https://ailec41.github.io/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lab1-datalab/</guid><description>&lt;img src="https://ailec41.github.io/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;&lt;h2 id="加法"&gt;加法
+&lt;/ul&gt;</description></item><item><title>Lab1 DataLab</title><link>https://lunatide.tech/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/lab1-datalab/</guid><description>&lt;img src="https://lunatide.tech/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;&lt;h2 id="加法"&gt;加法
 &lt;/h2&gt;&lt;h3 id="无符号加法"&gt;无符号加法
-&lt;/h3&gt;&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition.jpg"
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition.jpg"
 width="1902"
 height="1160"
-srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition_hu_716bbff97dd22ccf.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/addition_hu_e5b30f30f868aa0e.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition_hu_716bbff97dd22ccf.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition_hu_e5b30f30f868aa0e.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="163"
 data-flex-basis="393px"
 &gt;&lt;/p&gt;
 &lt;p&gt;无符号的加法很简单，和二进制加法一样，只不过要把overflow的删除，并且把结果取模即可&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/visualizing.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing.jpg"
 width="1072"
 height="1038"
-srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_f2f3910ed996a27e.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_c860ff4384a3d7c5.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_f2f3910ed996a27e.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_c860ff4384a3d7c5.jpg 1024w"
 loading="lazy"
 alt="可视化整数加法图"
 class="gallery-image"
 data-flex-grow="103"
 data-flex-basis="247px"
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE.jpg"
 width="1080"
 height="1060"
-srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_8494c559604648a0.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_da4b3da714285c.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_8494c559604648a0.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_da4b3da714285c.jpg 1024w"
 loading="lazy"
 alt="可视化无符号加法图"
 class="gallery-image"
@@ -281,10 +281,10 @@ $$&lt;h2 id="移位操作和二进制乘除法的联系"&gt;移位操作和二�
 &lt;li&gt;$u &amp;raquo; k$ 给出 $\lfloor u / 2^{k} \rfloor$&lt;/li&gt;
 &lt;li&gt;使用逻辑移位&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/mul.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul.jpg"
 width="958"
 height="268"
-srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/mul_hu_8caa170d186c95.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/mul_hu_f99fbeb6eb694c06.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul_hu_8caa170d186c95.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul_hu_f99fbeb6eb694c06.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="357"
@@ -309,10 +309,10 @@ $$&lt;h3 id="使用移位操作代替除以-2-的幂有符号"&gt;使用移位�
 &lt;li&gt;使用算数移位&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;当 $u &amp;gt; 0$ 时上述方法和无符号情形一致，但是当 $u &amp;lt; 0$ 时则会产生有问题的结果，例如取 $u = -12340$：&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/power.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power.jpg"
 width="946"
 height="330"
-srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/power_hu_d9c418a63cbd7841.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/power_hu_52ca23a0fce2f661.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power_hu_d9c418a63cbd7841.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power_hu_52ca23a0fce2f661.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="286"
@@ -417,10 +417,10 @@ $$&lt;h2 id="unsigned"&gt;Unsigned
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/2020050814.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814.jpg"
 width="416"
 height="626"
-srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_236969b163c8f936.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_5c8827325c770696.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_236969b163c8f936.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_5c8827325c770696.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="66"
@@ -436,24 +436,24 @@ data-flex-basis="159px"
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/123.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123.jpg"
 width="2124"
 height="584"
-srcset="https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/123_hu_ca0ae2f247279d91.jpg 480w, https://ailec41.github.io/p/lecture03-bitsbytes-and-integer-cout/123_hu_d775fa03b9dc0007.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123_hu_ca0ae2f247279d91.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123_hu_d775fa03b9dc0007.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="363"
 data-flex-basis="872px"
-&gt;&lt;/p&gt;</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
+&gt;&lt;/p&gt;</description></item><item><title>lecture02 Bits,Bytes and Integer</title><link>https://lunatide.tech/p/lecture02-bitsbytes-and-integer/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/lecture02-bitsbytes-and-integer/</guid><description>&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/csapp.jpg" alt="Featured image of post lecture02 Bits,Bytes and Integer" /&gt;&lt;h2 id="bits"&gt;Bits
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;为什么要用比特&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;易于用双稳态元件存储&lt;/li&gt;
 &lt;li&gt;能在有噪声且不精确的电线上可靠传输&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/why-bits.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits.jpg"
 width="796"
 height="249"
-srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/why-bits_hu_db0e1589287f0e6f.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/why-bits_hu_544ef48d82bcf07.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits_hu_db0e1589287f0e6f.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits_hu_544ef48d82bcf07.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="319"
@@ -465,10 +465,10 @@ data-flex-basis="767px"
 &lt;li&gt;小数点右边的第一位权重为 2^-1，向右依次为 2^-2、2^-3、…&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因此，如果将数字写成 32 位或者 64 位的字符串会很麻烦。通常将 4 bits 为一组，用十六进制表示。这样十六进制与二进制的转换就非常方便。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/encoding.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding.jpg"
 width="1970"
 height="1236"
-srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/encoding_hu_90858520df601cc9.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/encoding_hu_c9b2f1c44445d012.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding_hu_90858520df601cc9.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding_hu_c9b2f1c44445d012.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="159"
@@ -483,10 +483,10 @@ data-flex-basis="382px"
 &lt;li&gt;比特之间的关系（操作）&lt;/li&gt;
 &lt;li&gt;1 代表 true，0 代表 false&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/boolenan.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan.jpg"
 width="1454"
 height="716"
-srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/boolenan_hu_47fd8da15e9935a9.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/boolenan_hu_b0cc73e741231d31.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan_hu_47fd8da15e9935a9.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan_hu_b0cc73e741231d31.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="203"
@@ -634,10 +634,10 @@ data-flex-basis="487px"
 &lt;p&gt;​ $UMax = 2 \times TMax + 1$&lt;/p&gt;
 &lt;h3 id="转换"&gt;转换
 &lt;/h3&gt;&lt;p&gt;有符号整型和无符号整型和十进制的转换关系如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/123.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123.jpg"
 width="398"
 height="604"
-srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/123_hu_6784bc7cf29f5567.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/123_hu_e942a054b6ee95f.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123_hu_6784bc7cf29f5567.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123_hu_e942a054b6ee95f.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="65"
@@ -649,10 +649,10 @@ data-flex-basis="158px"
 &lt;li&gt;$\text{T2B}(x)=\text{B2T}^{-1}(x)$&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;利用复合关系可以得到有符号整型以及无符号整型的转换关系：&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/111.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111.jpg"
 width="980"
 height="420"
-srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/111_hu_86e9a1bb8947973c.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/111_hu_40f3ead3eb4aaf9b.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111_hu_86e9a1bb8947973c.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111_hu_40f3ead3eb4aaf9b.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="233"
@@ -674,10 +674,10 @@ u, &amp; u \leqslant \text{TMax} \\
 u-2^{w}, &amp; u&gt;\text{TMax}
 \end{array}\right.
 $$&lt;p&gt;下图为补码到无符号数的转换关系&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/222.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222.jpg"
 width="2078"
 height="1344"
-srcset="https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/222_hu_c8b3373b4ae2d50.jpg 480w, https://ailec41.github.io/p/lecture02-bitsbytes-and-integer/222_hu_334248bba9997460.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222_hu_c8b3373b4ae2d50.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222_hu_334248bba9997460.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="154"
@@ -890,7 +890,7 @@ $$&lt;p&gt;
 &lt;/p&gt;
 $$
 \mathrm{B2T}_k(X)=-x_{k-1}\cdot2^{k-1}+\sum_{i=0}^{k-2} x_i\cdot2^i = \mathrm{U2T}_k\!\bigl(\mathrm{B2U}_w(X)\bmod 2^k\bigr)
-$$</description></item><item><title>归档</title><link>https://ailec41.github.io/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/archives/</guid><description/></item><item><title>关于</title><link>https://ailec41.github.io/%E5%85%B3%E4%BA%8E/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/%E5%85%B3%E4%BA%8E/</guid><description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;</description></item><item><title>搜索</title><link>https://ailec41.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/search/</guid><description/></item><item><title>友链</title><link>https://ailec41.github.io/%E5%8F%8B%E9%93%BE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ailec41.github.io/%E5%8F%8B%E9%93%BE/</guid><description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
+$$</description></item><item><title>归档</title><link>https://lunatide.tech/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://lunatide.tech/archives/</guid><description/></item><item><title>关于</title><link>https://lunatide.tech/%E5%85%B3%E4%BA%8E/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lunatide.tech/%E5%85%B3%E4%BA%8E/</guid><description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;</description></item><item><title>搜索</title><link>https://lunatide.tech/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lunatide.tech/search/</guid><description/></item><item><title>友链</title><link>https://lunatide.tech/%E5%8F%8B%E9%93%BE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lunatide.tech/%E5%8F%8B%E9%93%BE/</guid><description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
