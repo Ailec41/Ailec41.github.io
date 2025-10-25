@@ -535,7 +535,8 @@ data-flex-basis="371px"
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id="表达式求值规则"&gt;表达式求值规则
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;若单个表达式中&lt;strong&gt;同时出现无符号数与有符号数&lt;/strong&gt;，则&lt;strong&gt;有符号值会被隐式转换为无符号数&lt;/strong&gt;（包括比较运算 &lt;code&gt;&amp;lt;&lt;/code&gt;、&lt;code&gt;&amp;gt;&lt;/code&gt;、&lt;code&gt;==&lt;/code&gt;、&lt;code&gt;&amp;lt;=&lt;/code&gt;、&lt;code&gt;&amp;gt;=&lt;/code&gt;）。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;若单个表达式中&lt;strong&gt;同时出现无符号数与有符号数&lt;/strong&gt;，则&lt;strong&gt;有符号值会被隐式转换为无符号数&lt;/strong&gt;（包括比较运算 &lt;code&gt;&amp;lt;&lt;/code&gt;、&lt;code&gt;&amp;gt;&lt;/code&gt;、&lt;code&gt;==&lt;/code&gt;、&lt;code&gt;&amp;lt;=&lt;/code&gt;、&lt;code&gt;&amp;gt;=&lt;/code&gt;）。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;举例：W = 32 位&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;常量定义&lt;/p&gt;
 &lt;ul&gt;
