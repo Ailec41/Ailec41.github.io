@@ -98,7 +98,7 @@ $$&lt;p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;![image-20251110143258944](/Users/infiniteejl/Library/Application Support/typora-user-images/image-20251110143258944.png)&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;![](/Users/infiniteejl/Library/Application Support/typora-user-images/image-20251110143258944.png)&lt;/p&gt;
 &lt;h3 id="sigmoid函数的实现"&gt;sigmoid函数的实现
 &lt;/h3&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
