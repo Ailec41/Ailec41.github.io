@@ -1,4 +1,116 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://lunatide.tech/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sat, 25 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>CMU15445-Project01</title><link>https://lunatide.tech/p/cmu15445-project01/</link><pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cmu15445-project01/</guid><description>&lt;img src="https://lunatide.tech/p/cmu15445-project01/good.jpg" alt="Featured image of post CMU15445-Project01" /&gt;&lt;p&gt;四个Projects都做完了，但是还在刷Leaderboa，有空就update博客内容&lt;/p&gt;</description></item><item><title>计算几何专项</title><link>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</guid><description>&lt;img src="https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post 计算几何专项" /&gt;&lt;p&gt;&lt;a class="link" href="https://vjudge.net/problem/POJ-2318" title="POJ-2318"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://lunatide.tech/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Mon, 10 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>深度学习笔记-神经网络</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid><description>&lt;h2 id="从感知机到神经网络"&gt;从感知机到神经网络
+&lt;/h2&gt;&lt;h3 id="感知机回顾"&gt;感知机回顾
+&lt;/h3&gt;&lt;p&gt;用图来表示神经网络，类比感知机，我们把左边的一列称为&lt;strong&gt;输入层&lt;/strong&gt;，最右边的称之为&lt;strong&gt;输出层&lt;/strong&gt;，中间的称为&lt;strong&gt;中间层&lt;/strong&gt;(也称为隐藏层，因为神经元肉眼看不见)，我们知道当感知机接受$x_1,x_2$两个输入信号，输出$y$时，可以用如下的数学式来表示
+&lt;/p&gt;
+$$
+y =
+\begin{cases}
+0, &amp; b + w_1 x_1 + w_2 x_2 \le 0 \\
+1, &amp; b + w_1 x_1 + w_2 x_2 &gt; 0
+\end{cases}
+$$&lt;p&gt;
+$b$是偏置，用于控制神经元被激活的容易程度，而$w_1,w_2$是表示各个信号的权重的参数，用于控制各个信号的重要性&lt;/p&gt;
+&lt;p&gt;我们现在可以通过调用一个函数来替代(1)中分case讨论的情况来简化(1)，改写成如下形式
+&lt;/p&gt;
+$$
+y = h(b + w_1x_1+ w_2x_2)
+$$$$
+h(x) =
+\begin{cases}
+0, &amp; x \le 0 \\
+1, &amp; x &gt; 0
+\end{cases}
+$$&lt;h3 id="激活函数引入"&gt;激活函数引入
+&lt;/h3&gt;&lt;p&gt;刚才的h(x)把输入信号的总和转换成了输出信号，h(x)就被称为&lt;strong&gt;激活函数(activation function)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;现在进一步改写式(2)，写成如下形式
+&lt;/p&gt;
+$$
+a = b + w_1x_1 + w_2x_2
+$$$$
+y = h(a)
+$$&lt;p&gt;首先，式(4)计算加权输入信号的和偏置的总和，然后用(5)的h函数转换为输出&lt;/p&gt;
+&lt;h2 id="激活函数"&gt;激活函数
+&lt;/h2&gt;&lt;h3 id="sigmoid函数"&gt;sigmoid函数
+&lt;/h3&gt;&lt;p&gt;神经网络中经常使用的一个激活函数就是&lt;strong&gt;sigmoid函数&lt;/strong&gt;
+&lt;/p&gt;
+$$
+h(x)=\frac{1}{1+e^{-x}} \quad (\text{sigmoid function})
+$$&lt;p&gt;
+实际上，感知机和神经网络的主要区别就在于激活函数，其他方面基本都是一样的&lt;/p&gt;
+&lt;h3 id="阶跃函数的实现"&gt;阶跃函数的实现
+&lt;/h3&gt;&lt;p&gt;阶跃函数如(3)所示，当输入超过0时，输出1，否则输出0，可以用如下代码简单实现&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个代码中参数x只能接受实数。例如不允许&lt;code&gt;step_function(np.array([1.0,2.0]))&lt;/code&gt;，所以我们把它修改为支持NumPy数组的实现&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;astype&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="阶跃函数的图形"&gt;阶跃函数的图形
+&lt;/h3&gt;&lt;p&gt;接下来我们就用图来表示上面定义的阶跃函数&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pylab&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;step_function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;dtype&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;5.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;5.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;step_function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ylim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;1.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;#y轴范围&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;![image-20251110143258944](/Users/infiniteejl/Library/Application Support/typora-user-images/image-20251110143258944.png)&lt;/p&gt;
+&lt;h3 id="sigmoid函数的实现"&gt;sigmoid函数的实现
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;sigmoid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>CMU15445-Project01</title><link>https://lunatide.tech/p/cmu15445-project01/</link><pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cmu15445-project01/</guid><description>&lt;img src="https://lunatide.tech/p/cmu15445-project01/good.jpg" alt="Featured image of post CMU15445-Project01" /&gt;&lt;p&gt;四个Projects都做完了，但是还在刷Leaderboa，有空就update博客内容&lt;/p&gt;</description></item><item><title>计算几何专项</title><link>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</guid><description>&lt;img src="https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post 计算几何专项" /&gt;&lt;p&gt;&lt;a class="link" href="https://vjudge.net/problem/POJ-2318" title="POJ-2318"
 target="_blank" rel="noopener"
 &gt;POJ-2318&lt;/a&gt;&lt;/p&gt;</description></item><item><title>ICPC日常训练01</title><link>https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</link><pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</guid><description>&lt;img src="https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post ICPC日常训练01" /&gt;&lt;p&gt;日常的训练，回顾一下做的几道题，实现不发&lt;/p&gt;
 &lt;h2 id="icpc-hangzhou-reginal-f-fuzzy-ranking"&gt;ICPC Hangzhou Reginal F Fuzzy Ranking
