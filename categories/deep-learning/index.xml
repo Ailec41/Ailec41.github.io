@@ -232,14 +232,15 @@ x_1 &amp;amp; x_2
 B^{(1)} = \begin{pmatrix}
 b_{1}^{(1)} &amp;amp; b_{2}^{(1)} &amp;amp; b_{3}^{(1)}
 \end{pmatrix}
-$&lt;/p&gt;
-&lt;p&gt;$
+$
+&lt;/p&gt;
+$$
 W^{(1)} = \begin{pmatrix}
-w_{11}^{(1)} &amp;amp; w_{21}^{(1)} &amp;amp; w_{31}^{(1)} \
-w_{12}^{(1)} &amp;amp; w_{22}^{(1)} &amp;amp; w_{32}^{(1)}
+w_{11}^{(1)} &amp; w_{21}^{(1)} &amp; w_{31}^{(1)} \\
+w_{12}^{(1)} &amp; w_{22}^{(1)} &amp; w_{32}^{(1)}
 \end{pmatrix}
-$&lt;/p&gt;
-&lt;p&gt;然后用NumPy多维数组来实现式(9)，输入信号，权重，偏置设置成任意值&lt;/p&gt;
+$$&lt;p&gt;
+然后用NumPy多维数组来实现式(9)，输入信号，权重，偏置设置成任意值&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
