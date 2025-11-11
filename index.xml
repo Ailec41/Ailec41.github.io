@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://lunatide.tech/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Mon, 10 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>深度学习笔记-神经网络</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络" /&gt;&lt;h2 id="从感知机到神经网络"&gt;从感知机到神经网络
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://lunatide.tech/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Mon, 10 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>深度学习笔记-神经网络(1)</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络(1)" /&gt;&lt;h2 id="从感知机到神经网络"&gt;从感知机到神经网络
 &lt;/h2&gt;&lt;h3 id="感知机回顾"&gt;感知机回顾
 &lt;/h3&gt;&lt;p&gt;用图来表示神经网络，类比感知机，我们把左边的一列称为&lt;strong&gt;输入层&lt;/strong&gt;，最右边的称之为&lt;strong&gt;输出层&lt;/strong&gt;，中间的称为&lt;strong&gt;中间层&lt;/strong&gt;(也称为隐藏层，因为神经元肉眼看不见)，我们知道当感知机接受$x_1,x_2$两个输入信号，输出$y$时，可以用如下的数学式来表示
 &lt;/p&gt;
@@ -99,10 +99,10 @@ $$&lt;p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/figure1.jpg"
+&lt;/div&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/figure1.jpg"
 width="640"
 height="480"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/figure1_hu_4edc352cb7851f7c.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/figure1_hu_893ac30a708dd13a.jpg 1024w"
+srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/figure1_hu_4edc352cb7851f7c.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/figure1_hu_893ac30a708dd13a.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
@@ -121,16 +121,60 @@ data-flex-basis="320px"
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;之所以sigmoid函数的实现支持NumPy数组，就是因为NumPy的广播功能，如果在标量和NumPy数组之间进行运算，标量会和NumPy数组的各个元素进行运算，&lt;code&gt;np.exp(-x)&lt;/code&gt;会生成NumPy数组，所以&lt;code&gt;1/(1 + np.exp(-x))&lt;/code&gt;的运算将会在NumPy数组的各个元素间进行&lt;/p&gt;
 &lt;h3 id="sigmoid函数和阶跃函数的比较"&gt;sigmoid函数和阶跃函数的比较
-&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/pic4.jpg"
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/pic4.jpg"
 width="1070"
 height="1034"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/pic4_hu_15fd3252af9c0d75.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/pic4_hu_8cd92bb4638acb60.jpg 1024w"
+srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/pic4_hu_15fd3252af9c0d75.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/pic4_hu_8cd92bb4638acb60.jpg 1024w"
 loading="lazy"
 alt="阶跃函数与sigmoid函数"
 class="gallery-image"
 data-flex-grow="103"
 data-flex-basis="248px"
-&gt;&lt;/p&gt;</description></item><item><title>CMU15445-Project01</title><link>https://lunatide.tech/p/cmu15445-project01/</link><pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cmu15445-project01/</guid><description>&lt;img src="https://lunatide.tech/p/cmu15445-project01/good.jpg" alt="Featured image of post CMU15445-Project01" /&gt;&lt;p&gt;四个Projects都做完了，但是还在刷Leaderboa，有空就update博客内容&lt;/p&gt;</description></item><item><title>计算几何专项</title><link>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</guid><description>&lt;img src="https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post 计算几何专项" /&gt;&lt;p&gt;&lt;a class="link" href="https://vjudge.net/problem/POJ-2318" title="POJ-2318"
+&gt;&lt;/p&gt;
+&lt;p&gt;观察可以发现，首先区别就是平滑性，sigmoid函数是一条平滑的曲线，输出随着输入发生连续性的变化。而阶跃函数以0为界，输出发生急剧性的变化。因此我们可以知道，感知机的神经元之间流动的是0或1的二元信号，神经网络中流动的是连续的实数值信号。&lt;/p&gt;
+&lt;p&gt;然后说一下阶跃函数和sigmoid函数的共同性质，两者的结构均是“输入小时输出接近0；输入大时，输出靠近1”，以及不管输入是什么值，输出信号的值都在0和1中间&lt;/p&gt;
+&lt;h3 id="非线性函数"&gt;非线性函数
+&lt;/h3&gt;&lt;p&gt;阶跃函数和sigmoid函数都是非线性函数&lt;/p&gt;
+&lt;p&gt;神经网络的激活函数必须使用非线性函数，因为如果使用线性函数，加深神经网络的层数就没有意义了（应该很好理解，很多线型函数复合仍然是线性的，就不具体说了）&lt;/p&gt;
+&lt;h3 id="relu函数"&gt;ReLU函数
+&lt;/h3&gt;&lt;p&gt;最近比较常见的是ReLU函数&lt;/p&gt;
+&lt;p&gt;ReLU函数在输入大于0时，直接输出该值；在输入小于等于0的时候，输出0&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/pic5.jpg"
+width="1088"
+height="716"
+srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/pic5_hu_643511c3d68d1186.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C1/pic5_hu_6dbfa2b46e66261.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="151"
+data-flex-basis="364px"
+&gt;&lt;/p&gt;
+&lt;p&gt;ReLU函数可以表示为以下数学式
+&lt;/p&gt;
+$$
+h(x) =\begin{cases}
+x, &amp; x &gt; 0 \\
+0, &amp; x \le 0
+\end{cases}
+\tag{7}
+$$&lt;p&gt;
+ReLU函数的实现也非常简单&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;relu&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="多维数组的运算"&gt;多维数组的运算
+&lt;/h2&gt;&lt;h3 id="多维数组"&gt;多维数组
+&lt;/h3&gt;&lt;p&gt;首先假定有一个一维数组&lt;code&gt;A = np.array[1,2,3,4]&lt;/code&gt;，数组的维数可以通过&lt;code&gt;np.ndim&lt;/code&gt;得到。数组的形状可以通过实例变量shape获得，A由四个元素构成，是一维的，所以A.shape就是（4，），这个结果是个元组，这个一维数组为了保证和多维一样的格式，所以仍然被写成元组&lt;/p&gt;
+&lt;h3 id="矩阵乘法"&gt;矩阵乘法
+&lt;/h3&gt;&lt;p&gt;不再赘述&lt;/p&gt;
+&lt;h3 id="神经网络的内积"&gt;神经网络的内积
+&lt;/h3&gt;</description></item><item><title>CMU15445-Project01</title><link>https://lunatide.tech/p/cmu15445-project01/</link><pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cmu15445-project01/</guid><description>&lt;img src="https://lunatide.tech/p/cmu15445-project01/good.jpg" alt="Featured image of post CMU15445-Project01" /&gt;&lt;p&gt;四个Projects都做完了，但是还在刷Leaderboa，有空就update博客内容&lt;/p&gt;</description></item><item><title>计算几何专项</title><link>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/</guid><description>&lt;img src="https://lunatide.tech/p/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E4%B8%93%E9%A1%B9/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post 计算几何专项" /&gt;&lt;p&gt;&lt;a class="link" href="https://vjudge.net/problem/POJ-2318" title="POJ-2318"
 target="_blank" rel="noopener"
 &gt;POJ-2318&lt;/a&gt;&lt;/p&gt;</description></item><item><title>ICPC日常训练01</title><link>https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</link><pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/</guid><description>&lt;img src="https://lunatide.tech/p/icpc%E6%97%A5%E5%B8%B8%E8%AE%AD%E7%BB%8301/codeforce_%E5%89%AF%E6%9C%AC.jpg" alt="Featured image of post ICPC日常训练01" /&gt;&lt;p&gt;日常的训练，回顾一下做的几道题，实现不发&lt;/p&gt;
 &lt;h2 id="icpc-hangzhou-reginal-f-fuzzy-ranking"&gt;ICPC Hangzhou Reginal F Fuzzy Ranking
