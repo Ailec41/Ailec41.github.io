@@ -8,33 +8,34 @@ y =
 0, &amp; b + w_1 x_1 + w_2 x_2 \le 0 \\
 1, &amp; b + w_1 x_1 + w_2 x_2 &gt; 0
 \end{cases}
+\tag{1}
 $$&lt;p&gt;
 $b$是偏置，用于控制神经元被激活的容易程度，而$w_1,w_2$是表示各个信号的权重的参数，用于控制各个信号的重要性&lt;/p&gt;
 &lt;p&gt;我们现在可以通过调用一个函数来替代(1)中分case讨论的情况来简化(1)，改写成如下形式
 &lt;/p&gt;
 $$
-y = h(b + w_1x_1+ w_2x_2)
+y = h(b + w_1x_1+ w_2x_2)\tag{2}
 $$$$
 h(x) =
 \begin{cases}
 0, &amp; x \le 0 \\
 1, &amp; x &gt; 0
-\end{cases}
+\end{cases}\tag{3}
 $$&lt;h3 id="激活函数引入"&gt;激活函数引入
 &lt;/h3&gt;&lt;p&gt;刚才的h(x)把输入信号的总和转换成了输出信号，h(x)就被称为&lt;strong&gt;激活函数(activation function)&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;现在进一步改写式(2)，写成如下形式
 &lt;/p&gt;
 $$
-a = b + w_1x_1 + w_2x_2
+a = b + w_1x_1 + w_2x_2\tag{4}
 $$$$
-y = h(a)
+y = h(a)\tag{5}
 $$&lt;p&gt;首先，式(4)计算加权输入信号的和偏置的总和，然后用(5)的h函数转换为输出&lt;/p&gt;
 &lt;h2 id="激活函数"&gt;激活函数
 &lt;/h2&gt;&lt;h3 id="sigmoid函数"&gt;sigmoid函数
 &lt;/h3&gt;&lt;p&gt;神经网络中经常使用的一个激活函数就是&lt;strong&gt;sigmoid函数&lt;/strong&gt;
 &lt;/p&gt;
 $$
-h(x)=\frac{1}{1+e^{-x}} \quad (\text{sigmoid function})
+h(x)=\frac{1}{1+e^{-x}} \quad (\text{sigmoid function})\tag{6}
 $$&lt;p&gt;
 实际上，感知机和神经网络的主要区别就在于激活函数，其他方面基本都是一样的&lt;/p&gt;
 &lt;h3 id="阶跃函数的实现"&gt;阶跃函数的实现
