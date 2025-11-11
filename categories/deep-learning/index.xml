@@ -121,4 +121,13 @@ data-flex-basis="320px"
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;之所以sigmoid函数的实现支持NumPy数组，就是因为NumPy的广播功能，如果在标量和NumPy数组之间进行运算，标量会和NumPy数组的各个元素进行运算，&lt;code&gt;np.exp(-x)&lt;/code&gt;会生成NumPy数组，所以&lt;code&gt;1/(1 + np.exp(-x))&lt;/code&gt;的运算将会在NumPy数组的各个元素间进行&lt;/p&gt;
 &lt;h3 id="sigmoid函数和阶跃函数的比较"&gt;sigmoid函数和阶跃函数的比较
-&lt;/h3&gt;</description></item></channel></rss>
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/pic4.jpg"
+width="1070"
+height="1034"
+srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/pic4_hu_15fd3252af9c0d75.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/pic4_hu_8cd92bb4638acb60.jpg 1024w"
+loading="lazy"
+alt="阶跃函数与sigmoid函数"
+class="gallery-image"
+data-flex-grow="103"
+data-flex-basis="248px"
+&gt;&lt;/p&gt;</description></item></channel></rss>
