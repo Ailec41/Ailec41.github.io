@@ -268,7 +268,49 @@ data-flex-basis="375px"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id="实现softmax函数时的注意事项"&gt;实现softmax函数时的注意事项
-&lt;/h3&gt;</description></item><item><title>深度学习笔记-神经网络(上)</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络(上)" /&gt;&lt;h2 id="从感知机到神经网络"&gt;从感知机到神经网络
+&lt;/h3&gt;&lt;p&gt;上面的softmax函数在计算上有一定的缺陷，就是溢出的问题，softmax函数的实现中要进行指数函数的运算，但是此时指数函数的值很容易变得非常大，比如$e^{1000}$的结果会返回一个表示无穷大大inf，在这些超大值之间进行除法运算，结果会出现不确定的情况，softmax可以像如下(11)改进
+&lt;/p&gt;
+$$
+\begin{aligned}
+y_k &amp;= \frac{\exp(a_k)}{\sum_{i=1}^{n} \exp(a_i)}
+= \frac{C \exp(a_k)}{C \sum_{i=1}^{n} \exp(a_i)} \\[6pt]
+&amp;= \frac{\exp(a_k + \log C)}{\sum_{i=1}^{n} \exp(a_i + \log C)} \\[6pt]
+&amp;= \frac{\exp(a_k + C')}{\sum_{i=1}^{n} \exp(a_i + C')}
+\end{aligned}
+\tag{11}
+$$&lt;p&gt;
+先在分子和分母上都乘以C（一个任意的常数），然后把C移动到指数函数中，记为$log C$。最后把$logC$替换为另外一个符号$C'$&lt;/p&gt;
+&lt;p&gt;综上，我们来实现下最终版的softmax函数&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;softmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;exp_a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;sum_exp_a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np_sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;exp_a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;exp_a&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;sum_exp_a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="softmax函数的特征"&gt;softmax函数的特征
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;输出总和为1，因为这个性质我们才可以把softmax函数的输出解释为“概率”&lt;/li&gt;
+&lt;li&gt;使用了softmax函数各个元素之间的大小关系也不会改变，因为exp是单调递增的&lt;/li&gt;
+&lt;li&gt;神经网络一般只会把输出值最大的神经元所对应的类别作为识别结果。使用softmax函数输出值最大的神经元的位置也不会变，因此输出层的softmax函数一般会被忽略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="输出层的神经元数量"&gt;输出层的神经元数量
+&lt;/h3&gt;&lt;p&gt;输出层的神经元数量需要根据待解决的问题来决定。对于分类问题，输出层的神经元数量一般设定为类别的数量。比如，对于某个输入图像，预测是图中的数字0到9中的哪个的问题，可以把输出层的神经元设定为10个，然后把这十个神经元按照从上到下，从0-9依次编号，并且值用不同的灰度表示，颜色越深，输出的值就越大&lt;/p&gt;
+&lt;h2 id="手写数字识别"&gt;手写数字识别
+&lt;/h2&gt;</description></item><item><title>深度学习笔记-神经网络(上)</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络(上)" /&gt;&lt;h2 id="从感知机到神经网络"&gt;从感知机到神经网络
 &lt;/h2&gt;&lt;h3 id="感知机回顾"&gt;感知机回顾
 &lt;/h3&gt;&lt;p&gt;用图来表示神经网络，类比感知机，我们把左边的一列称为&lt;strong&gt;输入层&lt;/strong&gt;，最右边的称之为&lt;strong&gt;输出层&lt;/strong&gt;，中间的称为&lt;strong&gt;中间层&lt;/strong&gt;(也称为隐藏层，因为神经元肉眼看不见)，我们知道当感知机接受$x_1,x_2$两个输入信号，输出$y$时，可以用如下的数学式来表示
 &lt;/p&gt;
