@@ -220,7 +220,55 @@ $$&lt;p&gt;然后用NumPy多维数组来实现式(9)，输入信号，权重，�
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这里定义了&lt;code&gt;init_network()&lt;/code&gt;和&lt;code&gt;forward()&lt;/code&gt;函数，&lt;code&gt;init_network()&lt;/code&gt;函数会进行权重和偏置的初始化，并将它们保存在字典变量network中。&lt;code&gt;forward()&lt;/code&gt;函数中则封装了将输入信号转换为输出信号的处理过程&lt;/p&gt;
 &lt;h2 id="输出层的设计"&gt;输出层的设计
-&lt;/h2&gt;</description></item><item><title>深度学习笔记-神经网络(上)</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络(上)" /&gt;&lt;h2 id="从感知机到神经网络"&gt;从感知机到神经网络
+&lt;/h2&gt;&lt;p&gt;神经网络要根据情况改变输出层的激活函数。一般而言，回归问题用恒等函数，分类问题用softmax函数。&lt;/p&gt;
+&lt;h3 id="恒等函数和softmax函数"&gt;恒等函数和softmax函数
+&lt;/h3&gt;&lt;p&gt;恒等函数会将输入按原样输出&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/p4.jpg"
+width="458"
+height="258"
+srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/p4_hu_6d65e9351df62c95.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/p4_hu_43b265d1cfa56ce1.jpg 1024w"
+loading="lazy"
+alt="恒等函数"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+&gt;&lt;/p&gt;
+&lt;p&gt;分类问题中的softmax函数可以用下面的式(10)表示
+&lt;/p&gt;
+$$
+y_k = \frac{\exp(a_k)}{\sum_{i=1}^{n} \exp(a_i)}\tag{10}
+$$&lt;p&gt;
+上式表示假设输出层共有n个神经元，计算第k个神经元的输出$y_k$，如式(10)所示，softmax函数的分子是输入信号$a_k$的指数函数，分母是所有输入信号的指数函数的和&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/p5.jpg"
+width="410"
+height="262"
+srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/p5_hu_9b7e96258f08abca.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/p5_hu_6d634ae849e8b735.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="156"
+data-flex-basis="375px"
+&gt;&lt;/p&gt;
+&lt;p&gt;接下来来实现softmax函数。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;softmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;exp_a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;sum_exp_a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;exp_a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;exp_a&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;sub_exp_a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="实现softmax函数时的注意事项"&gt;实现softmax函数时的注意事项
+&lt;/h3&gt;</description></item><item><title>深度学习笔记-神经网络(上)</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络(上)" /&gt;&lt;h2 id="从感知机到神经网络"&gt;从感知机到神经网络
 &lt;/h2&gt;&lt;h3 id="感知机回顾"&gt;感知机回顾
 &lt;/h3&gt;&lt;p&gt;用图来表示神经网络，类比感知机，我们把左边的一列称为&lt;strong&gt;输入层&lt;/strong&gt;，最右边的称之为&lt;strong&gt;输出层&lt;/strong&gt;，中间的称为&lt;strong&gt;中间层&lt;/strong&gt;(也称为隐藏层，因为神经元肉眼看不见)，我们知道当感知机接受$x_1,x_2$两个输入信号，输出$y$时，可以用如下的数学式来表示
 &lt;/p&gt;
