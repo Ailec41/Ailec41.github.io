@@ -102,7 +102,54 @@ $$&lt;p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;batch_size&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;batch_size&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;由于one-hot表示中t为0的元素的交叉熵误差也为0，因此针对这些元素的计算可以忽略。只要可以获得神经网络在正确解标签的输出，就可以计算交叉熵误差,t为one-hot表示时通过&lt;code&gt;t * np.log(y)&lt;/code&gt;计算的地方t为标签形式时，可以用&lt;code&gt;np.log(y[np.arange(batch_size),t])&lt;/code&gt;表示&lt;/p&gt;</description></item><item><title>深度学习笔记-神经网络(下)</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</link><pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络(下)" /&gt;&lt;p&gt;&lt;strong&gt;以下内容皆基于鱼书《深度学习入门基于python的理论与实现》&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;由于one-hot表示中t为0的元素的交叉熵误差也为0，因此针对这些元素的计算可以忽略。只要可以获得神经网络在正确解标签的输出，就可以计算交叉熵误差,t为one-hot表示时通过&lt;code&gt;t * np.log(y)&lt;/code&gt;计算的地方t为标签形式时，可以用&lt;code&gt;np.log(y[np.arange(batch_size),t])&lt;/code&gt;表示实现相同的处理&lt;/p&gt;
+&lt;h3 id="为什么要设定损失函数"&gt;为什么要设定损失函数
+&lt;/h3&gt;&lt;p&gt;假设有一个神经网络，对其中一个权重参数的损失函数求导，如果这个导数的值为负，说明使该权重参数向正正方向改变，可以减小损失函数的值；反之亦然，以及当导数的值为0时候，无论权重参数往哪个方向，损失函数的值都不会改变。而如果用识别精度作为指标，则参数的导数在绝大多数地方都为0&lt;/p&gt;
+&lt;h2 id="梯度法"&gt;梯度法
+&lt;/h2&gt;&lt;p&gt;梯度的方向不一定指向最小值，但是沿着梯度的方向能够最大限度地减小函数的值&lt;/p&gt;
+&lt;p&gt;梯度法是什么，就是让函数的取值沿着梯度的方向前进一段距离，在新的地方重新求梯度，然后再沿着梯度方向前进，像这样反复，逐渐减小函数值，然后我们用数学式来表示梯度法，如下式(4)
+&lt;/p&gt;
+$$
+x_0 = x_0 - \eta \frac{\partial f}{\partial x_0}\\
+x_1 = x_1 - \eta \frac{\partial f}{\partial x_1}\tag{4}
+$$&lt;p&gt;上式的$\eta$表示更新量，在神经网络的学习中，称为学习率，决定了在一次学习中，应该学习多少，以及在多大程度上更新参数&lt;/p&gt;
+&lt;p&gt;接下来用python实现下梯度下降法&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;gradient_descet&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;init_x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;0.01&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;step_num&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;init_x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;step_num&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;grad&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;numerical_gradient&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="n"&gt;lr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;grad&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;参数f是要进行最优化的函数，init_x是初始值，lr是学习率，step_num是梯度法的重复次数，numerical_gradient(f,x)会求函数的梯度&lt;/p&gt;
+&lt;h3 id="神经网络的梯度"&gt;神经网络的梯度
+&lt;/h3&gt;&lt;p&gt;神经网络的学习也要求梯度，这里所说的梯度是指损失函数关于权重参数的梯度，例如一个形状2x3的权重$W$的神经网络，损失函数用L表示。此时，梯度可以用$\frac{\partial L}{\partial \mathbf{W}}$表示
+&lt;/p&gt;
+$$
+\mathbf{W} =
+\begin{pmatrix}
+w_{11} &amp; w_{12} &amp; w_{13} \\
+w_{21} &amp; w_{22} &amp; w_{23}
+\end{pmatrix}\\
+\frac{\partial L}{\partial \mathbf{W}} =
+\begin{pmatrix}
+\frac{\partial L}{\partial w_{11}} &amp; \frac{\partial L}{\partial w_{12}} &amp; \frac{\partial L}{\partial w_{13}} \\
+\frac{\partial L}{\partial w_{21}} &amp; \frac{\partial L}{\partial w_{22}} &amp; \frac{\partial L}{\partial w_{23}}
+\end{pmatrix}\tag{5}
+$$</description></item><item><title>深度学习笔记-神经网络(下)</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</link><pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络(下)" /&gt;&lt;p&gt;&lt;strong&gt;以下内容皆基于鱼书《深度学习入门基于python的理论与实现》&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id="3层神经网络的实现"&gt;3层神经网络的实现
 &lt;/h2&gt;&lt;p&gt;开始进行神经网络的实现，以下图的三层神经网络为例&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/p1.jpg"
