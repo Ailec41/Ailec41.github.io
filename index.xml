@@ -352,7 +352,7 @@ data-flex-grow="222"
 data-flex-basis="533px"
 &gt;&lt;/p&gt;
 &lt;p&gt;上图是比较简单的计算图，不过要注意X,W,B是矩阵&lt;/p&gt;
-&lt;h1 id="fracpartial-lpartial-mathbfx"&gt;现在来考虑上图的反向传播，以矩阵为对象的反向传播，按矩阵的各个元素进行计算时，步骤和以标量为对象的计算图相同。实际写一下可以得到下式
+&lt;h1 id="fracpartial-lpartial-mathbfx"&gt;考虑上图的反向传播，以矩阵为对象的反向传播，按矩阵的各个元素进行计算时，步骤和以标量为对象的计算图相同。实际写一下可以得到下式
 $$
 \frac{\partial L}{\partial \mathbf{X}}
 &lt;/h1&gt;&lt;h1 id="fracpartial-lpartial-mathbfw"&gt;\frac{\partial L}{\partial \mathbf{Y}} \cdot \mathbf{W}^{\mathrm{T}}\
