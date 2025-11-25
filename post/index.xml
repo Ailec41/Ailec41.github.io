@@ -1,4 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://lunatide.tech/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第二讲 图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第二讲 图像分类" /&gt;</description></item><item><title>鱼书笔记-与学习相关的技巧</title><link>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</guid><description>&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/pic3.jpg" alt="Featured image of post 鱼书笔记-与学习相关的技巧" /&gt;&lt;h2 id="参数的更新"&gt;参数的更新
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://lunatide.tech/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第二讲 图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第二讲 图像分类" /&gt;&lt;p&gt;开始学cs231n了，期望是一周3-4节，尽量4周完成掉&lt;/p&gt;
+&lt;p&gt;课程主页:https://cs231n.stanford.edu/&lt;/p&gt;
+&lt;p&gt;作业:https://cs231n.stanford.edu/schedule.html&lt;/p&gt;
+&lt;h2 id="图像分类"&gt;图像分类
+&lt;/h2&gt;&lt;p&gt;图像通常由数据矩阵定义，更一般地说是数据张量，识别图像对于机器来说是个很大的挑战，举个例子，人类不管从什么角度看一个物体他都是一样的，但是当一个摄像机对准一个物体并转动，像素值实时都在改变，除此之外，光照，物体遮挡等等对于图像的识别来说都是挑战&lt;/p&gt;
+&lt;p&gt;机器学习采用了数据驱动的方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;收集图像及其标签的数据集&lt;/li&gt;
+&lt;li&gt;使用机器学习算法训练分类器&lt;/li&gt;
+&lt;li&gt;在新图像上评估分类器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面是分别对应步骤2和3的接口&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1.jpg"
+width="1854"
+height="880"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_db114bed21d40de6.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_1fd9fab2ea483ffb.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="210"
+data-flex-basis="505px"
+&gt;&lt;/p&gt;
+&lt;h3 id="nearest-neighbor-classifier"&gt;Nearest Neighbor Classifier
+&lt;/h3&gt;&lt;p&gt;设定一个距离函数，对于一对图像（query data和training data），返回一个定义两者相似度的值&lt;/p&gt;
+&lt;p&gt;下面是两种常见的计算距离的方式&lt;/p&gt;
+&lt;p&gt;首先是L1距离，定义为两个图像所有像素差绝对值的总和&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2.jpg"
+width="1894"
+height="938"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_8bdcec047dce1abb.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_ad9f3b36dca704b6.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="484px"
+&gt;&lt;/p&gt;
+&lt;p&gt;不过我们不难发现，训练函数是$O(1)$的，而预测函数是$O(n)$的，这并不是我们想要的&lt;/p&gt;
+&lt;p&gt;因此我们把Nearest Neighbor自然推广到k-Nearest Neighbor&lt;/p&gt;</description></item><item><title>鱼书笔记-与学习相关的技巧</title><link>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</guid><description>&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/pic3.jpg" alt="Featured image of post 鱼书笔记-与学习相关的技巧" /&gt;&lt;h2 id="参数的更新"&gt;参数的更新
 &lt;/h2&gt;</description></item><item><title>鱼书笔记-误差反向传播法</title><link>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</link><pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</guid><description>&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/pic3.jpg" alt="Featured image of post 鱼书笔记-误差反向传播法" /&gt;&lt;h2 id="计算图"&gt;计算图
 &lt;/h2&gt;&lt;h3 id="用计算图求解"&gt;用计算图求解
 &lt;/h3&gt;&lt;p&gt;我们先来看一个简单的问题&lt;/p&gt;
