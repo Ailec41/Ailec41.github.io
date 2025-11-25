@@ -1,22 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sat, 22 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>深度学习笔记-误差反向传播法</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</link><pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/pic3.jpg" alt="Featured image of post 深度学习笔记-误差反向传播法" /&gt;&lt;h2 id="计算图"&gt;计算图
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>深度学习笔记-与学习相关的技巧</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/pic3.jpg" alt="Featured image of post 深度学习笔记-与学习相关的技巧" /&gt;&lt;h2 id="参数的更新"&gt;参数的更新
+&lt;/h2&gt;</description></item><item><title>鱼书笔记-误差反向传播法</title><link>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</link><pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</guid><description>&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/pic3.jpg" alt="Featured image of post 鱼书笔记-误差反向传播法" /&gt;&lt;h2 id="计算图"&gt;计算图
 &lt;/h2&gt;&lt;h3 id="用计算图求解"&gt;用计算图求解
 &lt;/h3&gt;&lt;p&gt;我们先来看一个简单的问题&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：太郎在超市买了2个100日元一个的苹果，消费税是10%，请计算支付金额&lt;/p&gt;
 &lt;p&gt;如何用计算图表示，这个非常简单，小学生都能看懂&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p1.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p1.jpg"
 width="1124"
 height="170"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p1_hu_61f73d26853d3fd1.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p1_hu_5d82d8028ee74402.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p1_hu_61f73d26853d3fd1.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p1_hu_5d82d8028ee74402.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="661"
 data-flex-basis="1586px"
 &gt;&lt;/p&gt;
 &lt;p&gt;或者也可以把运算的数字放在圆圈外面，如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p2.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p2.jpg"
 width="1106"
 height="364"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p2_hu_38d7afa7e70f3904.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p2_hu_a1e76eb9ace9e109.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p2_hu_38d7afa7e70f3904.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p2_hu_a1e76eb9ace9e109.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="303"
@@ -26,10 +27,10 @@ data-flex-basis="729px"
 &lt;h2 id="反向传播"&gt;反向传播
 &lt;/h2&gt;&lt;h3 id="加法节点的反向传播"&gt;加法节点的反向传播
 &lt;/h3&gt;&lt;p&gt;以z=x+y为例，左图为正向传播，右图为反向传播&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p4.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p4.jpg"
 width="1102"
 height="470"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p4_hu_5a5389873daf4cdc.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p4_hu_4d6af2ad2f75ddb.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p4_hu_5a5389873daf4cdc.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p4_hu_4d6af2ad2f75ddb.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="234"
@@ -37,10 +38,10 @@ data-flex-basis="562px"
 &gt;&lt;/p&gt;
 &lt;h3 id="乘法节点的反向传播"&gt;乘法节点的反向传播
 &lt;/h3&gt;&lt;p&gt;以z=xy为例&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p5.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p5.jpg"
 width="1104"
 height="464"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p5_hu_9ed824f6f0b1f7bc.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p5_hu_ca344d3cffec7372.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p5_hu_9ed824f6f0b1f7bc.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p5_hu_ca344d3cffec7372.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="237"
@@ -48,10 +49,10 @@ data-flex-basis="571px"
 &gt;&lt;/p&gt;
 &lt;h3 id="回到开头的例子"&gt;回到开头的例子
 &lt;/h3&gt;&lt;p&gt;所以重新思考开头的那个买苹果的例子，要解的就是苹果的价格，苹果的个数，消费税这三个变量之间各自如何影响最终支付的金额，相当于求“支付金额关于苹果价格的导数”，“支付金额关于苹果个数的导数“，”支付金额关于消费税的导数”，反向传播的过程如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p7.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p7.jpg"
 width="1086"
 height="394"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p7_hu_42d42d02431b5888.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p7_hu_f781fb5ebcf799cb.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p7_hu_42d42d02431b5888.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p7_hu_f781fb5ebcf799cb.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="275"
@@ -138,10 +139,10 @@ data-flex-basis="661px"
 &lt;/div&gt;&lt;p&gt;加法层不需要初始化，实现非常简单&lt;/p&gt;
 &lt;h3 id="例子"&gt;例子
 &lt;/h3&gt;&lt;p&gt;接下来看个实际操作的例子&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p8.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p8.jpg"
 width="1100"
 height="486"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p8_hu_d91fa7b2dc1cc851.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p8_hu_892a359efc705636.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p8_hu_d91fa7b2dc1cc851.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p8_hu_892a359efc705636.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="226"
@@ -270,20 +271,20 @@ $$
 y = \frac{1}{1 + \exp(-x)}\tag{3}
 $$&lt;p&gt;
 用计算图表示上式，如下所示&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p9.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p9.jpg"
 width="1096"
 height="298"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p9_hu_3f51edd3f5dc0200.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p9_hu_2d91eab3129c876b.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p9_hu_3f51edd3f5dc0200.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p9_hu_2d91eab3129c876b.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="367"
 data-flex-basis="882px"
 &gt;&lt;/p&gt;
 &lt;p&gt;然后我们来看下反向传播是怎么样的&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p10.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p10.jpg"
 width="1110"
 height="252"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p10_hu_1b45b75f03d7b6fa.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p10_hu_19e09904e5f4a13a.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p10_hu_1b45b75f03d7b6fa.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p10_hu_19e09904e5f4a13a.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="440"
@@ -342,10 +343,10 @@ $$&lt;p&gt;
 &lt;p&gt;神经网络的正向传播中进行的矩阵的乘积运算在几何学领域被称为“仿射变换”。因此，这里将进行仿射变换的处理实现称为“Affine层”&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;将这里进行的求矩阵的乘积和偏置的和的运算用计算图表示出来。将乘积运算用“dot”节点表示的话，则np.dot(X,W) + B的运算可以用下图的计算图来表示出来，另外，在各个变量的上方标记了它们的形状&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p11.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p11.jpg"
 width="1054"
 height="474"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p11_hu_fd80e1968b1c74ce.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p11_hu_3b790ab1553fc989.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p11_hu_fd80e1968b1c74ce.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p11_hu_3b790ab1553fc989.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="222"
@@ -354,10 +355,10 @@ data-flex-basis="533px"
 &lt;p&gt;上图是比较简单的计算图，不过要注意X,W,B是矩阵&lt;/p&gt;
 &lt;p&gt;考虑上图的反向传播，以矩阵为对象的反向传播，按矩阵的各个元素进行计算时，步骤和以标量为对象的计算图相同。&lt;/p&gt;
 &lt;p&gt;我们可以写出计算图的反向传播，如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p12.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p12.jpg"
 width="1100"
 height="604"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p12_hu_aee8fdc01ab3d9c6.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p12_hu_a26e716dbecf541a.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p12_hu_aee8fdc01ab3d9c6.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p12_hu_a26e716dbecf541a.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="182"
@@ -377,10 +378,10 @@ $$
 $$&lt;h3 id="批版本的affine层"&gt;批版本的Affine层
 &lt;/h3&gt;&lt;p&gt;前面介绍的Affine层的输入X是以单个数据为对象的。现在我们考虑N个数据一起进行正向传播的情况&lt;/p&gt;
 &lt;p&gt;下图是批版本的affine层的计算图&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p13.jpg"
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p13.jpg"
 width="1102"
 height="648"
-srcset="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p13_hu_84696632d7e84b42.jpg 480w, https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p13_hu_5730063b13f44eba.jpg 1024w"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p13_hu_84696632d7e84b42.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p13_hu_5730063b13f44eba.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="170"
@@ -433,6 +434,81 @@ data-flex-basis="408px"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;dx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="softmax-with-loss层"&gt;Softmax-with-Loss层
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p14.jpg"
+width="1078"
+height="328"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p14_hu_556a02f015a0c413.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p14_hu_2b3541fe4bb130e2.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="328"
+data-flex-basis="788px"
+&gt;&lt;/p&gt;
+&lt;p&gt;之前说过softmax函数会将输入值正规化（将输出值的和调整为1）然后再输出。另外，因为手写数字识别要进行10类分类，所以向Softmax层的输入也有10个&lt;/p&gt;
+&lt;p&gt;下面来实现Softmax层，计算图如下图所示&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p15.jpg"
+width="1094"
+height="388"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p15_hu_548a881c5c82c93.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p15_hu_f99d8323d686c23c.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="281"
+data-flex-basis="676px"
+&gt;&lt;/p&gt;
+&lt;p&gt;上图的计算图可以简化成下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p16.jpg"
+width="1088"
+height="696"
+srcset="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p16_hu_3be51e735e32ac64.jpg 480w, https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/p16_hu_dc18f135b24ff7a8.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="156"
+data-flex-basis="375px"
+&gt;&lt;/p&gt;
+&lt;p&gt;上图的计算图中，softmax函数记为Softmax层，交叉熵误差记为Cross Entropy error层。这里假设要进行三类分类，从前面的层接收三个输入，Softmax层将输入(a1,a2,a3)正规化，输出(y1,y2,y3)Cross Entropy Error层接收Softmax的输出(y1,y2,y3)和教师标签(t1,t2,t3)，从这些数据中输出损失L&lt;/p&gt;
+&lt;p&gt;上图要注意的是反向传播的结果，Softmax层的反向传播得到了(y1-t1,y2-t2,y3-t3)这样漂亮的结果。由于(y1,y2,y3)是Softmax层的输出，(t1,t2,t3)是监督数据，所以(y1-t1,y2-t2,y3-t3)是Softmax层的输出和教师标签的差分。神经网络会把这个差分表示的误差传递给前面的层。&lt;/p&gt;
+&lt;p&gt;神经网络学习的目的就是通过调整权重参数，使神经网络的输出接近教师标签。因此，必须将神经网络的输出与教师标签的误差高效地传递给前面的层&lt;/p&gt;
+&lt;p&gt;现在实现一下Softmax-with-Loss层&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;SoftmaxWithLoss&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loss&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt; &lt;span class="c1"&gt;# 损失&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt; &lt;span class="c1"&gt;# softmax的输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt; &lt;span class="c1"&gt;# 监督数据（one-hot vector）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;forward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;softmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loss&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cross_entropy_error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loss&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;backward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;batch_size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;dx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;batch_size&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;dx&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description></item><item><title>深度学习笔记-神经网络的学习</title><link>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0/</link><pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0/</guid><description>&lt;img src="https://lunatide.tech/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0/pic3.jpg" alt="Featured image of post 深度学习笔记-神经网络的学习" /&gt;&lt;h2 id="从数据中学习"&gt;从数据中学习
