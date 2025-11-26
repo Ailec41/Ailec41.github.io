@@ -1,4 +1,89 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://lunatide.tech/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第二讲 图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第二讲 图像分类" /&gt;&lt;p&gt;开始学cs231n了，期望是一周3-4节，尽量4周完成掉&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://lunatide.tech/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 26 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
+&lt;/h2&gt;&lt;p&gt;给定一个图片数据集 ${(x_i, y_i)}_{i=1}^N$，$x_i$ 为图片，$y_i$ 为标签，损失为
+&lt;/p&gt;
+$$
+L = \frac{1}{N} \sum_i L_i(f(x_i, W), y_i) \tag{1}
+$$&lt;p&gt;
+这是一种衡量模型预测与训练数据匹配程度的损失，我们希望这个值越低越好，这代表模型很好地拟合了训练数据&lt;/p&gt;
+&lt;h3 id="多类svm损失"&gt;多类SVM损失
+&lt;/h3&gt;&lt;p&gt;给一个$s=f(x_i,W)$&lt;/p&gt;
+&lt;p&gt;SVM损失定义为
+&lt;/p&gt;
+$$
+\begin{aligned}
+L_i &amp;= \sum_{j \neq y_i} \begin{cases} 0 &amp; \text{如果} s_{y_i} \ge s_j + 1 \\ s_j - s_{y_i} + 1 &amp; \text{其他} \end{cases} \\
+&amp;= \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + 1)
+\end{aligned}\tag{2}
+$$&lt;p&gt;
+SVM损失函数的形式如下
+&lt;/p&gt;
+$$
+L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + 1)\tag{3}
+$$&lt;p&gt;
+&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4.jpg"
+width="440"
+height="330"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_a9dfe09e6f57ef1f.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_37ad7b737d874a5a.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+&gt;&lt;/p&gt;
+&lt;h3 id="softmax分类器"&gt;Softmax分类器
+&lt;/h3&gt;&lt;p&gt;首先定义如下概率&lt;/p&gt;
+$$
+P(Y = k | X = x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}} \quad s = f(x_i; W)\tag{4}
+$$&lt;p&gt;我们想最大化对数似然函数，而这也等价于最小化如下式子&lt;/p&gt;
+$$
+L_i = -\log P(Y = y_i | X = x_i) = -\log \left( \frac{e^{s_{y_i}}}{\sum_j e^{s_j}} \right)\tag{5}
+$$&lt;p&gt;
+&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2.jpg"
+width="1914"
+height="926"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_74ebdaed0ff057b1.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_9ba2a5ffafec5812.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="206"
+data-flex-basis="496px"
+&gt;&lt;/p&gt;
+&lt;h3 id="损失函数的正则化项"&gt;损失函数的正则化项
+&lt;/h3&gt;$$
+L(W) = \frac{1}{N} \sum_{i=1}^{N} L_i(f(x_i, W), y_i) + \lambda R(W)\tag{6}
+$$&lt;p&gt;它的作用是防止模型在训练数据上表现过好，因此正则化的目的就是让它在训练数据表现更差，在测试集表现更好，关于这里的$\lambda$，这是正则化强度，这也是一个超参数，这个参数用于控制模型对训练数据的拟合程度&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1.jpg"
+width="1842"
+height="904"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_55cab8e754a1c1e5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_8bcddbc1a104a263.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="203"
+data-flex-basis="489px"
+&gt;&lt;/p&gt;
+&lt;p&gt;上图是一个例子，目标是拟合这些数据点，有f1和f2两种模型，f1穿过了所有数据点，所以训练或数据损失会很低，因为几乎完美拟合，但是在测试新数据上，f2可能表现更好，因此不要过度拟合数据，越简单的模型可能效果更好&lt;/p&gt;
+&lt;p&gt;比较常见的正则化项如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3.jpg"
+width="1046"
+height="310"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_32c49cc527502d09.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_2a975fc0be51e0c3.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="337"
+data-flex-basis="809px"
+&gt;&lt;/p&gt;
+&lt;p&gt;所以为什么我们要对模型正则化：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;它允许我们对于权重表达某种偏好&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;让模型更简单从而在测试数据上表现更好&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;通过增加曲率改进优化&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="优化"&gt;优化
+&lt;/h2&gt;</description></item><item><title>CS231 第二讲 图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第二讲 图像分类" /&gt;&lt;p&gt;开始学cs231n了，期望是一周3-4节，尽量4周完成掉&lt;/p&gt;
 &lt;p&gt;课程主页:https://cs231n.stanford.edu/&lt;/p&gt;
 &lt;p&gt;作业:https://cs231n.stanford.edu/schedule.html&lt;/p&gt;
 &lt;h2 id="图像分类"&gt;图像分类
