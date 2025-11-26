@@ -55,7 +55,31 @@ data-flex-basis="473px"
 &gt;&lt;/p&gt;
 &lt;p&gt;在实际中，k Nearest Neighbor从来不用，首先因为效率太低，其次它的距离是按照每个像素点之间来计算的，因此很容易识别错误，例如把颜色相近的猫识别成老虎，亦或者当有物体遮挡的时候，你去计算他的L2距离是相等的，但是实际上差别却很大，最后，当数据的维度很大的时候，计算会非常的慢&lt;/p&gt;
 &lt;h3 id="线性分类器"&gt;线性分类器
-&lt;/h3&gt;</description></item><item><title>鱼书笔记-与学习相关的技巧</title><link>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</guid><description>&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/pic3.jpg" alt="Featured image of post 鱼书笔记-与学习相关的技巧" /&gt;&lt;h2 id="参数的更新"&gt;参数的更新
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5.jpg"
+width="1814"
+height="930"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_1d7691d876903011.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_862134743f60420.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="195"
+data-flex-basis="468px"
+&gt;&lt;/p&gt;
+&lt;p&gt;线性分类器就是给定一张图片，转换成向量然后计算
+&lt;/p&gt;
+$$
+f(x,W)=Wx + b\tag{1}
+$$&lt;p&gt;
+这里输出结果是10维向量，然后根据分量决定图片属于哪一类&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6.jpg"
+width="1846"
+height="918"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_1ee996b2f6c2245.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_a848122553dae92d.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="482px"
+&gt;&lt;/p&gt;
+&lt;p&gt;但是线性分类器并不是所有东西都能解决（就比如上图，根据结果图片是狗，😓），对于无法分类大量分离的数据实例就无法解决&lt;/p&gt;</description></item><item><title>鱼书笔记-与学习相关的技巧</title><link>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/</guid><description>&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/pic3.jpg" alt="Featured image of post 鱼书笔记-与学习相关的技巧" /&gt;&lt;h2 id="参数的更新"&gt;参数的更新
 &lt;/h2&gt;</description></item><item><title>鱼书笔记-误差反向传播法</title><link>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</link><pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/</guid><description>&lt;img src="https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/pic3.jpg" alt="Featured image of post 鱼书笔记-误差反向传播法" /&gt;&lt;h2 id="计算图"&gt;计算图
 &lt;/h2&gt;&lt;h3 id="用计算图求解"&gt;用计算图求解
 &lt;/h3&gt;&lt;p&gt;我们先来看一个简单的问题&lt;/p&gt;
