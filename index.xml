@@ -50,8 +50,7 @@ $$
 $$&lt;p&gt;
 这个规则也称为&lt;strong&gt;LMS&lt;/strong&gt;更新规则，也称为&lt;strong&gt;Widrow-Hoff&lt;/strong&gt;学习规则，具体的算法如下&lt;/p&gt;
 &lt;p&gt;重复直到收敛{&lt;/p&gt;
-&lt;p&gt;For every &lt;/p&gt;
-$$j$$&lt;p&gt;:
+&lt;p&gt;对每个$j$:
 &lt;/p&gt;
 $$
 \theta_j:=\theta_j+\alpha\sum_{i=1}^m{(y^{(i)}-h_\theta(x^{(i)}))}
@@ -60,8 +59,7 @@ $$&lt;p&gt;
 &lt;p&gt;这个方法叫做&lt;strong&gt;批量梯度下降法(batch gradient descent)&lt;/strong&gt;，此外还有一种方法&lt;/p&gt;
 &lt;p&gt;Loop{&lt;/p&gt;
 &lt;p&gt;​ for i=1 to m{&lt;/p&gt;
-&lt;p&gt;​ 对每个&lt;/p&gt;
-$$j$$&lt;p&gt;:
+&lt;p&gt;​ 对每个$j$:
 &lt;/p&gt;
 $$
 \theta_j := \theta_j + \alpha(y^{(i)}-h_{\theta}(x^{(i)}))x_j^{(i)}
@@ -71,18 +69,15 @@ $$&lt;p&gt;​ }&lt;/p&gt;
 &lt;p&gt;在批量梯度下降算法中，我们要扫描整个训练集，才会更新一次，当数据集的量非常庞大的时候，会有很大计算量，而随机梯度下降算法在遇到训练样本的时候仅根据该单个训练样本的误差梯度更新参数，所以随机梯度下降往往比批量梯下降更快接近最小值。&lt;/p&gt;
 &lt;p&gt;注意，它可能不会收敛到最小值，$\theta$会在$J(\theta)$的最小值附近震荡&lt;/p&gt;
 &lt;h3 id="正规方程"&gt;正规方程
-&lt;/h3&gt;&lt;p&gt;这是第二种方法，这种方法中我们通过求导让导数等于0的方式找到取得最小值的地方，给定一个训练集，把设计矩阵&lt;/p&gt;
-$$X$$&lt;p&gt;设置为一个&lt;/p&gt;
-$$x*n$$&lt;p&gt;的矩阵(实际上是&lt;/p&gt;
-$$m * (n + 1)$$&lt;p&gt;，如果包含截距项)，该矩阵的每行是个训练样本
+&lt;/h3&gt;&lt;p&gt;这是第二种方法，这种方法中我们通过求导让导数等于0的方式找到取得最小值的地方，给定一个训练集，把设计矩阵$X$设置为一个$x*n$的矩阵(实际上是$m * (n + 1)$，如果包含截距项)，该矩阵的每行是个训练样本
 &lt;/p&gt;
 $$
 X =
 \begin{bmatrix}
-(x^{(1)})^T \\
-(x^{(2)})^T \\
+-(x^{(1)})^{T}- \\
+-(x^{(2)})^T- \\
 \vdots \\
-(x^{(m)})^T
+-(x^{(m)})^T-
 \end{bmatrix}
 $$&lt;p&gt;另外，令 $\vec{y}$ 为包含训练集中所有目标值的 $m$ 维向量：&lt;/p&gt;
 $$
@@ -94,24 +89,28 @@ y^{(2)} \\
 y^{(m)}
 \end{bmatrix}
 $$&lt;p&gt;由于 $h_\theta(x^{(i)}) = (x^{(i)})^T \theta$，我们可以很容易地验证：&lt;/p&gt;
-&lt;h2 id="endbmatrix"&gt;$$
+&lt;div&gt;
+$$
 X\theta - \vec{y} =
-\begin{bmatrix}
-(x^{(1)})^T\theta \
-\vdots \
+\begin{pmatrix}
+(x^{(1)})^T\theta \\\
+\vdots \\\
 (x^{(m)})^T\theta
-\end{bmatrix}
-&lt;/h2&gt;&lt;h1 id="endbmatrix-1"&gt;\begin{bmatrix}
-y^{(1)} \
-\vdots \
+\end{pmatrix}
+-
+\begin{pmatrix}
+y^{(1)} \\\
+\vdots \\\
 y^{(m)}
-\end{bmatrix}
-&lt;/h1&gt;&lt;p&gt;\begin{bmatrix}
-(x^{(1)})^T\theta - y^{(1)} \
-\vdots \
+\end{pmatrix}
+=
+\begin{pmatrix}
+(x^{(1)})^T\theta - y^{(1)} \\\
+\vdots \\\
 (x^{(m)})^T\theta - y^{(m)}
-\end{bmatrix}
-$$&lt;/p&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
+\end{pmatrix}
+$$
+&lt;/div&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
 &lt;/h2&gt;&lt;p&gt;给定一个图片数据集 ${(x_i, y_i)}_{i=1}^N$，$x_i$ 为图片，$y_i$ 为标签，损失为
 &lt;/p&gt;
 $$

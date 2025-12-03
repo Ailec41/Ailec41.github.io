@@ -27,17 +27,17 @@ $$<p>在这个式子中，$\alpha$是<strong>学习率</strong></p><p>要实现�
 \end{align*}
 $$<p>对单个训练样本，更新规则如下：</p>$$
 \theta_j := \theta_j + \alpha \left( y^{(i)} - h_\theta(x^{(i)}) \right) x_j^{(i)}
-$$<p>这个规则也称为<strong>LMS</strong>更新规则，也称为<strong>Widrow-Hoff</strong>学习规则，具体的算法如下</p><p>重复直到收敛{</p><p>For every</p>$$j$$<p>:</p>$$
+$$<p>这个规则也称为<strong>LMS</strong>更新规则，也称为<strong>Widrow-Hoff</strong>学习规则，具体的算法如下</p><p>重复直到收敛{</p><p>对每个$j$:</p>$$
 \theta_j:=\theta_j+\alpha\sum_{i=1}^m{(y^{(i)}-h_\theta(x^{(i)}))}
-$$<p>}</p><p>这个方法叫做<strong>批量梯度下降法(batch gradient descent)</strong>，此外还有一种方法</p><p>Loop{</p><p>​ for i=1 to m{</p><p>​ 对每个</p>$$j$$<p>:</p>$$
+$$<p>}</p><p>这个方法叫做<strong>批量梯度下降法(batch gradient descent)</strong>，此外还有一种方法</p><p>Loop{</p><p>​ for i=1 to m{</p><p>​ 对每个$j$:</p>$$
 \theta_j := \theta_j + \alpha(y^{(i)}-h_{\theta}(x^{(i)}))x_j^{(i)}
-$$<p>​ }</p><p>}</p><p>这个算法叫做<strong>随机梯度下降法(SGD)</strong></p><p>在批量梯度下降算法中，我们要扫描整个训练集，才会更新一次，当数据集的量非常庞大的时候，会有很大计算量，而随机梯度下降算法在遇到训练样本的时候仅根据该单个训练样本的误差梯度更新参数，所以随机梯度下降往往比批量梯下降更快接近最小值。</p><p>注意，它可能不会收敛到最小值，$\theta$会在$J(\theta)$的最小值附近震荡</p><h3 id=正规方程>正规方程</h3><p>这是第二种方法，这种方法中我们通过求导让导数等于0的方式找到取得最小值的地方，给定一个训练集，把设计矩阵</p>$$X$$<p>设置为一个</p>$$x*n$$<p>的矩阵(实际上是</p>$$m * (n + 1)$$<p>，如果包含截距项)，该矩阵的每行是个训练样本</p>$$
+$$<p>​ }</p><p>}</p><p>这个算法叫做<strong>随机梯度下降法(SGD)</strong></p><p>在批量梯度下降算法中，我们要扫描整个训练集，才会更新一次，当数据集的量非常庞大的时候，会有很大计算量，而随机梯度下降算法在遇到训练样本的时候仅根据该单个训练样本的误差梯度更新参数，所以随机梯度下降往往比批量梯下降更快接近最小值。</p><p>注意，它可能不会收敛到最小值，$\theta$会在$J(\theta)$的最小值附近震荡</p><h3 id=正规方程>正规方程</h3><p>这是第二种方法，这种方法中我们通过求导让导数等于0的方式找到取得最小值的地方，给定一个训练集，把设计矩阵$X$设置为一个$x*n$的矩阵(实际上是$m * (n + 1)$，如果包含截距项)，该矩阵的每行是个训练样本</p>$$
 X =
 \begin{bmatrix}
-(x^{(1)})^T \\
-(x^{(2)})^T \\
+-(x^{(1)})^{T}- \\
+-(x^{(2)})^T- \\
 \vdots \\
-(x^{(m)})^T
+-(x^{(m)})^T-
 \end{bmatrix}
 $$<p>另外，令 $\vec{y}$ 为包含训练集中所有目标值的 $m$ 维向量：</p>$$
 \vec{y} =
@@ -47,22 +47,26 @@ y^{(2)} \\
 \vdots \\
 y^{(m)}
 \end{bmatrix}
-$$<p>由于 $h_\theta(x^{(i)}) = (x^{(i)})^T \theta$，我们可以很容易地验证：</p><h2 id=endbmatrix>$$
+$$<p>由于 $h_\theta(x^{(i)}) = (x^{(i)})^T \theta$，我们可以很容易地验证：</p><div>$$
 X\theta - \vec{y} =
-\begin{bmatrix}
-(x^{(1)})^T\theta \
-\vdots \
+\begin{pmatrix}
+(x^{(1)})^T\theta \\\
+\vdots \\\
 (x^{(m)})^T\theta
-\end{bmatrix}</h2><h1 id=endbmatrix-1>\begin{bmatrix}
-y^{(1)} \
-\vdots \
+\end{pmatrix}
+-
+\begin{pmatrix}
+y^{(1)} \\\
+\vdots \\\
 y^{(m)}
-\end{bmatrix}</h1><p>\begin{bmatrix}
-(x^{(1)})^T\theta - y^{(1)} \
-\vdots \
+\end{pmatrix}
+=
+\begin{pmatrix}
+(x^{(1)})^T\theta - y^{(1)} \\\
+\vdots \\\
 (x^{(m)})^T\theta - y^{(m)}
-\end{bmatrix}
-$$</p></section><footer class=article-footer></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_247d997126bf848d.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第四讲 神经网络与反向传播" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第四讲 神经网络与反向传播</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_247d997126bf848d.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第三讲 正则化与优化" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第三讲 正则化与优化</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_247d997126bf848d.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第二讲 图像分类" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第二讲 图像分类</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/><div class=article-image><img src=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/pic3.ea994d84be7267c39cdac1325390798d_hu_5f7ccc2673021dd8.jpg width=250 height=150 loading=lazy alt="Featured image of post 鱼书笔记-与学习相关的技巧" data-hash="md5-6plNhL5yZ8Oc2sEyU5B5jQ=="></div><div class=article-details><h2 class=article-title>鱼书笔记-与学习相关的技巧</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/><div class=article-image><img src=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/pic3.ea994d84be7267c39cdac1325390798d_hu_5f7ccc2673021dd8.jpg width=250 height=150 loading=lazy alt="Featured image of post 鱼书笔记-误差反向传播法" data-hash="md5-6plNhL5yZ8Oc2sEyU5B5jQ=="></div><div class=article-details><h2 class=article-title>鱼书笔记-误差反向传播法</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+\end{pmatrix}
+$$</div></section><footer class=article-footer></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_247d997126bf848d.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第四讲 神经网络与反向传播" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第四讲 神经网络与反向传播</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_247d997126bf848d.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第三讲 正则化与优化" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第三讲 正则化与优化</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_247d997126bf848d.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第二讲 图像分类" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第二讲 图像分类</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/><div class=article-image><img src=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E5%B7%A7/pic3.ea994d84be7267c39cdac1325390798d_hu_5f7ccc2673021dd8.jpg width=250 height=150 loading=lazy alt="Featured image of post 鱼书笔记-与学习相关的技巧" data-hash="md5-6plNhL5yZ8Oc2sEyU5B5jQ=="></div><div class=article-details><h2 class=article-title>鱼书笔记-与学习相关的技巧</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/><div class=article-image><img src=https://lunatide.tech/p/%E9%B1%BC%E4%B9%A6%E7%AC%94%E8%AE%B0-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%B3%95/pic3.ea994d84be7267c39cdac1325390798d_hu_5f7ccc2673021dd8.jpg width=250 height=150 loading=lazy alt="Featured image of post 鱼书笔记-误差反向传播法" data-hash="md5-6plNhL5yZ8Oc2sEyU5B5jQ=="></div><div class=article-details><h2 class=article-title>鱼书笔记-误差反向传播法</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
 2020 -
 2025 LunaTide's Blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.31.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 <button class="pswp__button pswp__button--share" title=Share></button>
