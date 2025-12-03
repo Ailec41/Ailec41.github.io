@@ -37,13 +37,13 @@ $$&lt;p&gt;
 &lt;p&gt;要实现这个算法，我们要知道右边的导数项是什么，让我们来计算一下
 &lt;/p&gt;
 $$
-\begin{align}
+\begin{align*}
 \frac{\partial}{\partial \theta_j} J(\theta)
 &amp;= \frac{\partial}{\partial \theta_j} \frac{1}{2}(h_\theta(x) - y)^2 \\[6pt]
 &amp;= (h_\theta(x) - y)\, \frac{\partial}{\partial \theta_j}(h_\theta(x) - y) \\[6pt]
 &amp;= (h_\theta(x) - y)\, \frac{\partial}{\partial \theta_j}\left(\sum_{i=0}^n \theta_i x_i - y\right) \\[6pt]
 &amp;= (h_\theta(x) - y)\, x_j
-\end{align}
+\end{align*}
 $$&lt;p&gt;对单个训练样本，更新规则如下：&lt;/p&gt;
 $$
 \theta_j := \theta_j + \alpha \left( y^{(i)} - h_\theta(x^{(i)}) \right) x_j^{(i)}
