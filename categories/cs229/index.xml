@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS229 on LunaTide's Blog</title><link>https://lunatide.tech/categories/cs229/</link><description>Recent content in CS229 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 03 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/cs229/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 2</title><link>https://lunatide.tech/p/cs229-lecture-2/</link><pubDate>Wed, 03 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-2/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-2/pic1.jpg" alt="Featured image of post CS229 Lecture 2" /&gt;&lt;h2 id="线性回归"&gt;线性回归
+&lt;/h2&gt;&lt;p&gt;有如下数据集&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-2/p1.jpg"
+width="826"
+height="326"
+srcset="https://lunatide.tech/p/cs229-lecture-2/p1_hu_c7b67f9fe4bd0b0.jpg 480w, https://lunatide.tech/p/cs229-lecture-2/p1_hu_524e827b9e89a604.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="253"
+data-flex-basis="608px"
+&gt;&lt;/p&gt;
+&lt;p&gt;在上图中，输入特征$x$是$\mathbb{R}^2$范围取值的一个二维向量，$x_1^{(i)}$就是训练集中第$i$个房屋的面积，而$x_2^{(i)}$就是训练集中第$i$个房屋的我是数量，这只是举个例子，设计算法的时候你可以自己设计特征量&lt;/p&gt;
+&lt;p&gt;然后我们可以把$y$假设为一个以$x$为变量的线性函数
+&lt;/p&gt;
+$$
+h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2
+$$&lt;p&gt;
+这里的$\theta_i$是参数，也叫权重，是从$X$到$Y$的线性函数映射的空间参数，在不引起混淆的情况下可以把$h_\theta(x)$中的$\theta$省略，另外，为了简化我们设$x_0=1$，简化后就有
+&lt;/p&gt;
+$$
+h(x)=\sum_{i=0}^{n} \theta x_i=\theta^T x
+$$&lt;p&gt;
+等式最右边的$\theta$和$x$都是向量，$x$是输入变量的个数（就是特征量个数）&lt;/p&gt;
+&lt;p&gt;现在，给定了一个&lt;strong&gt;训练集&lt;/strong&gt;，我们该如何挑选参数$\theta$，一个看上去比较合理的方法是让$h(x)$尽量逼近$y$,若是要用公式的形式来表示，就要定义一个函数，由此来衡量对于每个不同的$\theta$值，$h(x^{(i)})$与对应的$y^{(i)}$的距离，用如下的方式定义了一个&lt;strong&gt;成本函数&lt;/strong&gt;
+&lt;/p&gt;
+$$
+J(\theta)=\frac{1}{2}\sum_{i=1}^{n}{(h_\theta(x^{(i)})-y^{(i)})^2}
+$$&lt;p&gt;
+你会发现这个函数和常规最小二乘法拟合模型中的最小二乘法成本函数非常相似&lt;/p&gt;
+&lt;h3 id="最小均方算法lms"&gt;最小均方算法(LMS)
+&lt;/h3&gt;&lt;p&gt;我们要让$J(\theta)$最小，我们考虑用&lt;strong&gt;梯度下降法&lt;/strong&gt;，这个方法就是从某一个$\theta$的初始值开始，然后逐渐重复更新
+&lt;/p&gt;
+$$
+\theta_j:=\theta_j-\alpha \frac{\partial}{\partial \theta_j} J{(\theta)}
+$$&lt;p&gt;
+在这个式子中，$\alpha$是&lt;strong&gt;学习率&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;要实现这个算法，我们要知道右边的导数项是什么，让我们来计算一下
+&lt;/p&gt;
+$$
+\begin{align}
+\frac{\partial}{\partial \theta_j} J(\theta)
+&amp;= \frac{\partial}{\partial \theta_j} \frac{1}{2}(h_\theta(x) - y)^2 \\[6pt]
+&amp;= (h_\theta(x) - y)\, \frac{\partial}{\partial \theta_j}(h_\theta(x) - y) \\[6pt]
+&amp;= (h_\theta(x) - y)\, \frac{\partial}{\partial \theta_j}\left(\sum_{i=0}^n \theta_i x_i - y\right) \\[6pt]
+&amp;= (h_\theta(x) - y)\, x_j
+\end{align}
+$$&lt;p&gt;对单个训练样本，更新规则如下：&lt;/p&gt;
+$$
+\theta_j := \theta_j + \alpha \left( y^{(i)} - h_\theta(x^{(i)}) \right) x_j^{(i)}
+$$&lt;p&gt;
+这个规则也称为&lt;strong&gt;LMS&lt;/strong&gt;更新规则，也称为&lt;strong&gt;Widrow-Hoff&lt;/strong&gt;学习规则&lt;/p&gt;</description></item></channel></rss>
