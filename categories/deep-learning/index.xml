@@ -94,9 +94,9 @@ y^{(2)} \\
 y^{(m)}
 \end{bmatrix}
 $$&lt;p&gt;由于 $h_\theta(x^{(i)}) = (x^{(i)})^T \theta$，我们可以很容易地验证：&lt;/p&gt;
-&lt;h1 id="xtheta---vecy"&gt;$$
-X\theta - \vec{y}
-&lt;/h1&gt;&lt;h2 id="endbmatrix"&gt;\begin{bmatrix}
+&lt;h2 id="endbmatrix"&gt;$$
+X\theta - \vec{y} =
+\begin{bmatrix}
 (x^{(1)})^T\theta \
 \vdots \
 (x^{(m)})^T\theta
