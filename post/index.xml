@@ -110,7 +110,39 @@ y^{(m)}
 (x^{(m)})^T\theta - y^{(m)}
 \end{pmatrix}
 $$
-&lt;/div&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
+&lt;/div&gt;
+对于向量 $z$，则有 $z^T z = z^2$，因此利用这个性质，可以推导出：
+$$
+\begin{align*}
+\frac{1}{2}(X\theta - \vec{y})^T (X\theta - \vec{y})
+&amp;= \frac{1}{2} \sum_{i=1}^{m} \left( h_\theta(x^{(i)}) - y^{(i)} \right)^2
+= J(\theta)
+\end{align*}
+$$&lt;p&gt;
+关于$\theta$求梯度我们就可以得到：
+&lt;/p&gt;
+$$
+\begin{align*}
+\nabla_\theta J(\theta)
+&amp;= \nabla_\theta \frac{1}{2} (X\theta - \vec{y})^T (X\theta - \vec{y}) \\[6pt]
+&amp;= \frac{1}{2} \nabla_\theta (\theta^T X^T X \theta - \theta^T X^T \vec{y} - \vec{y}^T X \theta + \vec{y}^T \vec{y}) \\[6pt]
+&amp;= \frac{1}{2} \nabla_\theta (\theta^T X^T X \theta - 2\theta^T X^T \vec{y}) \\[6pt]
+&amp;= \frac{1}{2} (2 X^T X \theta - 2 X^T \vec{y}) \\[6pt]
+&amp;= X^T X \theta - X^T \vec{y}
+\end{align*}
+$$&lt;p&gt;
+第四个等号利用了&lt;/p&gt;
+$$
+\nabla_\theta (\theta^T A \theta) = (A + A^T)\theta
+$$$$
+\nabla_\theta (\theta^T x) = x
+$$&lt;p&gt;令梯度为 0 可得 &lt;strong&gt;正规方程&lt;/strong&gt;：&lt;/p&gt;
+$$
+X^T X \theta = X^T \vec{y}
+$$&lt;p&gt;因此，通过等式以解析形式给出使$J(\theta)$最小化的 $\theta$ 的值：&lt;/p&gt;
+$$
+\theta = (X^T X)^{-1} X^T \vec{y}
+$$</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
 &lt;/h2&gt;&lt;p&gt;给定一个图片数据集 ${(x_i, y_i)}_{i=1}^N$，$x_i$ 为图片，$y_i$ 为标签，损失为
 &lt;/p&gt;
 $$

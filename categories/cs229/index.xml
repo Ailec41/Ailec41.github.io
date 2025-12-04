@@ -110,4 +110,36 @@ y^{(m)}
 (x^{(m)})^T\theta - y^{(m)}
 \end{pmatrix}
 $$
-&lt;/div&gt;</description></item></channel></rss>
+&lt;/div&gt;
+对于向量 $z$，则有 $z^T z = z^2$，因此利用这个性质，可以推导出：
+$$
+\begin{align*}
+\frac{1}{2}(X\theta - \vec{y})^T (X\theta - \vec{y})
+&amp;= \frac{1}{2} \sum_{i=1}^{m} \left( h_\theta(x^{(i)}) - y^{(i)} \right)^2
+= J(\theta)
+\end{align*}
+$$&lt;p&gt;
+关于$\theta$求梯度我们就可以得到：
+&lt;/p&gt;
+$$
+\begin{align*}
+\nabla_\theta J(\theta)
+&amp;= \nabla_\theta \frac{1}{2} (X\theta - \vec{y})^T (X\theta - \vec{y}) \\[6pt]
+&amp;= \frac{1}{2} \nabla_\theta (\theta^T X^T X \theta - \theta^T X^T \vec{y} - \vec{y}^T X \theta + \vec{y}^T \vec{y}) \\[6pt]
+&amp;= \frac{1}{2} \nabla_\theta (\theta^T X^T X \theta - 2\theta^T X^T \vec{y}) \\[6pt]
+&amp;= \frac{1}{2} (2 X^T X \theta - 2 X^T \vec{y}) \\[6pt]
+&amp;= X^T X \theta - X^T \vec{y}
+\end{align*}
+$$&lt;p&gt;
+第四个等号利用了&lt;/p&gt;
+$$
+\nabla_\theta (\theta^T A \theta) = (A + A^T)\theta
+$$$$
+\nabla_\theta (\theta^T x) = x
+$$&lt;p&gt;令梯度为 0 可得 &lt;strong&gt;正规方程&lt;/strong&gt;：&lt;/p&gt;
+$$
+X^T X \theta = X^T \vec{y}
+$$&lt;p&gt;因此，通过等式以解析形式给出使$J(\theta)$最小化的 $\theta$ 的值：&lt;/p&gt;
+$$
+\theta = (X^T X)^{-1} X^T \vec{y}
+$$</description></item></channel></rss>
