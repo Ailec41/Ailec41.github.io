@@ -1,87 +1,78 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://lunatide.tech/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sat, 06 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1gadients-and-hessians"&gt;1.Gadients and Hessians
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on LunaTide's Blog</title><link>https://lunatide.tech/post/</link><description>Recent content in Posts on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sat, 06 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
 &lt;/h2&gt;&lt;h3 id="a"&gt;a.
-&lt;/h3&gt;&lt;p&gt;由第一项，我们可以得到
-&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;由第一项，我们可以得到：&lt;/p&gt;
 $$
-f_1(x)=\frac{1}{2}x^TAx+b^Tx
-$$&lt;p&gt;
-因为$\nabla_x(x^TAx)=(A+A^T)x$，因此我们可以得到
-&lt;/p&gt;
+f_1(x) = \frac{1}{2} x^T A x + b^T x
+$$&lt;p&gt;因为：&lt;/p&gt;
 $$
-\nabla_x(\frac{1}{2}x^TAx)=\frac{1}{2}(A+A^T)x
-$$&lt;p&gt;因为A是对称的，$A^T=A$，所以
-&lt;/p&gt;
+\nabla_x(x^T A x) = (A + A^T)x
+$$&lt;p&gt;因此：&lt;/p&gt;
 $$
-\frac{1}{2}(A + A^T)x=\frac{1}{2}(A+A)x=Ax
-$$&lt;p&gt;由第二项，我们可以得到
-&lt;/p&gt;
+\nabla_x\left( \frac{1}{2} x^T A x \right)
+= \frac{1}{2}(A + A^T)x
+$$&lt;p&gt;因为 \(A\) 是对称矩阵（\(A^T = A\)），所以：&lt;/p&gt;
 $$
-f_2(x)=b^Tx=\sum_{i}b_ix_i
-$$&lt;p&gt;
-直接对x求偏导：
-&lt;/p&gt;
+\frac{1}{2}(A + A)x = Ax
+$$&lt;p&gt;第二项：&lt;/p&gt;
 $$
-\nabla_x(b^Tx)=b
-$$&lt;p&gt;
-所以**$\nabla f(x)=Ax+b$**&lt;/p&gt;
-&lt;h3 id="b"&gt;b.
-&lt;/h3&gt;&lt;h1 id="nabla-fx"&gt;令$z=h(x)$，则$f(X)=g(z)$
+f_2(x) = b^T x = \sum_i b_i x_i
+$$&lt;p&gt;梯度为：&lt;/p&gt;
+$$
+\nabla_x(b^T x) = b
+$$&lt;p&gt;因此：&lt;/p&gt;
+$$
+\nabla f(x) = Ax + b
+$$&lt;h3 id="b"&gt;b.
+&lt;/h3&gt;&lt;p&gt;令 \(z = h(x)\)，则：&lt;/p&gt;
+$$
+f(x) = g(z) = g(h(x))
+$$&lt;p&gt;对每个分量有：&lt;/p&gt;
 $$
 \frac{\partial f}{\partial x_i}
-= g'(h(x)) \cdot \frac{\partial h(x)}{\partial x_i}
-$$
-所以
+= g'(h(x)) \frac{\partial h(x)}{\partial x_i}
+$$&lt;p&gt;因此：&lt;/p&gt;
+&lt;div&gt;
 $$
 \nabla f(x)
-&lt;/h1&gt;&lt;h1 id="endpmatrix"&gt;\begin{pmatrix}
-\frac{\partial f}{\partial x_1} \
-\frac{\partial f}{\partial x_2} \
-\vdots \
-\frac{\partial f}{\partial x_n}
-\end{pmatrix}
-&lt;/h1&gt;&lt;h1 id="endpmatrix-1"&gt;\begin{pmatrix}
-g&amp;rsquo;(h(x)) \frac{\partial h}{\partial x_1} \
-g&amp;rsquo;(h(x)) \frac{\partial h}{\partial x_2} \
-\vdots \
-g&amp;rsquo;(h(x)) \frac{\partial h}{\partial x_n}
-\end{pmatrix}=
-g&amp;rsquo;(h(x))
+=
 \begin{pmatrix}
-\frac{\partial h}{\partial x_1} \
-\vdots \
-\frac{\partial h}{\partial x_n}
+g'(h(x)) \frac{\partial h}{\partial x_1} \\
+g'(h(x)) \frac{\partial h}{\partial x_2} \\
+\vdots \\
+g'(h(x)) \frac{\partial h}{\partial x_n}
 \end{pmatrix}
-&lt;/h1&gt;&lt;p&gt;g&amp;rsquo;(h(x)) \nabla h(x)
-$$&lt;/p&gt;
+=
+g'(h(x)) \nabla h(x)
+$$
+&lt;/div&gt;
 &lt;h3 id="c"&gt;c.
-&lt;/h3&gt;&lt;p&gt;由a得
-&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;由 a 得：&lt;/p&gt;
 $$
-(\nabla f(x))_i = \sum_{j=1}^{n} a_{ij} x_j + b_i
-$$&lt;h1 id="nabla2-fx_ij"&gt;$$
+(\nabla f(x))_i
+= \sum_{j=1}^n a_{ij} x_j + b_i
+$$&lt;p&gt;Hessian 的第 \(i, j\) 项为：&lt;/p&gt;
+&lt;div&gt;
+$$
 (\nabla^2 f(x))_{ij}
-&lt;/h1&gt;&lt;h1 id="fracpartialpartial-x_j-left-fracpartial-fpartial-x_i-right"&gt;\frac{\partial}{\partial x_j} \left( \frac{\partial f}{\partial x_i} \right)
-&lt;/h1&gt;&lt;p&gt;\frac{\partial}{\partial x_j}
+=
+\frac{\partial}{\partial x_j}
 \left(
-\sum_{k=1}^{n} a_{ik} x_k + b_i
+\sum_{k=1}^n a_{ik} x_k + b_i
 \right)
-$$&lt;/p&gt;
-&lt;p&gt;由
-&lt;/p&gt;
 $$
-\frac{\partial}{\partial x_j} (a_{ik} x_k)
-= a_{ik} \frac{\partial x_k}{\partial x_j}
-= a_{ik} \delta_{kj}
-$$&lt;p&gt;
-所以
-&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;利用：&lt;/p&gt;
 $$
-(\nabla^2f(x))_{ij}=\sum_{k=1}^{n}a_{ik}\delta_{kj}=a_{ij}
-$$&lt;p&gt;
-因此
-&lt;/p&gt;
+\frac{\partial}{\partial x_j}(a_{ik} x_k)
+= a_{ik}\delta_{kj}
+$$&lt;p&gt;所以：&lt;/p&gt;
 $$
-\nabla^2f(x)=A
+(\nabla^2 f(x))_{ij}
+= \sum_{k=1}^n a_{ik}\delta_{kj}
+= a_{ij}
+$$&lt;p&gt;因此：&lt;/p&gt;
+$$
+\nabla^2 f(x) = A
 $$</description></item><item><title>CS229 Lecture 2</title><link>https://lunatide.tech/p/cs229-lecture-2/</link><pubDate>Wed, 03 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-2/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-2/pic1.jpg" alt="Featured image of post CS229 Lecture 2" /&gt;&lt;h2 id="线性回归"&gt;线性回归
 &lt;/h2&gt;&lt;p&gt;有如下数据集&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-2/p1.jpg"
