@@ -26,7 +26,25 @@ $$
 L(\theta) &amp;= \prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}; \theta) \\
 &amp;= \prod_{i=1}^{m} \left[ \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{(y^{(i)} - \theta^T x^{(i)})^2}{2\sigma^2} \right) \right]
 \end{aligned}
-$$</description></item><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
+$$&lt;p&gt;
+现在，给定了 $y^{(i)}$ 和 $x^{(i)}$ 之间关系的概率模型了，用什么方法来选择咱们对参数 $\theta$ 的最佳猜测呢，最大似然法告诉我们要选择能让数据的似然函数尽可能大的 $\theta$ 。也就是说，咱们要找的 $\theta$ 能够让函数 $L(\theta)$ 取到最大值&lt;/p&gt;
+&lt;p&gt;为了运算方便，实际中我们选择最大化对数似然函数$l(\theta)$:
+&lt;/p&gt;
+$$
+\begin{aligned}
+\ell(\theta) &amp;= \log L(\theta) \\
+&amp;= \log \prod_{i=1}^{m} \left[ \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{(y^{(i)} - \theta^T x^{(i)})^2}{2\sigma^2} \right) \right] \\
+&amp;= \sum_{i=1}^{m} \log \left[ \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{(y^{(i)} - \theta^T x^{(i)})^2}{2\sigma^2} \right) \right] \\
+&amp;= m \log \frac{1}{\sqrt{2\pi}\sigma}
+\;-\; \frac{1}{2\sigma^2} \sum_{i=1}^{m} (y^{(i)} - \theta^T x^{(i)})^2
+\end{aligned}
+$$&lt;p&gt;
+因此，对$l(\theta)$的最大值也就意味着下面这个子式取到最小值
+&lt;/p&gt;
+$$
+\frac{1}{2} \sum_{i=1}^{m} (y^{(i)} - \theta^T x^{(i)})^2
+$$&lt;p&gt;
+上式即为$J(\theta)$，我们最初的最小二乘成本函数&lt;/p&gt;</description></item><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
 &lt;/h2&gt;&lt;h3 id="a"&gt;a.
 &lt;/h3&gt;&lt;p&gt;由第一项，我们可以得到：&lt;/p&gt;
 $$
