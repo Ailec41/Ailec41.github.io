@@ -1,4 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sat, 06 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 10 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
+&lt;/h2&gt;&lt;p&gt;在面对回归问题的时候，我们会思考，为什么选择线性回归，为什么选择最小二乘法成本函数 &lt;strong&gt;J&lt;/strong&gt; ？在本节里会给出一系列的概率基本假设，基于这些假设，可以推出最小二乘法是一种非常自然的算法&lt;/p&gt;
+&lt;p&gt;首先假设目标变量和输入值存在下面这种等量关系
+&lt;/p&gt;
+$$
+y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}
+$$&lt;p&gt;
+上式中的 $\epsilon^{(i)}$ 是误差项，用于存放由于建模所忽略的变量导致的效果或者随机的噪音信息。进一步假设$\epsilon^{(i)}$是独立同分布的（IID），服从高斯分布，其平均值为0，方差为$\sigma^2$，这样就可以把这个假设写成&amp;quot;$\epsilon^{(i)} \sim N(0,\sigma^2)$&amp;quot;，然后$\epsilon^{(i)}$的密度函数就是：
+&lt;/p&gt;
+$$
+p(\epsilon^{(i)}) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{(\epsilon^{(i)})^2}{2\sigma^2} \right)
+$$&lt;p&gt;这意味着存在下面的等量关系：&lt;/p&gt;
+$$
+p(y^{(i)} \mid x^{(i)}; \theta) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{(y^{(i)} - \theta^T x^{(i)})^2}{2\sigma^2} \right)
+$$&lt;p&gt;
+这里的记号 &amp;ldquo;$p(y^{(i)} \mid x^{(i)}; \theta)$&amp;ldquo;表示的是这是一个对于给定$x^{(i)}$的$y^{(i)}$的分布，用$\theta$进行了参数化，这里不能用&amp;rdquo;$p(y^{(i)} \mid x^{(i)}, \theta)$&amp;ldquo;来当作条件，因为$\theta$并不是一个随机变量，也可以将$y^{(i)}$的分布写成$y^{(i)} \mid x^{(i)};\theta \sim N(\theta^Tx^{(i)},\sigma^2)$&lt;/p&gt;
+&lt;p&gt;给定一个 $X$ 为设计矩阵，包含了全部$x^{(i)}$，然后再给定$\theta$，那么$y^{(i)}$的分布是什么？数据的概率由$p(\vec{y} \mid X;\theta)$的形式给出。在$\theta$取某个固定值的情况下，这个等式通常可以看作一个$\vec{y}$的函数。当我们把它当作 $\theta$ 的函数时，就称它为似然函数
+&lt;/p&gt;
+$$
+L(\theta)=L(\theta;X,\vec{y})= p(\vec{y} \mid X;\theta)
+$$&lt;p&gt;
+结合之前对 $\epsilon^{(i)}$ 的独立性假设(这里对$y^{(i)}$ 以及给定的$x^{(i)}$也都做同样假设)，就可以把上面这个等式改写成下面的形式
+&lt;/p&gt;
+$$
+\begin{aligned}
+L(\theta) &amp;= \prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}; \theta) \\
+&amp;= \prod_{i=1}^{m} \left[ \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{(y^{(i)} - \theta^T x^{(i)})^2}{2\sigma^2} \right) \right]
+\end{aligned}
+$$</description></item><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
 &lt;/h2&gt;&lt;h3 id="a"&gt;a.
 &lt;/h3&gt;&lt;p&gt;由第一项，我们可以得到：&lt;/p&gt;
 $$
