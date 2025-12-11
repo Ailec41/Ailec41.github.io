@@ -75,6 +75,63 @@ data-flex-basis="833px"
 &lt;/p&gt;
 $$
 w^{(i)}=\exp(- \frac{(x^{(i)}-x)^2}{2\tau^2} )
+$$&lt;p&gt;
+参数$\tau$控制训练样本的权重随着其$x^{(i)}$距查询点$x$的距离而下降的速度，$\tau$称为&lt;strong&gt;带宽参数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;局部加权线性回归是我们看到的&lt;strong&gt;非参数&lt;/strong&gt;算法的第一个例子。我们之前看到的(未加权)线性回归算法被称为&lt;strong&gt;参数&lt;/strong&gt;算法，因为其具有固定的，有限数量的参数($\theta$)，这些参数由数据拟合。一旦我们拟合了$\theta_i$并将它们存储起来，我们就不再需要保留训练数据来做出对未来的预测，相反，如果用局部加权线性回归算法，我们就必须一直保留着整个训练集，这里的&amp;quot;非参数&amp;quot;粗略的指为了呈现出假设h遂着数据集的规模大增长而线性增长，我们需要用一定顺序保存一些数据的规模&lt;/p&gt;
+&lt;h2 id="分类与逻辑回归"&gt;分类与逻辑回归
+&lt;/h2&gt;&lt;p&gt;分类问题其实和回归问题很像，只不过我们现在要来预测的$y$的值只局限于少数的若干个离散值。首先关注的是二值化分类问题，也就是说咋们要判断的 $y$ 只有两个取值，0或者1（这里说到的大多数内容也将推广到多类情况）。例如，如果我们正在尝试为电子邮件构建垃圾邮件分类器，则 $x^{(i)}$ 可能是电子邮件的某些特征，如果是垃圾邮件，则$y$为1，否则为0。0也称为&lt;strong&gt;负类&lt;/strong&gt;，1表示&lt;strong&gt;正类&lt;/strong&gt;，它们有时也用符号&amp;rdquo;-&amp;ldquo;和&amp;rdquo;+&amp;ldquo;表示，给定$x^{(i)}$，相应的$y^{(i)}$也称为训练样本的&lt;strong&gt;标签&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id="logistic回归"&gt;Logistic回归
+&lt;/h3&gt;&lt;p&gt;我们可以忽略$y$是离散值的事实来处理分类问题，并使用我们的旧线性回归算法来尝试预测给定的$x$的$y$。但是，很容易构造此方法的效果非常差的例子。直觉上，当我们知道$y \in {0,1}$，所以$h_0(x)$的值如果大于1或者小于0就没有意义了，就是说$y$的值必然应当是0和1这两个值中的一个&lt;/p&gt;
+&lt;p&gt;所以咱们就改变一下假设函数$h_0(x)$的形式，来解决这个问题。比如咱们可以选择下面这个函数：
+&lt;/p&gt;
+$$
+h_0(x)=g(\theta^Tx)= \frac{1}{1+e^{-\theta^Tx}}
+$$&lt;p&gt;
+其中有:
+&lt;/p&gt;
+$$
+g(z) = \frac{1}{1+e^{-z}}
+$$&lt;p&gt;
+这个函数就是我们所熟悉的sigmoid函数，也叫做logistic函数，下面是它的图像&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-3/p2.jpg"
+width="976"
+height="694"
+srcset="https://lunatide.tech/p/cs229-lecture-3/p2_hu_2367dfbb24b80f4.jpg 480w, https://lunatide.tech/p/cs229-lecture-3/p2_hu_97bac66fadd7ff1f.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="140"
+data-flex-basis="337px"
+&gt;&lt;/p&gt;
+&lt;p&gt;注意到，当 $z \to \infty$ 时 $g(z)$ 趋近于 1，而当 $z \to -\infty$ 时 $g(z)$ 趋近于 0。 此外，$g(z)$ 和 $h(x)$ 的值总是在 0 和 1 之间波动。 我们保持 $x_0 = 1$ 的约定，所以$\theta^T x = \theta_0 + \sum_{j=1}^{n} \theta_j x_j$&lt;/p&gt;
+&lt;p&gt;现在咱们就把 g 作为选定的函数了。当然其他的从0到1之间光滑递增的函数也可以使用，不过后面我们会了解到选择g的一些原因，对这个逻辑函数的选择是很自然的。在继续深入之前，在继续深入之前，下面通过导数讲解下这个函数的一些性质
+&lt;/p&gt;
+$$
+\begin{aligned}
+g'(z) &amp;= \frac{d}{dz} \frac{1}{1 + e^{-z}} \\
+&amp;= \frac{1}{(1 + e^{-z})^{2}} \, (e^{-z}) \\
+&amp;= \frac{1}{(1 + e^{-z})} \left( 1 - \frac{1}{1 + e^{-z}} \right) \\
+&amp;= g(z)(1 - g(z)).
+\end{aligned}
+$$&lt;p&gt;
+给定了逻辑回归模型了，咱们怎么去拟合一个合适的 $\theta$ 呢？我们之前已经看到了在一系列前提下，最小二乘法回归可以通过最大似然估计来推出，那么接下来就给我们这个分类模型做一系列的统计学假设，然后用最大似然法拟合参数&lt;/p&gt;
+&lt;p&gt;首先假设：
+&lt;/p&gt;
+$$
+P(y = 1 \mid x;\theta) = h_\theta(x)
+$$$$
+P(y = 0 \mid x;\theta) = 1 - h_\theta(x)
+$$&lt;p&gt;更简洁的写法是：&lt;/p&gt;
+$$
+p(y \mid x;\theta) = (h_\theta(x))^{y}\,(1 - h_\theta(x))^{1 - y}
+$$&lt;p&gt;
+假设m个训练样本都是各自独立生成的，那么就可以按如下的方式来写参数的似然函数：
+&lt;/p&gt;
+$$
+\begin{aligned}
+L(\theta) &amp;= p(\vec{y} \mid X; \theta) \\
+&amp;= \prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}; \theta) \\
+&amp;= \prod_{i=1}^{m} \left( h_\theta(x^{(i)})^{\,y^{(i)}} \, (1 - h_\theta(x^{(i)}))^{\,1 - y^{(i)}} \right)
+\end{aligned}
 $$</description></item><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
 &lt;/h2&gt;&lt;h3 id="a"&gt;a.
 &lt;/h3&gt;&lt;p&gt;由第一项，我们可以得到：&lt;/p&gt;
