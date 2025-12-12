@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 10 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Fri, 12 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
 &lt;/h2&gt;&lt;p&gt;在面对回归问题的时候，我们会思考，为什么选择线性回归，为什么选择最小二乘法成本函数 &lt;strong&gt;J&lt;/strong&gt; ？在本节里会给出一系列的概率基本假设，基于这些假设，可以推出最小二乘法是一种非常自然的算法&lt;/p&gt;
 &lt;p&gt;首先假设目标变量和输入值存在下面这种等量关系
 &lt;/p&gt;
@@ -132,7 +132,50 @@ L(\theta) &amp;= p(\vec{y} \mid X; \theta) \\
 &amp;= \prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}; \theta) \\
 &amp;= \prod_{i=1}^{m} \left( h_\theta(x^{(i)})^{\,y^{(i)}} \, (1 - h_\theta(x^{(i)}))^{\,1 - y^{(i)}} \right)
 \end{aligned}
-$$</description></item><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
+$$&lt;p&gt;
+然后和之前一样，取个对数就很容易计算最大值
+&lt;/p&gt;
+$$
+\begin{aligned}
+\ell(\theta) &amp;= \log L(\theta) \\
+&amp;= \sum_{i=1}^{m}\Big( y^{(i)} \log h(x^{(i)}) + \big(1 - y^{(i)}\big)\log\big(1 - h(x^{(i)})\big) \Big)
+\end{aligned}
+$$&lt;p&gt;
+怎么让似然函数最大？就跟之前在线性回归的时候用了求导数的方法类似，咱们这次就是用&lt;strong&gt;梯度上升法&lt;/strong&gt;。还是写成向量的形式，然后更新，就是$\theta := \theta + \alpha \nabla_{\theta}\ell(\theta)$。（因为找最大值，所以是加号），还是先从只有一组训练样本(x,y)开始，然后求导数来退出随机梯度上升规则：
+&lt;/p&gt;
+$$
+\begin{aligned}
+\frac{\partial}{\partial \theta_j}\ell(\theta)
+&amp;= \left( y \frac{1}{g(\theta^T x)} - (1-y)\frac{1}{1-g(\theta^T x)} \right)
+\frac{\partial}{\partial \theta_j} g(\theta^T x) \\
+&amp;= \left( y \frac{1}{g(\theta^T x)} - (1-y)\frac{1}{1-g(\theta^T x)} \right)
+g(\theta^T x)\bigl(1-g(\theta^T x)\bigr)\,
+\frac{\partial}{\partial \theta_j}\theta^T x \\
+&amp;= \Bigl( y\bigl(1-g(\theta^T x)\bigr) - (1-y)g(\theta^T x) \Bigr)\,x_j \\
+&amp;= \bigl( y - h_\theta(x) \bigr)\,x_j
+\end{aligned}
+$$&lt;p&gt;上面的式子里，我们用到了对函数求导的定理$g&amp;rsquo;(z)=g(z)(1-g(z))$。然后就用到了随机梯度上升规则：
+&lt;/p&gt;
+$$
+\theta_j := \theta_j + \alpha\bigl(y^{(i)}-h_\theta(x^{(i)})\bigr)x_j^{(i)}
+$$&lt;p&gt;
+如果我们将其和 &lt;strong&gt;LMS&lt;/strong&gt; 更新规则相对比，就能发现看上去挺相似的；&lt;strong&gt;不过这并不是同一个算法&lt;/strong&gt;，因为这里的$h_0(x^{(i)})$现在定义成了一个$\theta^Tx^{(i)}$的非线性函数尽管如此，我们面对不同的学习问题使用了不同的算法，却得到了看上去一样的更新规则，这是巧合吗，我们学到GLM广义线性模型的时候就会得到答案了。&lt;/p&gt;
+&lt;h2 id="题外话感知器学习算法"&gt;题外话：感知器学习算法
+&lt;/h2&gt;&lt;p&gt;现在简单聊一个算法，它的历史很有趣，并且之后讲学习理论的时候还要讲到它。设想一下，对逻辑回归方法修改一下，“强迫” 它输出的值要么是0要么是1。要实现这个目的，很自然就应该把函数 $g$ 的定义修改一下，改成一个阙值函数
+&lt;/p&gt;
+$$
+g(z)=
+\begin{cases}
+1, &amp; z \ge 0 \\
+0, &amp; z &lt; 0
+\end{cases}
+$$&lt;p&gt;
+若是我们还像之前一样令 $h_\theta(x)=g(\theta^Tx)$，但用刚刚上面的阙值函数作为 $g$ 的定义，然后如果我们用了下面的更新规则：
+&lt;/p&gt;
+$$
+\theta_j := \theta_j + \alpha(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}
+$$&lt;p&gt;
+这样我们就得到了感知器学习算法&lt;/p&gt;</description></item><item><title>CS229作业0</title><link>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</link><pubDate>Sat, 06 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/</guid><description>&lt;img src="https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.jpg" alt="Featured image of post CS229作业0" /&gt;&lt;h2 id="1-gradients-and-hessians"&gt;1. Gradients and Hessians
 &lt;/h2&gt;&lt;h3 id="a"&gt;a.
 &lt;/h3&gt;&lt;p&gt;由第一项，我们可以得到：&lt;/p&gt;
 $$
@@ -351,7 +394,7 @@ X^T X \theta = X^T \vec{y}
 $$&lt;p&gt;因此，通过等式以解析形式给出使$J(\theta)$最小化的 $\theta$ 的值：&lt;/p&gt;
 $$
 \theta = (X^T X)^{-1} X^T \vec{y}
-$$</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
+$$</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
 &lt;/h2&gt;&lt;p&gt;给定一个图片数据集 ${(x_i, y_i)}_{i=1}^N$，$x_i$ 为图片，$y_i$ 为标签，损失为
 &lt;/p&gt;
 $$
