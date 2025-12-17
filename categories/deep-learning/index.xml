@@ -20,7 +20,7 @@ class="gallery-image"
 data-flex-grow="197"
 data-flex-basis="474px"
 &gt;&lt;/p&gt;
-&lt;p&gt;对于每个节点，假设我们已知输出的梯度$\frac{\partial L}{\partial z}$，现在我们要计算输入的梯度$\frac{\partial L}{\partial x}$,$\frac{\part L}{\part y}$，计算的思路很简单，利用链式法则，首先计算“局部梯度”$\frac{\partial z}{\partial x}$,$\frac{\part z}{\part y}$，然后利用链式法则可得
+&lt;p&gt;对于每个节点，假设我们已知输出的梯度$\frac{\partial L}{\partial z}$，现在我们要计算输入的梯度$\frac{\partial L}{\partial x}$,$\frac{\partial L}{\partial y}$，计算的思路很简单，利用链式法则，首先计算“局部梯度”$\frac{\partial z}{\partial x}$,$\frac{\partial z}{\partial y}$，然后利用链式法则可得
 &lt;/p&gt;
 $$
 \frac{\partial L}{\partial x}
@@ -37,7 +37,7 @@ class="gallery-image"
 data-flex-grow="191"
 data-flex-basis="460px"
 &gt;&lt;/p&gt;
-&lt;p&gt;如果节点有多个输出$z_j$，那么输入的梯度$\frac{\partial L}{\partial x}$,$\frac{\part L}{\part y}$需要累加，具体公式为
+&lt;p&gt;如果节点有多个输出$z_j$，那么输入的梯度$\frac{\partial L}{\partial x}$,$\frac{\partial L}{\partial y}$需要累加，具体公式为
 &lt;/p&gt;
 $$
 \frac{\partial L}{\partial x}
