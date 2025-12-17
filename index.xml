@@ -9,7 +9,44 @@ class="gallery-image"
 data-flex-grow="201"
 data-flex-basis="483px"
 &gt;&lt;/p&gt;
-&lt;p&gt;第一个节点计算得分s，第二个节点计算折页损失，最后一个节点计算总损失（加上正则项）&lt;/p&gt;</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
+&lt;p&gt;第一个节点计算得分s，第二个节点计算折页损失，最后一个节点计算总损失（加上正则项）&lt;/p&gt;
+&lt;p&gt;计算图的计算步骤分为前向传播以及反向传播，刚刚描述的步骤为前向传播，现在我们结合下图理解反向传播计算梯度的思路&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2.jpg"
+width="1700"
+height="860"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_1d25bcca880c3c21.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_eddd74119ee3cbf7.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="474px"
+&gt;&lt;/p&gt;
+&lt;p&gt;对于每个节点，假设我们已知输出的梯度$\frac{\partial L}{\partial z}$，现在我们要计算输入的梯度$\frac{\part L}{\part x}$,$\frac{\part L}{\part y}$，计算的思路很简单，利用链式法则，首先计算“局部梯度”$\frac{\part z}{\part x}$,$\frac{\part z}{\part y}$，然后利用链式法则可得
+&lt;/p&gt;
+$$
+\frac{\partial L}{\partial x}
+=\frac{\partial L}{\partial z}\,\frac{\partial z}{\partial x}\,\frac{\partial L}{\partial y}
+=\frac{\partial L}{\partial z}\,\frac{\partial z}{\partial y}
+$$&lt;p&gt;
+计算过程如下图所示&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3.jpg"
+width="1776"
+height="926"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_fd31f94cbd49af2.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_30444577fa36dc1e.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="191"
+data-flex-basis="460px"
+&gt;&lt;/p&gt;
+&lt;p&gt;如果节点有多个输出$z_j$，那么输入的梯度$\frac{\part L}{\part x}$,$\frac{\part L}{\part y}$需要累加，具体公式为
+&lt;/p&gt;
+$$
+\frac{\partial L}{\partial x}
+= \sum_{j} \frac{\partial L}{\partial z_{j}} \,\frac{\partial z_{j}}{\partial x},
+\qquad
+\frac{\partial L}{\partial y}
+= \sum_{j} \frac{\partial L}{\partial z_{j}} \,\frac{\partial z_{j}}{\partial y}
+$$&lt;p&gt;
+计算过程如下图所示&lt;/p&gt;</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
 &lt;/h2&gt;&lt;p&gt;在面对回归问题的时候，我们会思考，为什么选择线性回归，为什么选择最小二乘法成本函数 &lt;strong&gt;J&lt;/strong&gt; ？在本节里会给出一系列的概率基本假设，基于这些假设，可以推出最小二乘法是一种非常自然的算法&lt;/p&gt;
 &lt;p&gt;首先假设目标变量和输入值存在下面这种等量关系
 &lt;/p&gt;
