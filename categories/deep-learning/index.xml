@@ -100,7 +100,30 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="204"
 data-flex-basis="491px"
-&gt;&lt;/p&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;&lt;h2 id="反向传播"&gt;反向传播
+&gt;&lt;/p&gt;
+&lt;h3 id="池化层"&gt;池化层
+&lt;/h3&gt;&lt;p&gt;池化层基本上是神经网络内部下采样的另一种方法，因此，我们看到，步幅卷积是我们可以在神经网络内部进行下采样的一种方法，下蔡样可以让我们在深入网络时更快地建立感受场，池化层是一种廉价的下采样方法，不需要花费太多的计算。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p10.jpg"
+width="1836"
+height="836"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p10_hu_64bf9648fa2bb8e4.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p10_hu_df4dffc9c8996704.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="219"
+data-flex-basis="527px"
+&gt;&lt;/p&gt;
+&lt;p&gt;我们采用了几种不同的下采样机制，最常用的实际上是最大值，被称为最大池化，因此，在最大池化中，我们要做的是取单个深度切片，将其划分为不重叠的区域&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p11.jpg"
+width="1818"
+height="922"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p11_hu_d5481af0e5f64666.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p11_hu_2e5489d313549c7f.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;
+&lt;p&gt;所以池化的目的是降低数据维度，图片展示的是最大值池化，实际中还有平均值池化&lt;/p&gt;
+&lt;p&gt;池化层也有对应的步长，填充参数，计算维度的方式和之前相同&lt;/p&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;&lt;h2 id="反向传播"&gt;反向传播
 &lt;/h2&gt;&lt;p&gt;反向传播是计算梯度的一种方法，这种方法需要利用计算图，计算图的每个节点表示我们执行的每一步计算，例如上一讲讲的损失函数的计算图如下&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1.jpg"
 width="1656"
