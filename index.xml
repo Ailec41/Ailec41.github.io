@@ -171,13 +171,7 @@ $$
 \frac{\partial L}{\partial y}
 = \sum_{j} \frac{\partial L}{\partial z_{j}} \,\frac{\partial z_{j}}{\partial y}
 $$&lt;p&gt;
-计算过程如下图所示&lt;/p&gt;
-&lt;p&gt;#include &amp;lt;bits/stdc++.h&amp;gt;&lt;/p&gt;
-&lt;p&gt;using namespace strd;lllyx060215000123lyx060215000123{&lt;/p&gt;
-&lt;p&gt;using namespazacew&lt;/p&gt;
-&lt;p&gt;int main(){&lt;/p&gt;
-&lt;p&gt;}}&lt;/p&gt;
-&lt;p&gt;}&lt;/p&gt;</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
+计算过程如下图所示&lt;/p&gt;</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
 &lt;/h2&gt;&lt;p&gt;在面对回归问题的时候，我们会思考，为什么选择线性回归，为什么选择最小二乘法成本函数 &lt;strong&gt;J&lt;/strong&gt; ？在本节里会给出一系列的概率基本假设，基于这些假设，可以推出最小二乘法是一种非常自然的算法&lt;/p&gt;
 &lt;p&gt;首先假设目标变量和输入值存在下面这种等量关系
 &lt;/p&gt;

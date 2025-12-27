@@ -171,13 +171,7 @@ $$
 \frac{\partial L}{\partial y}
 = \sum_{j} \frac{\partial L}{\partial z_{j}} \,\frac{\partial z_{j}}{\partial y}
 $$&lt;p&gt;
-计算过程如下图所示&lt;/p&gt;
-&lt;p&gt;#include &amp;lt;bits/stdc++.h&amp;gt;&lt;/p&gt;
-&lt;p&gt;using namespace strd;lllyx060215000123lyx060215000123{&lt;/p&gt;
-&lt;p&gt;using namespazacew&lt;/p&gt;
-&lt;p&gt;int main(){&lt;/p&gt;
-&lt;p&gt;}}&lt;/p&gt;
-&lt;p&gt;}&lt;/p&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
+计算过程如下图所示&lt;/p&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
 &lt;/h2&gt;&lt;p&gt;给定一个图片数据集 ${(x_i, y_i)}_{i=1}^N$，$x_i$ 为图片，$y_i$ 为标签，损失为
 &lt;/p&gt;
 $$
