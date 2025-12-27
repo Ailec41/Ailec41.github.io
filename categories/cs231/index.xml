@@ -1,9 +1,100 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS231 on LunaTide's Blog</title><link>https://lunatide.tech/categories/cs231/</link><description>Recent content in CS231 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 17 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/cs231/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Wed, 17 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;&lt;h2 id="反向传播"&gt;反向传播
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS231 on LunaTide's Blog</title><link>https://lunatide.tech/categories/cs231/</link><description>Recent content in CS231 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sat, 27 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/cs231/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;&lt;p&gt;（复习期末，最近没写，抽空补一个note）&lt;/p&gt;
+&lt;h2 id="卷积神经网络"&gt;卷积神经网络
+&lt;/h2&gt;&lt;p&gt;我们需要做的就是添加几个可以适合我们的计算图的新类型的节点，具体来说，我们只需要讨论两个运算符就可以构建更强大的网络，就是卷积层，然后是池化层，这是我们在处理图像时经常使用的另一个层&lt;/p&gt;
+&lt;p&gt;我们之前介绍的神经网络每层被称作全连接层，它是将图像的像素展平为一个大向量，进行矩阵乘法，进行ReLU，一个大问题是它破坏了图像的空间结构，比如说，图像实际上不是一维物体，是二维得到，二维结构对于这些图像的内容很重要，当你通过将原始像素拉伸称为一个大向量来构建线性分类器时，你基本上忽略了神经网络架构设计中输入数据的重要因素，所以当考虑为图像设计神经网络架构的时候，我们尤其要思考我们的网络还有哪些设计，我们可以将哪些其他计算原语插入到我们的计算图中&lt;/p&gt;
+&lt;p&gt;这就引出了卷积神经网络，所以卷积神经网络基本上是一类神经网络架构，它由线性层，非线性层，卷积层，池化层构成，有时还会将其他几个层拼接在一起形成这些神经网络架构，输入原始像素值，，然后输出图像的一些预测或者分数&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1.jpg"
+width="1884"
+height="920"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_7f484792e3d5a2bd.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_c04c426c947ddfac.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="204"
+data-flex-basis="491px"
+&gt;&lt;/p&gt;
+&lt;p&gt;它们的一般结构通常会有一些前缀，一些网络主体，即卷积层，池化层和非线性的一些交错序列，可以被认为是为图像提取一些有用的特征表示，在此基础上，它们通常会是一些全连接层，有时候只有一层，有时候不止一层，可以将其视作多重感知器完全连接的网络分类器，它位于网络卷积部分的顶部，并从中获取特征&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2.jpg"
+width="1842"
+height="780"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_6ebd7abbac36a606.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_8194f7fd1119a775.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="236"
+data-flex-basis="566px"
+&gt;&lt;/p&gt;
+&lt;p&gt;至关重要的是，通过最小化训练数据集的损失，整个系统通过梯度下降进行端到端调整&lt;/p&gt;
+&lt;p&gt;全连接层如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3.jpg"
+width="1856"
+height="864"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_8f108b048ce14fb1.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_fc50cc9854d0998f.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="214"
+data-flex-basis="515px"
+&gt;&lt;/p&gt;
+&lt;p&gt;卷积层如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4.jpg"
+width="1860"
+height="942"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_a5534140f8f69ad6.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_22c3bf3dbba2b659.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;
+&lt;p&gt;也就是说我们不会把图像拉伸成一个大向量，而是要保持图像的3D空间结构&lt;/p&gt;
+&lt;h3 id="卷积层"&gt;卷积层
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5.jpg"
+width="1898"
+height="950"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_50afeb2575b26d79.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_bf9139844d4782b3.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="199"
+data-flex-basis="479px"
+&gt;&lt;/p&gt;
+&lt;p&gt;因此，如上图，我们将卷积滤波器放到图像的某个块上，这个5x5x3滤波器和该空间位置上的某个5x5x3的图像块对其，然后计算两者之间的内积，这将为我们提供一个标量数，告诉我们该图像块和模版的对齐程度&lt;/p&gt;
+&lt;p&gt;然后我们重复这个过程并且将该模块滑动到图像中的任何位置，把模版放在每个地方，我们将再次计算模版的匹配分数，该分数表示该图像部分与该模版的匹配程度，然后我们把得到的 匹配分数放在一个平面上，现在这平面是一个二维平面，基本上每个点都对应着平面上每个点与输入图像对应部分和滤波器的对齐程度&lt;/p&gt;
+&lt;p&gt;而实际中的运算我们需要多个滤波器，输出如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6.jpg"
+width="1868"
+height="946"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_9e0ed8521290e798.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_7ed72043e8a79128.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;填充&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在进行卷积的时候，特征图的空间尺寸会缩小，我们想让所有东西保持相同的尺寸，所以一个技巧就是填充&lt;/p&gt;
+&lt;p&gt;在计算卷积运算符之前，会在周围添加额外的零，效果如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p7.jpg"
+width="1888"
+height="938"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p7_hu_4df61768fc591fd2.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p7_hu_521c56bdb1716611.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="483px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;感受野&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在考虑单个卷积时，每个输出都在查看输入的这个局部区域，因第一层卷积的输出只能查看图像的一部分，其大小与正在学习的卷积核相同&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p8.jpg"
+width="1892"
+height="966"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p8_hu_281d99955ecceb95.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p8_hu_51ab310e9a941e27.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="195"
+data-flex-basis="470px"
+&gt;&lt;/p&gt;
+&lt;p&gt;但是如果我们构建了一个将多个卷积堆叠在一起的ConvNet，如上图，这些感受野就会通过网络被放大，这里的每个条目都依赖于它之前一层的局部区域，因此，当有这些卷积层&lt;/p&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;&lt;h2 id="反向传播"&gt;反向传播
 &lt;/h2&gt;&lt;p&gt;反向传播是计算梯度的一种方法，这种方法需要利用计算图，计算图的每个节点表示我们执行的每一步计算，例如上一讲讲的损失函数的计算图如下&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1.jpg"
 width="1656"
 height="822"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1_hu_5d045f222abc493.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1_hu_de446890a98b2e82.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1_hu_aad3f6f24ba91cf5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1_hu_ca20441b05b28d.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="201"
@@ -14,7 +105,7 @@ data-flex-basis="483px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2.jpg"
 width="1700"
 height="860"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_1d25bcca880c3c21.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_eddd74119ee3cbf7.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_f3a6d3794d241d32.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_88d45fae6ec3b452.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="197"
@@ -31,7 +122,7 @@ $$&lt;p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3.jpg"
 width="1776"
 height="926"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_fd31f94cbd49af2.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_30444577fa36dc1e.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_d912d6d39e3633e0.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_3a0d14b51fa5ba50.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="191"
@@ -46,7 +137,13 @@ $$
 \frac{\partial L}{\partial y}
 = \sum_{j} \frac{\partial L}{\partial z_{j}} \,\frac{\partial z_{j}}{\partial y}
 $$&lt;p&gt;
-计算过程如下图所示&lt;/p&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
+计算过程如下图所示&lt;/p&gt;
+&lt;p&gt;#include &amp;lt;bits/stdc++.h&amp;gt;&lt;/p&gt;
+&lt;p&gt;using namespace strd;lllyx060215000123lyx060215000123{&lt;/p&gt;
+&lt;p&gt;using namespazacew&lt;/p&gt;
+&lt;p&gt;int main(){&lt;/p&gt;
+&lt;p&gt;}}&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
 &lt;/h2&gt;&lt;p&gt;给定一个图片数据集 ${(x_i, y_i)}_{i=1}^N$，$x_i$ 为图片，$y_i$ 为标签，损失为
 &lt;/p&gt;
 $$
@@ -71,7 +168,7 @@ $$&lt;p&gt;
 &lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4.jpg"
 width="440"
 height="330"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_a9dfe09e6f57ef1f.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_37ad7b737d874a5a.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_9fcac2f2d3d5b1c2.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_34019f7dfcff4d05.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
@@ -88,7 +185,7 @@ $$&lt;p&gt;
 &lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2.jpg"
 width="1914"
 height="926"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_74ebdaed0ff057b1.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_9ba2a5ffafec5812.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_d9c6bf83bdcdc52d.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_e056fde0d5beac53.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="206"
@@ -101,7 +198,7 @@ $$&lt;p&gt;它的作用是防止模型在训练数据上表现过好，因此正
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1.jpg"
 width="1842"
 height="904"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_55cab8e754a1c1e5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_8bcddbc1a104a263.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_7d2528d4f1142dc1.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_194156a355770f94.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="203"
@@ -112,7 +209,7 @@ data-flex-basis="489px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3.jpg"
 width="1046"
 height="310"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_32c49cc527502d09.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_2a975fc0be51e0c3.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_cfd19289c5b397a7.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_7a61ce87cfb6465b.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="337"
@@ -141,7 +238,7 @@ $$&lt;h3 id="随机梯度下降sgd"&gt;随机梯度下降(SGD)
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5.jpg"
 width="1376"
 height="668"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5_hu_ef70d830b253656f.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5_hu_a1575809f7639b7c.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5_hu_17e8f542392f8e9e.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5_hu_f325946cb45eab60.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="205"
@@ -151,7 +248,7 @@ data-flex-basis="494px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6.jpg"
 width="1008"
 height="328"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6_hu_ae7414dbf6328f5a.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6_hu_67761647cb59075a.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6_hu_48aa6e57c10c8b4d.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6_hu_9f2538d26c4103f2.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="307"
@@ -161,7 +258,7 @@ data-flex-basis="737px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7.jpg"
 width="1858"
 height="870"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7_hu_19d79852d73627b4.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7_hu_282ce9e2e7dc1f5b.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7_hu_f73ff6a0bbf75e03.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7_hu_4c65c1396d9622dd.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="213"
@@ -174,7 +271,7 @@ data-flex-basis="512px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8.jpg"
 width="1896"
 height="884"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8_hu_5d91a89f81abd08.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8_hu_eca66d8ce6e12881.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8_hu_17e9a99e4b7d774.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8_hu_a44f7510cc853f0c.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="214"
@@ -225,7 +322,7 @@ data-flex-basis="514px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1.jpg"
 width="1854"
 height="880"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_db114bed21d40de6.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_1fd9fab2ea483ffb.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_3e9bd396b0bdb806.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_261c4bfc88a957fb.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="210"
@@ -238,7 +335,7 @@ data-flex-basis="505px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2.jpg"
 width="1894"
 height="938"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_8bdcec047dce1abb.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_ad9f3b36dca704b6.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_db923737d54a3ba5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_106a6601c2dedb01.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="201"
@@ -249,7 +346,7 @@ data-flex-basis="484px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3.jpg"
 width="1760"
 height="254"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_296eaae459bffce4.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_e6ec198a01161233.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_f86f9e48c99f29ae.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_dfe8be4051b98bf4.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="692"
@@ -259,7 +356,7 @@ data-flex-basis="1662px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4.jpg"
 width="1880"
 height="952"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_41b75f3f19c1e856.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_8b2248be979a2f22.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_54295db4767449af.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_5a2b131c36886179.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="197"
@@ -270,7 +367,7 @@ data-flex-basis="473px"
 &lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5.jpg"
 width="1814"
 height="930"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_1d7691d876903011.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_862134743f60420.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_b4abae43c7a8c598.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_7bb20d3e6bc9b7ae.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="195"
@@ -285,7 +382,7 @@ $$&lt;p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6.jpg"
 width="1846"
 height="918"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_1ee996b2f6c2245.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_a848122553dae92d.jpg 1024w"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_3303b58d1e787dcc.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_f286048cfe01c24a.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="201"

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Computer Sicence on LunaTide's Blog</title><link>https://lunatide.tech/categories/computer-sicence/</link><description>Recent content in Computer Sicence on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/computer-sicence/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab1 DataLab</title><link>https://lunatide.tech/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/lab1-datalab/</guid><description>&lt;img src="https://lunatide.tech/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;&lt;h2 id="加法"&gt;加法
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Computer Sicence on LunaTide's Blog</title><link>https://lunatide.tech/categories/computer-sicence/</link><description>Recent content in Computer Sicence on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/computer-sicence/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab1 DataLab</title><link>https://lunatide.tech/p/lab1-datalab/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/lab1-datalab/</guid><description>&lt;img src="https://lunatide.tech/p/lab1-datalab/csapp.jpg" alt="Featured image of post Lab1 DataLab" /&gt;</description></item><item><title>lecture03 Bits,Bytes and Integer cout</title><link>https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/</link><pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/</guid><description>&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/csappp.jpg" alt="Featured image of post lecture03 Bits,Bytes and Integer cout" /&gt;&lt;h2 id="加法"&gt;加法
 &lt;/h2&gt;&lt;h3 id="无符号加法"&gt;无符号加法
 &lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition.jpg"
 width="1902"
 height="1160"
-srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition_hu_716bbff97dd22ccf.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition_hu_e5b30f30f868aa0e.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition_hu_2c2b2ad97cb05e19.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/addition_hu_4fac26a627e6d383.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="163"
@@ -13,7 +13,7 @@ data-flex-basis="393px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing.jpg"
 width="1072"
 height="1038"
-srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_f2f3910ed996a27e.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_c860ff4384a3d7c5.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_7f948e5cc8d4b0e7.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/visualizing_hu_a251ef1a212f1206.jpg 1024w"
 loading="lazy"
 alt="可视化整数加法图"
 class="gallery-image"
@@ -23,7 +23,7 @@ data-flex-basis="247px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE.jpg"
 width="1080"
 height="1060"
-srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_8494c559604648a0.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_da4b3da714285c.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_b17e528b163a78d4.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%8A%A0%E6%B3%95%E5%9B%BE_hu_9cf951470edc2c6f.jpg 1024w"
 loading="lazy"
 alt="可视化无符号加法图"
 class="gallery-image"
@@ -109,7 +109,7 @@ $$&lt;h2 id="移位操作和二进制乘除法的联系"&gt;移位操作和二�
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul.jpg"
 width="958"
 height="268"
-srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul_hu_8caa170d186c95.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul_hu_f99fbeb6eb694c06.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul_hu_f3787a342be1b508.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/mul_hu_d43e82d7c355e31d.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="357"
@@ -137,7 +137,7 @@ $$&lt;h3 id="使用移位操作代替除以-2-的幂有符号"&gt;使用移位�
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power.jpg"
 width="946"
 height="330"
-srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power_hu_d9c418a63cbd7841.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power_hu_52ca23a0fce2f661.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power_hu_1746ae406e481f89.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/power_hu_908a3cf5ecc7fa72.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="286"
@@ -177,7 +177,7 @@ $$&lt;h2 id="unsigned"&gt;Unsigned
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class="lntd"&gt;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#define DELTA sizeof(int)&lt;/span&gt;&lt;span class="c1"&gt;//默认int的size是一个unsigned的size_t
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;CNT&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;DELTA&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt;&lt;span class="n"&gt;DELTA&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;//和上面的代码出现一样的问题
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
@@ -245,7 +245,7 @@ $$&lt;h2 id="unsigned"&gt;Unsigned
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814.jpg"
 width="416"
 height="626"
-srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_236969b163c8f936.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_5c8827325c770696.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_cbf826a69c37947c.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/2020050814_hu_7ea3a5b3a9ada827.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="66"
@@ -264,7 +264,7 @@ data-flex-basis="159px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123.jpg"
 width="2124"
 height="584"
-srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123_hu_ca0ae2f247279d91.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123_hu_d775fa03b9dc0007.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123_hu_3b8e65817cb04c38.jpg 480w, https://lunatide.tech/p/lecture03-bitsbytes-and-integer-cout/123_hu_254e6da27a3b978d.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="363"
@@ -278,7 +278,7 @@ data-flex-basis="872px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits.jpg"
 width="796"
 height="249"
-srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits_hu_db0e1589287f0e6f.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits_hu_544ef48d82bcf07.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits_hu_c5c40ed1d2998a92.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/why-bits_hu_98223fba1481aae8.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="319"
@@ -293,7 +293,7 @@ data-flex-basis="767px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding.jpg"
 width="1970"
 height="1236"
-srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding_hu_90858520df601cc9.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding_hu_c9b2f1c44445d012.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding_hu_bd765ce93df5dcb0.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/encoding_hu_466d84b6ec8eb5a7.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="159"
@@ -311,7 +311,7 @@ data-flex-basis="382px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan.jpg"
 width="1454"
 height="716"
-srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan_hu_47fd8da15e9935a9.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan_hu_b0cc73e741231d31.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan_hu_fbbcc4b46b964464.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/boolenan_hu_d2d97a4fcc876b4a.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="203"
@@ -462,7 +462,7 @@ data-flex-basis="487px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123.jpg"
 width="398"
 height="604"
-srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123_hu_6784bc7cf29f5567.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123_hu_e942a054b6ee95f.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123_hu_cab4bce5ee716725.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/123_hu_65c664ea5f3229e8.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="65"
@@ -477,7 +477,7 @@ data-flex-basis="158px"
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111.jpg"
 width="980"
 height="420"
-srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111_hu_86e9a1bb8947973c.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111_hu_40f3ead3eb4aaf9b.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111_hu_5752f9e9974505ba.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/111_hu_f1bdac0e7da0cc11.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="233"
@@ -502,7 +502,7 @@ $$&lt;p&gt;下图为补码到无符号数的转换关系&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222.jpg"
 width="2078"
 height="1344"
-srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222_hu_c8b3373b4ae2d50.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222_hu_334248bba9997460.jpg 1024w"
+srcset="https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222_hu_71294f1650b786d6.jpg 480w, https://lunatide.tech/p/lecture02-bitsbytes-and-integer/222_hu_7b8b43f5f3a611ca.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="154"
@@ -525,11 +525,11 @@ data-flex-basis="371px"
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;tx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uy&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;//显示转换
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="n"&gt;tx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;tx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;uy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;//隐式转换
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="n"&gt;tx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;tx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ux&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;uy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS229 on LunaTide's Blog</title><link>https://lunatide.tech/categories/cs229/</link><description>Recent content in CS229 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 10 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/cs229/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS229 on LunaTide's Blog</title><link>https://lunatide.tech/categories/cs229/</link><description>Recent content in CS229 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 10 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/cs229/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
 &lt;/h2&gt;&lt;p&gt;在面对回归问题的时候，我们会思考，为什么选择线性回归，为什么选择最小二乘法成本函数 &lt;strong&gt;J&lt;/strong&gt; ？在本节里会给出一系列的概率基本假设，基于这些假设，可以推出最小二乘法是一种非常自然的算法&lt;/p&gt;
 &lt;p&gt;首先假设目标变量和输入值存在下面这种等量关系
 &lt;/p&gt;
@@ -52,7 +52,7 @@ $$&lt;p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-3/p1.jpg"
 width="1494"
 height="430"
-srcset="https://lunatide.tech/p/cs229-lecture-3/p1_hu_b6fc653ece4c3ee8.jpg 480w, https://lunatide.tech/p/cs229-lecture-3/p1_hu_493bdefc0d681192.jpg 1024w"
+srcset="https://lunatide.tech/p/cs229-lecture-3/p1_hu_451db920bd6b617.jpg 480w, https://lunatide.tech/p/cs229-lecture-3/p1_hu_4b4f8c0d802f27a8.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="347"
@@ -96,7 +96,7 @@ $$&lt;p&gt;
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-3/p2.jpg"
 width="976"
 height="694"
-srcset="https://lunatide.tech/p/cs229-lecture-3/p2_hu_2367dfbb24b80f4.jpg 480w, https://lunatide.tech/p/cs229-lecture-3/p2_hu_97bac66fadd7ff1f.jpg 1024w"
+srcset="https://lunatide.tech/p/cs229-lecture-3/p2_hu_bc222519dbcf63cf.jpg 480w, https://lunatide.tech/p/cs229-lecture-3/p2_hu_388959615ff42ec7.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="140"
@@ -255,7 +255,7 @@ $$</description></item><item><title>CS229 Lecture 2</title><link>https://lunatid
 &lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-2/p1.jpg"
 width="826"
 height="326"
-srcset="https://lunatide.tech/p/cs229-lecture-2/p1_hu_c7b67f9fe4bd0b0.jpg 480w, https://lunatide.tech/p/cs229-lecture-2/p1_hu_524e827b9e89a604.jpg 1024w"
+srcset="https://lunatide.tech/p/cs229-lecture-2/p1_hu_6de0275242601ffb.jpg 480w, https://lunatide.tech/p/cs229-lecture-2/p1_hu_f210478988d82bd6.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="253"
