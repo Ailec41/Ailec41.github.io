@@ -192,13 +192,13 @@ $$
 f(x)=x*\phi(x)
 $$&lt;p&gt;
 &lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6.jpg"
-width="894"
-height="978"
-srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6_hu_b728615c234939d2.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6_hu_c4b37f8bff76ff61.jpg 1024w"
+width="778"
+height="620"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6_hu_8a2ef6b94e0307da.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6_hu_bee4dcedc10f4dbf.jpg 1024w"
 loading="lazy"
 class="gallery-image"
-data-flex-grow="91"
-data-flex-basis="219px"
+data-flex-grow="125"
+data-flex-basis="301px"
 &gt;&lt;/p&gt;
 &lt;p&gt;GELU在接近零的邻域内保留激活函数的非平坦区域，核心思想就是平滑0处的非连续跳跃&lt;/p&gt;</description></item><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;&lt;h2 id="卷积神经网络"&gt;卷积神经网络
 &lt;/h2&gt;&lt;p&gt;我们需要做的就是添加几个可以适合我们的计算图的新类型的节点，具体来说，我们只需要讨论两个运算符就可以构建更强大的网络，就是卷积层，然后是池化层，这是我们在处理图像时经常使用的另一个层&lt;/p&gt;
