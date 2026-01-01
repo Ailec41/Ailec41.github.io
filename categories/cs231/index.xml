@@ -259,7 +259,36 @@ data-flex-basis="503px"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;hs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;&lt;h2 id="卷积神经网络"&gt;卷积神经网络
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;图像归一化要点总结&lt;/strong&gt;：对每个通道进行居中和缩放&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对每个通道减去均值&lt;/li&gt;
+&lt;li&gt;再除以每个通道的标准差（每个通道各自统计，共 三个数）&lt;/li&gt;
+&lt;li&gt;需要预先计算：针对你的数据集，为每个像素通道计算均值和标准差&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;norm_pixel[i,j,c] = (pixsl[i,j,c] - np.mean(pixel[:,:,c])) / np.std(pixel[:,:,c])&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;正则化&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;训练：加入某种形式的随机性
+&lt;/p&gt;
+$$
+y = f_w(x, z)
+$$&lt;p&gt;测试：对随机性取平均
+&lt;/p&gt;
+$$
+y = f(x) = E_z [ f(x, z) ] = \int p(z) f(x, z) dz
+$$&lt;p&gt;
+&lt;strong&gt;数据增强&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.水平翻转&lt;/p&gt;
+&lt;p&gt;这对日常物体很有用，因为大多数物体具有对称性&lt;/p&gt;
+&lt;p&gt;2.调整大小和缩减，方案如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p10.jpg"
+width="1758"
+height="892"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p10_hu_48b27289ba26a653.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p10_hu_1dec8882eec0268.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;</description></item><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;&lt;h2 id="卷积神经网络"&gt;卷积神经网络
 &lt;/h2&gt;&lt;p&gt;我们需要做的就是添加几个可以适合我们的计算图的新类型的节点，具体来说，我们只需要讨论两个运算符就可以构建更强大的网络，就是卷积层，然后是池化层，这是我们在处理图像时经常使用的另一个层&lt;/p&gt;
 &lt;p&gt;我们之前介绍的神经网络每层被称作全连接层，它是将图像的像素展平为一个大向量，进行矩阵乘法，进行ReLU，一个大问题是它破坏了图像的空间结构，比如说，图像实际上不是一维物体，是二维得到，二维结构对于这些图像的内容很重要，当你通过将原始像素拉伸称为一个大向量来构建线性分类器时，你基本上忽略了神经网络架构设计中输入数据的重要因素，所以当考虑为图像设计神经网络架构的时候，我们尤其要思考我们的网络还有哪些设计，我们可以将哪些其他计算原语插入到我们的计算图中&lt;/p&gt;
 &lt;p&gt;这就引出了卷积神经网络，所以卷积神经网络基本上是一类神经网络架构，它由线性层，非线性层，卷积层，池化层构成，有时还会将其他几个层拼接在一起形成这些神经网络架构，输入原始像素值，，然后输出图像的一些预测或者分数&lt;/p&gt;
