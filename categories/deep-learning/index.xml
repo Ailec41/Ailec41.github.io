@@ -200,7 +200,66 @@ class="gallery-image"
 data-flex-grow="125"
 data-flex-basis="301px"
 &gt;&lt;/p&gt;
-&lt;p&gt;GELU在接近零的邻域内保留激活函数的非平坦区域，核心思想就是平滑0处的非连续跳跃&lt;/p&gt;</description></item><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;&lt;h2 id="卷积神经网络"&gt;卷积神经网络
+&lt;p&gt;GELU在接近零的邻域内保留激活函数的非平坦区域，核心思想就是平滑0处的非连续跳跃&lt;/p&gt;
+&lt;p&gt;那么这些CNN中的激活函数在哪里用&lt;/p&gt;
+&lt;p&gt;答：通常放在线性算子之后（比如全连接层，卷积层）&lt;/p&gt;
+&lt;h3 id="残差网络"&gt;残差网络
+&lt;/h3&gt;&lt;p&gt;如果在普通CNN网络上不断堆叠更深的层，不断叠加新层，让网络变得越来越大，会发生什么年？&lt;/p&gt;
+&lt;p&gt;他们发现二十层模型的测试误差实际上低于56层模型，你可能会认为这是过拟合导致的，但是其实当我们看训练误差，20层模型的训练误差也更低，如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p7.jpg"
+width="1808"
+height="928"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p7_hu_4ae60adbd6d07ff5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p7_hu_fdda0a8249a2e219.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="194"
+data-flex-basis="467px"
+&gt;&lt;/p&gt;
+&lt;p&gt;所以为什么会56层模型表现不如20层模型，更深的模型有更强的表示能力，理论上它们能表示浅层网络能处理的所有模型，因此可能的输入与输出之间的映射关系对于大型网络时小型网络的超集，因为从理论上讲，你可以想象将某些层设置为恒等函数，这些层不做任何操作，如果你将一半的层设置为无操作，你拥有的表示能力与模型完全相同，大小减半，所以说不是这些模型更差，但在表示能力方便，它们实际上更难优化，因为深层网络的可能模型集合更大，并且包含所有浅层网络可能学习到的模型&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p8.jpg"
+width="1302"
+height="504"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p8_hu_a95c3166ff23aa69.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p8_hu_f64b8a8f1ae25326.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="258"
+data-flex-basis="620px"
+&gt;&lt;/p&gt;
+&lt;p&gt;那么深层模型如何至少与浅层模型一样好，如下图，我们有一个一层模型和一个两层模型，如果我们让其中一个层几乎成为单位矩阵，模型至少应该和浅层模型一样好&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p9.jpg"
+width="1746"
+height="832"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p9_hu_c6caf2ef4c9ba2c5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p9_hu_5782450a2169eb04.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="503px"
+&gt;&lt;/p&gt;
+&lt;p&gt;那么我们如何将这种直觉融入模型，我们希望它可以和浅层模型一样优秀，我们通过拟合来实现，所谓的残差映射，而非直接拟合底层映射&lt;/p&gt;
+&lt;p&gt;直觉是一种观察到的现象，这些大型网络在训练和测试误差上表现更差，因为它们难以优化，因此直觉是我们需要构建能够轻松模拟浅层网络的模型，使其至少与浅层模型一样好，它们通过添加残差连接实现了这一点，以便轻松复制值，将其融入架构本身，而不是在卷积层之间学习恒等映射&lt;/p&gt;
+&lt;h3 id="如何初始化各层的权重值"&gt;如何初始化各层的权重值
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Kaiming初始化&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;dims&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;hs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;dims&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;Din&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;Dout&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dims&lt;/span&gt;&lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;dims&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:]):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;W&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Din&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;Dout&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Din&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;hs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;&lt;h2 id="卷积神经网络"&gt;卷积神经网络
 &lt;/h2&gt;&lt;p&gt;我们需要做的就是添加几个可以适合我们的计算图的新类型的节点，具体来说，我们只需要讨论两个运算符就可以构建更强大的网络，就是卷积层，然后是池化层，这是我们在处理图像时经常使用的另一个层&lt;/p&gt;
 &lt;p&gt;我们之前介绍的神经网络每层被称作全连接层，它是将图像的像素展平为一个大向量，进行矩阵乘法，进行ReLU，一个大问题是它破坏了图像的空间结构，比如说，图像实际上不是一维物体，是二维得到，二维结构对于这些图像的内容很重要，当你通过将原始像素拉伸称为一个大向量来构建线性分类器时，你基本上忽略了神经网络架构设计中输入数据的重要因素，所以当考虑为图像设计神经网络架构的时候，我们尤其要思考我们的网络还有哪些设计，我们可以将哪些其他计算原语插入到我们的计算图中&lt;/p&gt;
 &lt;p&gt;这就引出了卷积神经网络，所以卷积神经网络基本上是一类神经网络架构，它由线性层，非线性层，卷积层，池化层构成，有时还会将其他几个层拼接在一起形成这些神经网络架构，输入原始像素值，，然后输出图像的一些预测或者分数&lt;/p&gt;
