@@ -88,7 +88,9 @@ a(\eta) &amp;= mu^2/2 \\
 b(y) &amp;= (1/\sqrt{2\pi}) \exp\!\left(-y^2/2\right)
 \end{aligned}
 $$&lt;p&gt;
-指数分布族里面还有很多其他的分布，例如多项式分布，这个待会就能看到；泊松分布，用来对计数类数据进行建模；伽马和指数分布，用于对连续的、非负的随机变量进行建 模，例如时间间隔；$\beta$ 和狄利克雷分布，用于概率的分布；还有很多，在下一节我们会描述建模型的一般方法，其中$y$（给定$ x $和$\theta$）来自任何这些分布&lt;/p&gt;</description></item><item><title>CS231 第六讲 CNN架构</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</link><pubDate>Sun, 28 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/pic1.jpg" alt="Featured image of post CS231 第六讲 CNN架构" /&gt;&lt;h2 id="cnn架构"&gt;CNN架构
+指数分布族里面还有很多其他的分布，例如多项式分布，这个待会就能看到；泊松分布，用来对计数类数据进行建模；伽马和指数分布，用于对连续的、非负的随机变量进行建 模，例如时间间隔；$\beta$ 和狄利克雷分布，用于概率的分布；还有很多，在下一节我们会描述建模型的一般方法，其中$y$（给定$ x $和$\theta$）来自任何这些分布&lt;/p&gt;
+&lt;h3 id="构造glm"&gt;构造GLM
+&lt;/h3&gt;</description></item><item><title>CS231 第六讲 CNN架构</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</link><pubDate>Sun, 28 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/pic1.jpg" alt="Featured image of post CS231 第六讲 CNN架构" /&gt;&lt;h2 id="cnn架构"&gt;CNN架构
 &lt;/h2&gt;&lt;h3 id="常用的层"&gt;常用的层
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;归一层&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;归一层的工作原理分为两个部分，第一步是将输入数据归一化为标准正态分布，均值为0，标准差为1，然后进行缩放和偏移，通过乘以某个值调整中心偏差，再进行偏移以改变均值位置，所有归一化层都采用这样的技术，它们之间的区别在于如何计算统计量，均值和标准差，以及将这些统计量应用到哪些值&lt;/p&gt;
