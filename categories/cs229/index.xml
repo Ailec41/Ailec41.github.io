@@ -173,7 +173,59 @@ $$&lt;p&gt;与我们之前的例子不同，这里我们没有$T(y) = y$；此�
 $$
 1\{\text{True}\} = 1,\qquad
 1\{\text{False}\} = 0.
-$$&lt;p&gt;例如，$1{2 = 3} = 0$并且$1{3 = 5 - 2} = 1$。因此，我们也可以将 $T(y)$ 和 $y$ 之间的关系写为$(T(y))_i = 1{y = i}$此外，我们有$E[(T(y))_i] = P(y = i) = \phi_i$&lt;/p&gt;</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
+$$&lt;p&gt;例如，$1{2 = 3} = 0$并且$1{3 = 5 - 2} = 1$。因此，我们也可以将 $T(y)$ 和 $y$ 之间的关系写为$(T(y))_i = 1{y = i}$此外，我们有$E[(T(y))_i] = P(y = i) = \phi_i$&lt;/p&gt;
+&lt;p&gt;我们现在准备证明多项式是指数族的成员。我们有：&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+p(y;\phi)
+&amp;amp;= \phi_1^{1{y=1}} \phi_2^{1{y=2}} \cdots \phi_k^{1{y=k}} \
+&amp;amp;= \phi_1^{1{y=1}} \phi_2^{1{y=2}} \cdots
+\phi_k^{,1-\sum_{i=1}^{k-1} 1{y=i}} \
+&amp;amp;= \phi_1^{(T(y))_1} \phi_2^{(T(y))&lt;em&gt;2} \cdots
+\phi_k^{,1-\sum&lt;/em&gt;{i=1}^{k-1} (T(y))_i} \
+&amp;amp;= \exp\Big(
+(T(y))_1 \log(\phi_1)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(T(y))_2 \log(\phi_2)&lt;/li&gt;
+&lt;li&gt;\cdots&lt;/li&gt;
+&lt;li&gt;\big(1-\sum_{i=1}^{k-1} (T(y))_i\big)\log(\phi_k)
+\Big) \
+&amp;amp;= \exp\Big(
+(T(y))_1 \log(\phi_1/\phi_k)&lt;/li&gt;
+&lt;li&gt;(T(y))_2 \log(\phi_2/\phi_k)&lt;/li&gt;
+&lt;li&gt;\cdots&lt;/li&gt;
+&lt;li&gt;(T(y))&lt;em&gt;{k-1} \log(\phi&lt;/em&gt;{k-1}/\phi_k)&lt;/li&gt;
+&lt;li&gt;\log(\phi_k)
+\Big) \
+&amp;amp;= b(y)\exp\big(\eta^T T(y) - a(\eta)\big).
+\end{aligned}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中&lt;/p&gt;
+$$
+\begin{aligned}
+\eta &amp;=
+\begin{bmatrix}
+\log(\phi_1/\phi_k) \\
+\log(\phi_2/\phi_k) \\
+\vdots \\
+\log(\phi_{k-1}/\phi_k)
+\end{bmatrix}, \\
+a(\eta) &amp;= -\log(\phi_k), \\
+b(y) &amp;= 1.
+\end{aligned}
+$$&lt;p&gt;
+关联函数（对于 $i = 1,\ldots,k$）由下式给出：&lt;/p&gt;
+$$
+\eta_i = \log \frac{\phi_i}{\phi_k}.
+$$&lt;p&gt;为方便起见，我们还定义$\eta_k = \log(\phi_k/\phi_k) = 0$。反转关联函数并导出响应函数，我们得到：&lt;/p&gt;
+$$
+\begin{aligned}
+e^{\eta_i} &amp;= \frac{\phi_i}{\phi_k}, \\
+\phi_k e^{\eta_i} &amp;= \phi_i, \\
+\phi_k \sum_{i=1}^k e^{\eta_i} &amp;= \sum_{i=1}^k \phi_i = 1.
+\end{aligned}
+$$</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
 &lt;/h2&gt;&lt;p&gt;在面对回归问题的时候，我们会思考，为什么选择线性回归，为什么选择最小二乘法成本函数 &lt;strong&gt;J&lt;/strong&gt; ？在本节里会给出一系列的概率基本假设，基于这些假设，可以推出最小二乘法是一种非常自然的算法&lt;/p&gt;
 &lt;p&gt;首先假设目标变量和输入值存在下面这种等量关系
 &lt;/p&gt;
