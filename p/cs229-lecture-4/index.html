@@ -140,31 +140,33 @@ p(y=i \mid x;\theta)
 &=& \dfrac{e^{\theta_i^T x}}{\sum_{j=1}^k e^{\theta_j^T x}}.
 \end{array}
 \tag{8}
-$$<p>该模型适用于分类问题，其中 $y \in {1,\ldots,k}$，称为 <strong>softmax 回归</strong>。它是 logistic 回归的推广。</p><p>我们的假设将输出</p>$$
-h_\theta(x) = E[T(y) \mid x;\theta]
-$$$$
-= E\!\left[
+$$<p>该模型适用于分类问题，其中 $y \in {1,\ldots,k}$，称为 <strong>softmax 回归</strong>。它是 logistic 回归的推广。</p><p>我们的假设将输出</p><p>$$
+\begin{array}{rcl}
+h_\theta(x)
+&=& \mathbb{E}[T(y)\mid x;\theta] \[0.8em]</p><p>&=& \mathbb{E}!\left[
+\begin{array}{c}
+1{y=1} \
+1{y=2} \
+\vdots \
+1{y=k-1}
+\end{array}
+;\middle|; x;\theta
+\right] \[1.0em]</p><p>&=&
 \begin{bmatrix}
-1\{y=1\} \\
-1\{y=2\} \\
-\vdots \\
-1\{y=k-1\}
-\end{bmatrix}
-\;\middle|\; x;\theta
-\right]
-$$<h1 id=heading>$$</h1><p>\begin{bmatrix}
 \phi_1 \
 \phi_2 \
 \vdots \
 \phi_{k-1}
-\end{bmatrix}
-$$</p><h1 id=heading-1>$$</h1><p>\begin{bmatrix}
+\end{bmatrix} \[1.0em]</p><p>&=&
+\begin{bmatrix}
 \dfrac{e^{\theta_1^T x}}{\sum_{j=1}^k e^{\theta_j^T x}} \
 \dfrac{e^{\theta_2^T x}}{\sum_{j=1}^k e^{\theta_j^T x}} \
 \vdots \
 \dfrac{e^{\theta_{k-1}^T x}}{\sum_{j=1}^k e^{\theta_j^T x}}
-\end{bmatrix}.
-$$</p><p>换句话说，对于 $i = 1,\ldots,k$ 的每个值，我们的假设将输出 $p(y=i \mid x;\theta)$ 的概率估计值。（尽管如上定义的 $ h(x) $ 仅为 $k-1$ 维，但由 $1 - \sum_{i=1}^{k-1} \phi_i$显然可以得到 $p(y=k \mid x;\theta)$。）</p><p>最后，让我们讨论参数拟合。类似于我们对普通最小二乘和 logistic 回归的原始推导，如果我们有一个训练集
+\end{bmatrix}
+\end{array}
+$$
+换句话说，对于 $i = 1,\ldots,k$ 的每个值，我们的假设将输出 $p(y=i \mid x;\theta)$ 的概率估计值。（尽管如上定义的 $ h(x) $ 仅为 $k-1$ 维，但由 $1 - \sum_{i=1}^{k-1} \phi_i$显然可以得到 $p(y=k \mid x;\theta)$。）</p><p>最后，让我们讨论参数拟合。类似于我们对普通最小二乘和 logistic 回归的原始推导，如果我们有一个训练集
 ${(x^{(i)},y^{(i)}); i=1,\ldots,m}$并且想要学习这个模型的参数 $ \theta_i $，我们首先写下对数似然：</p>$$
 \ell(\theta)
 = \sum_{i=1}^m \log p(y^{(i)} \mid x^{(i)};\theta)
