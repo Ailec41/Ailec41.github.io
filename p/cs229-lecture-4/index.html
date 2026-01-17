@@ -99,26 +99,17 @@ T(k)=
 $$<p>与我们之前的例子不同，这里我们没有$T(y) = y$；此外，$T(y)$ 现在是 $k-1$ 维向量，而不是实数。我们将用$(T(y))_i$来表示向量 $T(y)$ 的第 $i$ 个元素。</p><p>我们介绍一个非常有用的符号。如果参数为真，则示性函数$1{\cdot}$的值为 $1$，否则为 $0$，即</p>$$
 1\{\text{True}\} = 1,\qquad
 1\{\text{False}\} = 0.
-$$<p>例如，$1{2 = 3} = 0$并且$1{3 = 5 - 2} = 1$。因此，我们也可以将 $T(y)$ 和 $y$ 之间的关系写为$(T(y))_i = 1{y = i}$此外，我们有$E[(T(y))_i] = P(y = i) = \phi_i$</p><p>我们现在准备证明多项式是指数族的成员。我们有：</p><p>$$
-\begin{aligned}
+$$<p>例如，$1{2 = 3} = 0$并且$1{3 = 5 - 2} = 1$。因此，我们也可以将 $T(y)$ 和 $y$ 之间的关系写为$(T(y))_i = 1{y = i}$此外，我们有$E[(T(y))_i] = P(y = i) = \phi_i$</p><p>我们现在准备证明多项式是指数族的成员。我们有：</p>$$
+\begin{array}{rcl}
 p(y;\phi)
-&= \phi_1^{1{y=1}} , \phi_2^{1{y=2}} \cdots \phi_k^{1{y=k}} \
-&= \phi_1^{1{y=1}} , \phi_2^{1{y=2}} \cdots
-\phi_k^{,1-\sum_{i=1}^{k-1} 1{y=i}} \
-&= \phi_1^{(T(y))_1} , \phi_2^{(T(y))<em>2} \cdots
-\phi_k^{,1-\sum</em>{i=1}^{k-1} (T(y))_i} \
-&= \exp\Big(
-(T(y))_1 \log(\phi_1)</p><ul><li>(T(y))_2 \log(\phi_2)</li><li>\cdots \
-&\qquad\qquad</li><li>\big(1-\sum_{i=1}^{k-1} (T(y))_i\big)\log(\phi_k)
-\Big) \
-&= \exp\Big(
-(T(y))_1 \log(\phi_1/\phi_k)</li><li>(T(y))_2 \log(\phi_2/\phi_k)</li><li>\cdots \
-&\qquad\qquad</li><li>(T(y))<em>{k-1} \log(\phi</em>{k-1}/\phi_k)</li><li>\log(\phi_k)
-\Big) \
-&= b(y)\exp\big(\eta^T T(y) - a(\eta)\big).
-\end{aligned}
-$$
-其中</li></ul>$$
+&=& \phi_1^{1\{y=1\}} \, \phi_2^{1\{y=2\}} \cdots \phi_k^{1\{y=k\}} \\[0.6em]
+&=& \phi_1^{1\{y=1\}} \, \phi_2^{1\{y=2\}} \cdots \phi_k^{\,1-\sum_{i=1}^{k-1} 1\{y=i\}} \\[0.6em]
+&=& \phi_1^{(T(y))_1} \, \phi_2^{(T(y))_2} \cdots \phi_k^{\,1-\sum_{i=1}^{k-1} (T(y))_i} \\[0.6em]
+&=& \exp\big((T(y))_1 \log(\phi_1) + (T(y))_2 \log(\phi_2) + \cdots + \big(1-\sum_{i=1}^{k-1} (T(y))_i\big)\log(\phi_k)\big) \\[0.6em]
+&=& \exp\big((T(y))_1 \log(\phi_1/\phi_k) + (T(y))_2 \log(\phi_2/\phi_k) + \cdots + (T(y))_{k-1} \log(\phi_{k-1}/\phi_k) + \log(\phi_k)\big) \\[0.6em]
+&=& b(y)\exp\big(\eta^T T(y) - a(\eta)\big)
+\end{array}
+$$<p>其中</p>$$
 \begin{aligned}
 \eta &=
 \begin{bmatrix}
