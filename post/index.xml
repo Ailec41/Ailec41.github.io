@@ -90,7 +90,90 @@ b(y) &amp;= (1/\sqrt{2\pi}) \exp\!\left(-y^2/2\right)
 $$&lt;p&gt;
 指数分布族里面还有很多其他的分布，例如多项式分布，这个待会就能看到；泊松分布，用来对计数类数据进行建模；伽马和指数分布，用于对连续的、非负的随机变量进行建 模，例如时间间隔；$\beta$ 和狄利克雷分布，用于概率的分布；还有很多，在下一节我们会描述建模型的一般方法，其中$y$（给定$ x $和$\theta$）来自任何这些分布&lt;/p&gt;
 &lt;h3 id="构造glm"&gt;构造GLM
-&lt;/h3&gt;</description></item><item><title>CS231 第六讲 CNN架构</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</link><pubDate>Sun, 28 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/pic1.jpg" alt="Featured image of post CS231 第六讲 CNN架构" /&gt;&lt;h2 id="cnn架构"&gt;CNN架构
+&lt;/h3&gt;&lt;p&gt;设想你要构建一个模型，来估计在给定的某个小时内来到你的商店的顾客人数（或者是你的网站的页面访问次数），基于某些确定的特征$ x $，例如商店的促销，最近的广告，天气，今天周几等等。我们已经知道泊松分布通常能适合用来对方可数目进行建模。知道了这个之后，怎么来建立一个模型来解决咱们这个具体问题呢？非常幸运的是，泊松分布是属于指数分布族的一个分部，所以我们可以使用一个广义线性模型（GLM）&lt;/p&gt;
+&lt;p&gt;更一般地，考虑一个分类或者回归问题，我们希望将某个随机变量$y$的值预测为$ x $的函数。为了得到这个问题的GLM，我们将对给定$ x $和关于我们模型的$y$的条件分布做出以下三个假设：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;$y \mid x, \theta \sim \text{Exponential Family}(\eta)$，其中在给定 \( x \) 和 \(\theta\) 的条件下，\(y\) 的分布属于指数分布族，参数为 \(\eta\)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;给定$ x $，目的是要预测对应这个给定$ x $的T(y)的期望值。在我们的大多数例子中，我们有$T(y)=y$，所以着意味着我们希望我们的预测 $ h(x) $​满足&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$h(x) = E[y \mid x]$。（注意，这个假设通过对 $h_\theta(x)$ 的选择而满足，在逻辑回归和线性回归中都是如此。例如在逻辑回归中，&lt;/p&gt;
+$$
+h_\theta(x) = P(y = 1 \mid x; \theta)
+= 0 \cdot P(y = 0 \mid x; \theta) + 1 \cdot P(y = 1 \mid x; \theta)
+= E[y \mid x; \theta]
+$$&lt;p&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;自然参数 $\eta$ 和输入值 $ x $ 是线性相关的，$\eta = \theta^T x$，或者如果 $\eta$ 是有值的向量，则有 $\eta_i = \theta_i^T x$。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些假设中的第三个看上去是最不和合理的假设，在我们构建GLM的方法中可能更好将其看作“设计选择”，而不是作为假设本身。这三个假设/设计选择将使我们能够得到一种非常优雅的学习算法，即GLM，它具有很多理想的属性，如易于学习。此外，得到的模型通常非常有效地用于对$y$上的不同类型的分布进行建模；例如，我们将很快展示logistic回归和普通最小二乘都可以作为GLM导出&lt;/p&gt;
+&lt;h3 id="普通最小二乘"&gt;普通最小二乘
+&lt;/h3&gt;&lt;p&gt;为了表明普通最小二乘是GLM模型族的特例，考虑目标变量$y$(也称为GLM术语中的&lt;strong&gt;响应变量&lt;/strong&gt;)是连续的情形，并且我们将给定的$ x $的$y$的条件分布建模为高斯分布&lt;/p&gt;
+$$\mathcal{N}(\mu,\ \sigma^2)$$&lt;p&gt;，其中$ \mu $可以是依赖$ x $的一个函数。这样，我们就让上面的指数分布族的($\eta$)分布成为了一个高斯分布。在前面的内容中我们提到过，在把高斯分布写成指数分布族的分布的时候，有$ \mu = \eta $。所以就能得到下面的等式
+&lt;/p&gt;
+$$
+\begin{aligned}
+h_\theta(x) &amp;= E[y \mid x; \theta] \\
+&amp;= \mu \\
+&amp;= \eta \\
+&amp;= \theta^T x
+\end{aligned}
+$$&lt;p&gt;
+第一行的等式是基于假设 2；第二个等式是基于定理：当 $ y \mid x; \theta \sim \mathcal{N}(\mu, \sigma^2) $，则 $y$ 的期望就是 $ \mu $；第三个等式是基于假设 1，以及之前我们此前将高斯分布写成指数族分布的时候推导出来的性质 $ \mu = \eta $；最后一个等式就是基于假设 3。&lt;/p&gt;
+&lt;h3 id="logistic回归"&gt;Logistic回归
+&lt;/h3&gt;&lt;p&gt;我们现在考虑 Logistic 回归。这里我们对二元分类问题感兴趣，所以 $y \in {0, 1}$。鉴于 $y$ 是二值的，因此选择伯努利分布族来模拟给定 $ x $，$y$ 的条件分布似乎是自然的。在我们将伯努利分布表示为指数族分布时，我们得$\phi = \dfrac{1}{1 + e^{-\eta}}$。此外，请注意，如果$ y \mid x; \theta \sim \text{Bernoulli}(\phi) $，因此$E[y \mid x; \theta] = \phi$。因此，遵循与普通最小二乘法相似的推导，我们得到：&lt;/p&gt;
+$$
+\begin{aligned}
+h_\theta(x) &amp;= E[y \mid x; \theta] \\
+&amp;= \phi \\
+&amp;= \dfrac{1}{1 + e^{-\eta}} \\
+&amp;= \dfrac{1}{1 + e^{-\theta^T x}}
+\end{aligned}
+$$&lt;p&gt;因此，这给出了形如$h_\theta = \dfrac{1}{1 + e^{-\theta^T x}}$的假设函数。如果你以前想知道我们如何提出 logistic 函数$\dfrac{1}{1 + e^{-z}}$的形式，这给出了一个答案：一旦我们假设 $y$ 关于 $ x $ 的分布是伯努利分布，它就是 GLM 和指数族分布产生的结果。为了介绍更多的术语，给定分布的均值作为自然参数的函数$g , (g(\eta) = E[T(y); \eta])$被称为&lt;strong&gt;正则响应函数&lt;/strong&gt;。它的逆$g^{-1}$
+称为&lt;strong&gt;正则关联函数&lt;/strong&gt;。因此，高斯族的正则响应函数是单位函数；伯努利的正则响应函数是 logistic 函数。&lt;/p&gt;
+&lt;h3 id="softmax回归"&gt;Softmax回归
+&lt;/h3&gt;&lt;p&gt;让我们看一下GLM的另一个例子。考虑一个分类问题，其中响应变量$y$可以取$k$个值中的任意一个，因此$y\in{1,2,&amp;hellip;,k}$。例如，我们可能希望将电子邮件分类为垃圾邮件，个人邮件和工作相关邮件等三类，而不是将电子邮件分类为垃圾邮件或非垃圾邮件这两类。响应变量仍然是离散的，但现在可以采用两个以上的值。因此，我们将根据多项分布对其进行建模&lt;/p&gt;
+&lt;p&gt;让我们推导下GLM来建模这种多类别分类问题。为此，我们将首先将多项分布表示为指数族分布&lt;/p&gt;
+&lt;p&gt;为了在 $k$ 个可能的结果上参数化多项分布，我们可以使用 $k$ 个参数$\phi_1, \ldots, \phi_k$指定每个结果的概率。然而，这些参数将是冗余的，或者更正式地，它们将不是独立的（因为知道 $\phi_i$ 的任何 $k-1$ 个值可以唯一地确定最后一个，因为它们必须满足$\sum_{i=1}^k \phi_i = 1$）。因此，我们将仅使用 $k-1$ 个参数，$\phi_1, \ldots, \phi_{k-1}$来参数化多项分布，其中
+$\phi_i = p(y = i; \varphi)$，并且$p(y = k; \varphi) = 1 - \sum_{i=1}^{k-1} p(y = i; \varphi)$。为了方便起见，我们令$\phi_k = 1 - \sum_{i=1}^{k-1} \phi_i$，但我们应该记住，这不是一个参数，而是由$\phi_1, \ldots, \phi_{k-1}$完全确定。&lt;/p&gt;
+&lt;p&gt;为了将多项分布表示为指数族分布，我们将$T(y) \in \mathbb{R}^{k-1}$定义如下：&lt;/p&gt;
+$$
+T(1)=
+\begin{bmatrix}
+1\\0\\0\\ \vdots\\0
+\end{bmatrix},
+\quad
+T(2)=
+\begin{bmatrix}
+0\\1\\0\\ \vdots\\0
+\end{bmatrix},
+\quad
+T(3)=
+\begin{bmatrix}
+0\\0\\1\\ \vdots\\0
+\end{bmatrix},
+\ \ldots,\
+T(k-1)=
+\begin{bmatrix}
+0\\0\\0\\ \vdots\\1
+\end{bmatrix},
+\quad
+T(k)=
+\begin{bmatrix}
+0\\0\\0\\ \vdots\\0
+\end{bmatrix}.
+$$&lt;p&gt;与我们之前的例子不同，这里我们没有$T(y) = y$；此外，$T(y)$ 现在是 $k-1$ 维向量，而不是实数。我们将用$(T(y))_i$来表示向量 $T(y)$ 的第 $i$ 个元素。&lt;/p&gt;
+&lt;p&gt;我们介绍一个非常有用的符号。如果参数为真，则示性函数$1{\cdot}$的值为 $1$，否则为 $0$，即
+&lt;/p&gt;
+$$
+1\{\text{True}\} = 1,\qquad
+1\{\text{False}\} = 0.
+$$&lt;p&gt;例如，$1{2 = 3} = 0$并且$1{3 = 5 - 2} = 1$。因此，我们也可以将 $T(y)$ 和 $y$ 之间的关系写为$(T(y))_i = 1{y = i}$此外，我们有$E[(T(y))_i] = P(y = i) = \phi_i$&lt;/p&gt;</description></item><item><title>CS231 第六讲 CNN架构</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</link><pubDate>Sun, 28 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/pic1.jpg" alt="Featured image of post CS231 第六讲 CNN架构" /&gt;&lt;h2 id="cnn架构"&gt;CNN架构
 &lt;/h2&gt;&lt;h3 id="常用的层"&gt;常用的层
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;归一层&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;归一层的工作原理分为两个部分，第一步是将输入数据归一化为标准正态分布，均值为0，标准差为1，然后进行缩放和偏移，通过乘以某个值调整中心偏差，再进行偏移以改变均值位置，所有归一化层都采用这样的技术，它们之间的区别在于如何计算统计量，均值和标准差，以及将这些统计量应用到哪些值&lt;/p&gt;
