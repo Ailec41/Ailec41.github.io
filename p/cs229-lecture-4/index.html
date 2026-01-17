@@ -129,7 +129,53 @@ e^{\eta_i} &= \frac{\phi_i}{\phi_k}, \\
 \phi_k e^{\eta_i} &= \phi_i, \\
 \phi_k \sum_{i=1}^k e^{\eta_i} &= \sum_{i=1}^k \phi_i = 1.
 \end{aligned}
-$$</section><footer class=article-footer></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-5/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-5/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 5" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 5</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-3/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-3/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 3" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 3</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/><div class=article-image><img src=https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229作业0" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229作业0</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-2/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-2/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 2" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 2</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_1b7b72011fc1cfa0.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第六讲 CNN架构" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第六讲 CNN架构</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+$$<p>这意味着 $\phi_k = 1 / \sum_{i=1}^k e^{\eta_i}$，可以将其代入上式以给出响应函数</p>$$
+\phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^k e^{\eta_j}}.
+$$<p>从 $\eta$ 到 $\phi$ 的映射函数称为 <strong>softmax 函数</strong>。</p><p>为了完成我们的模型，我们使用前面给出的假设 3，即 $\eta_i$ 与 $ x $ 线性相关。因此，有$\eta_i = \theta_i^T x$（对于 $i = 1,\ldots,k-1$），其中 $\theta_1,\ldots,\theta_{k-1} \in \mathbb{R}^{n+1}$ 是我们模型的参数。为了符号方便，我们还可以定义 $\theta_k = 0$，
+所以 $\eta_k = \theta_k^T x = 0$，如之前所述。因此，我们的模型假设给定 $ x $，$y$ 的条件分布由下式给出：</p>$$
+\begin{array}{rcl}
+p(y=i \mid x;\theta)
+&=& \phi_i \\[6pt]
+&=& \dfrac{e^{\eta_i}}{\sum_{j=1}^k e^{\eta_j}} \\[10pt]
+&=& \dfrac{e^{\theta_i^T x}}{\sum_{j=1}^k e^{\theta_j^T x}}.
+\end{array}
+\tag{8}
+$$<p>该模型适用于分类问题，其中 $y \in {1,\ldots,k}$，称为 <strong>softmax 回归</strong>。它是 logistic 回归的推广。</p><p>我们的假设将输出</p>$$
+h_\theta(x) = E[T(y) \mid x;\theta]
+$$$$
+= E\!\left[
+\begin{bmatrix}
+1\{y=1\} \\
+1\{y=2\} \\
+\vdots \\
+1\{y=k-1\}
+\end{bmatrix}
+\;\middle|\; x;\theta
+\right]
+$$<h1 id=heading>$$</h1><p>\begin{bmatrix}
+\phi_1 \
+\phi_2 \
+\vdots \
+\phi_{k-1}
+\end{bmatrix}
+$$</p><h1 id=heading-1>$$</h1><p>\begin{bmatrix}
+\dfrac{e^{\theta_1^T x}}{\sum_{j=1}^k e^{\theta_j^T x}} \
+\dfrac{e^{\theta_2^T x}}{\sum_{j=1}^k e^{\theta_j^T x}} \
+\vdots \
+\dfrac{e^{\theta_{k-1}^T x}}{\sum_{j=1}^k e^{\theta_j^T x}}
+\end{bmatrix}.
+$$</p><p>换句话说，对于 $i = 1,\ldots,k$ 的每个值，我们的假设将输出 $p(y=i \mid x;\theta)$ 的概率估计值。（尽管如上定义的 $ h(x) $ 仅为 $k-1$ 维，但由 $1 - \sum_{i=1}^{k-1} \phi_i$显然可以得到 $p(y=k \mid x;\theta)$。）</p><p>最后，让我们讨论参数拟合。类似于我们对普通最小二乘和 logistic 回归的原始推导，如果我们有一个训练集
+${(x^{(i)},y^{(i)}); i=1,\ldots,m}$并且想要学习这个模型的参数 $ \theta_i $，我们首先写下对数似然：</p>$$
+\ell(\theta)
+= \sum_{i=1}^m \log p(y^{(i)} \mid x^{(i)};\theta)
+$$$$
+= \sum_{i=1}^m
+\log \prod_{l=1}^k
+\left(
+\frac{e^{\theta_l^T x^{(i)}}}
+{\sum_{j=1}^k e^{\theta_j^T x^{(i)}}}
+\right)^{1\{y^{(i)}=l\}}.
+$$<p>为了获得上面的第二行，我们使用等式 (8) 中给出的$p(y \mid x;\theta)$ 的定义。我们现在可以通过使用诸如梯度上升或牛顿法之类的方法，关于 $\theta$ 来最大化 $ \ell(\theta) $，从而获得参数的最大似然估计。</p></section><footer class=article-footer></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-5/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-5/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 5" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 5</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-3/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-3/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 3" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 3</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/><div class=article-image><img src=https://lunatide.tech/p/cs229%E4%BD%9C%E4%B8%9A0/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229作业0" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229作业0</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-2/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-2/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 2" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 2</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/><div class=article-image><img src=https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/pic1.543c3ec3703e3e550061d7dc2576aef5_hu_1b7b72011fc1cfa0.jpg width=250 height=150 loading=lazy alt="Featured image of post CS231 第六讲 CNN架构" data-hash="md5-VDw+w3A+PlUAYdfcJXau9Q=="></div><div class=article-details><h2 class=article-title>CS231 第六讲 CNN架构</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
 2025 -
 2026 LunaTide's Blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.31.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 <button class="pswp__button pswp__button--share" title=Share></button>

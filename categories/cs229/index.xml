@@ -210,7 +210,66 @@ e^{\eta_i} &amp;= \frac{\phi_i}{\phi_k}, \\
 \phi_k e^{\eta_i} &amp;= \phi_i, \\
 \phi_k \sum_{i=1}^k e^{\eta_i} &amp;= \sum_{i=1}^k \phi_i = 1.
 \end{aligned}
-$$</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
+$$&lt;p&gt;这意味着 $\phi_k = 1 / \sum_{i=1}^k e^{\eta_i}$，可以将其代入上式以给出响应函数&lt;/p&gt;
+$$
+\phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^k e^{\eta_j}}.
+$$&lt;p&gt;从 $\eta$ 到 $\phi$ 的映射函数称为 &lt;strong&gt;softmax 函数&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;为了完成我们的模型，我们使用前面给出的假设 3，即 $\eta_i$ 与 $ x $ 线性相关。因此，有$\eta_i = \theta_i^T x$（对于 $i = 1,\ldots,k-1$），其中 $\theta_1,\ldots,\theta_{k-1} \in \mathbb{R}^{n+1}$ 是我们模型的参数。为了符号方便，我们还可以定义 $\theta_k = 0$，
+所以 $\eta_k = \theta_k^T x = 0$，如之前所述。因此，我们的模型假设给定 $ x $，$y$ 的条件分布由下式给出：
+&lt;/p&gt;
+$$
+\begin{array}{rcl}
+p(y=i \mid x;\theta)
+&amp;=&amp; \phi_i \\[6pt]
+&amp;=&amp; \dfrac{e^{\eta_i}}{\sum_{j=1}^k e^{\eta_j}} \\[10pt]
+&amp;=&amp; \dfrac{e^{\theta_i^T x}}{\sum_{j=1}^k e^{\theta_j^T x}}.
+\end{array}
+\tag{8}
+$$&lt;p&gt;该模型适用于分类问题，其中 $y \in {1,\ldots,k}$，称为 &lt;strong&gt;softmax 回归&lt;/strong&gt;。它是 logistic 回归的推广。&lt;/p&gt;
+&lt;p&gt;我们的假设将输出&lt;/p&gt;
+$$
+h_\theta(x) = E[T(y) \mid x;\theta]
+$$$$
+= E\!\left[
+\begin{bmatrix}
+1\{y=1\} \\
+1\{y=2\} \\
+\vdots \\
+1\{y=k-1\}
+\end{bmatrix}
+\;\middle|\; x;\theta
+\right]
+$$&lt;h1 id="heading"&gt;$$
+&lt;/h1&gt;&lt;p&gt;\begin{bmatrix}
+\phi_1 \
+\phi_2 \
+\vdots \
+\phi_{k-1}
+\end{bmatrix}
+$$&lt;/p&gt;
+&lt;h1 id="heading-1"&gt;$$
+&lt;/h1&gt;&lt;p&gt;\begin{bmatrix}
+\dfrac{e^{\theta_1^T x}}{\sum_{j=1}^k e^{\theta_j^T x}} \
+\dfrac{e^{\theta_2^T x}}{\sum_{j=1}^k e^{\theta_j^T x}} \
+\vdots \
+\dfrac{e^{\theta_{k-1}^T x}}{\sum_{j=1}^k e^{\theta_j^T x}}
+\end{bmatrix}.
+$$&lt;/p&gt;
+&lt;p&gt;换句话说，对于 $i = 1,\ldots,k$ 的每个值，我们的假设将输出 $p(y=i \mid x;\theta)$ 的概率估计值。（尽管如上定义的 $ h(x) $ 仅为 $k-1$ 维，但由 $1 - \sum_{i=1}^{k-1} \phi_i$显然可以得到 $p(y=k \mid x;\theta)$。）&lt;/p&gt;
+&lt;p&gt;最后，让我们讨论参数拟合。类似于我们对普通最小二乘和 logistic 回归的原始推导，如果我们有一个训练集
+${(x^{(i)},y^{(i)}); i=1,\ldots,m}$并且想要学习这个模型的参数 $ \theta_i $，我们首先写下对数似然：
+&lt;/p&gt;
+$$
+\ell(\theta)
+= \sum_{i=1}^m \log p(y^{(i)} \mid x^{(i)};\theta)
+$$$$
+= \sum_{i=1}^m
+\log \prod_{l=1}^k
+\left(
+\frac{e^{\theta_l^T x^{(i)}}}
+{\sum_{j=1}^k e^{\theta_j^T x^{(i)}}}
+\right)^{1\{y^{(i)}=l\}}.
+$$&lt;p&gt;为了获得上面的第二行，我们使用等式 (8) 中给出的$p(y \mid x;\theta)$ 的定义。我们现在可以通过使用诸如梯度上升或牛顿法之类的方法，关于 $\theta$ 来最大化 $ \ell(\theta) $，从而获得参数的最大似然估计。&lt;/p&gt;</description></item><item><title>CS229 Lecture 3</title><link>https://lunatide.tech/p/cs229-lecture-3/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-3/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-3/pic1.jpg" alt="Featured image of post CS229 Lecture 3" /&gt;&lt;h2 id="最小二乘法的概率解释"&gt;最小二乘法的概率解释
 &lt;/h2&gt;&lt;p&gt;在面对回归问题的时候，我们会思考，为什么选择线性回归，为什么选择最小二乘法成本函数 &lt;strong&gt;J&lt;/strong&gt; ？在本节里会给出一系列的概率基本假设，基于这些假设，可以推出最小二乘法是一种非常自然的算法&lt;/p&gt;
 &lt;p&gt;首先假设目标变量和输入值存在下面这种等量关系
 &lt;/p&gt;
