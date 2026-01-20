@@ -64,22 +64,23 @@ $$$$
 p(x^{(i)} \mid y^{(i)};\mu_0,\mu_1,\Sigma)\,
 p(y^{(i)};\phi).
 $$&lt;p&gt;通过参数最大化$l$，然后就能找到该参数组合对应的最大似然估计如下
+&lt;/p&gt;
 $$
 \begin{array}{rcl}
 \phi
-&amp;amp;=&amp;amp; \dfrac{1}{m}\displaystyle\sum_{i=1}^m 1{y^{(i)} = 1} \&lt;/p&gt;
-&lt;p&gt;\mu_0
-&amp;amp;=&amp;amp; \dfrac{\displaystyle\sum_{i=1}^m 1{y^{(i)} = 0}, x^{(i)}}
-{\displaystyle\sum_{i=1}^m 1{y^{(i)} = 0}} \&lt;/p&gt;
-&lt;p&gt;\mu_1
-&amp;amp;=&amp;amp; \dfrac{\displaystyle\sum_{i=1}^m 1{y^{(i)} = 1}, x^{(i)}}
-{\displaystyle\sum_{i=1}^m 1{y^{(i)} = 1}} \&lt;/p&gt;
-&lt;p&gt;\Sigma
-&amp;amp;=&amp;amp; \dfrac{1}{m}\displaystyle\sum_{i=1}^m
+&amp;=&amp; \dfrac{1}{m}\displaystyle\sum_{i=1}^m 1\{y^{(i)} = 1\} \\
+\mu_0
+&amp;=&amp; \dfrac{\displaystyle\sum_{i=1}^m 1\{y^{(i)} = 0\}\, x^{(i)}}
+{\displaystyle\sum_{i=1}^m 1\{y^{(i)} = 0\}} \\
+\mu_1
+&amp;=&amp; \dfrac{\displaystyle\sum_{i=1}^m 1\{y^{(i)} = 1\}\, x^{(i)}}
+{\displaystyle\sum_{i=1}^m 1\{y^{(i)} = 1\}} \\
+\Sigma
+&amp;=&amp; \dfrac{1}{m}\displaystyle\sum_{i=1}^m
 \big(x^{(i)} - \mu_{y^{(i)}}\big)
 \big(x^{(i)} - \mu_{y^{(i)}}\big)^T
 \end{array}
-$$&lt;/p&gt;</description></item><item><title>CS229 Lecture 4</title><link>https://lunatide.tech/p/cs229-lecture-4/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-4/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-4/pic1.jpg" alt="Featured image of post CS229 Lecture 4" /&gt;&lt;p&gt;现在是2026年01月01号的00:00，该更新note了！新年快乐！&lt;/p&gt;
+$$</description></item><item><title>CS229 Lecture 4</title><link>https://lunatide.tech/p/cs229-lecture-4/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-4/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-4/pic1.jpg" alt="Featured image of post CS229 Lecture 4" /&gt;&lt;p&gt;现在是2026年01月01号的00:00，该更新note了！新年快乐！&lt;/p&gt;
 &lt;h3 id="另外一种最大化ltheta的算法"&gt;另外一种最大化$l(\theta)$的算法
 &lt;/h3&gt;&lt;p&gt;回到logistic回归，其中$g(z)$是sigmoid函数，现在让我们讨论一种最大化$l(\theta)$的不同算法&lt;/p&gt;
 &lt;p&gt;我们先想一下求一个方程零点的牛顿法。假设我们有一个从实数到实数$ f : \mathbb{R} \to \mathbb{R} $，然后要找到一个$\theta$，来满足 $f(\theta)=0$，其中$0 \in \mathbb{R}$。牛顿法就是对 $\theta$ 进行如下的更新：
