@@ -82,135 +82,66 @@ $$
 \end{array}
 $$&lt;p&gt;
 推导过程如下：&lt;/p&gt;
-&lt;p&gt;先观察 $P(x \mid y)$ 的形式，可以得到如下公式：&lt;/p&gt;
+&lt;p&gt;先观察 $P(x \mid y)$ 的形式，可以得到如下公式&lt;/p&gt;
 $$
-P(x \mid y)
-= \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}
+P(x\mid y)=\frac{1}{(2\pi)^{n/2}\,|\Sigma|^{1/2}}
+\exp\!\left(-\frac{1}{2}(x-\mu_y)^{T}\Sigma^{-1}(x-\mu_y)\right)
+$$&lt;p&gt;
+接着计算 $\log P(x,y)$&lt;/p&gt;
+$$
+\begin{array}{rcl}
+\log P(x,y)
+&amp; = &amp;
+\log P(x\mid y)P(y)\\
+&amp; = &amp;
+\log\Bigg(
+\frac{1}{(2\pi)^{n/2}\lvert\Sigma\rvert^{1/2}}
 \exp\!\left(
 -\frac{1}{2}(x-\mu_y)^T\Sigma^{-1}(x-\mu_y)
 \right)
-$$&lt;p&gt;接着计算 $\log P(x,y)$：&lt;/p&gt;
-&lt;p&gt;$$
-\begin{array}{lcl}
-\log P(x,y)
-&amp;amp;=&amp;amp; \log\big(P(x \mid y)P(y)\big) \&lt;/p&gt;
-&lt;p&gt;{}
-&amp;amp;=&amp;amp; \log!\Bigg(
-\frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}
-\exp!\left(
--\frac{1}{2}(x-\mu_y)^T\Sigma^{-1}(x-\mu_y)
-\right)
-\phi^{\mathbf{1}{y=1}}(1-\phi)^{\mathbf{1}{y=0}}
-\Bigg) \&lt;/p&gt;
-&lt;p&gt;{}
-&amp;amp;=&amp;amp; \log\frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}
--\frac{1}{2}(x-\mu_y)^T\Sigma^{-1}(x-\mu_y)
-+\mathbf{1}{y=1}\log\phi
-+\mathbf{1}{y=0}\log(1-\phi)
+\phi^{1(y=1)}
+(1-\phi)^{1(y=0)}
+\Bigg)\\
+&amp; = &amp;
+\,-\frac{n}{2}\log(2\pi)
+\,-\frac{1}{2}\log\lvert\Sigma\rvert
+\,-\frac{1}{2}(x-\mu_y)^T\Sigma^{-1}(x-\mu_y)+ 1(y=1)\log\phi+ 1(y=0)\log(1-\phi)
 \end{array}
-$$
+$$&lt;p&gt;
 对数似然函数为：&lt;/p&gt;
-&lt;p&gt;$$
-\begin{array}{lcl}
+$$
+\begin{aligned}
 \ell(\phi,\mu_0,\mu_1,\Sigma)
-&amp;amp;=&amp;amp; \log\prod_{i=1}^{m}
-p(x^{(i)},y^{(i)};\phi,\mu_0,\mu_1,\Sigma) \&lt;/p&gt;
-&lt;p&gt;{}
-&amp;amp;=&amp;amp; \displaystyle\sum_{i=1}^{m}
-\log p(x^{(i)},y^{(i)};\phi,\mu_0,\mu_1,\Sigma) \&lt;/p&gt;
-&lt;p&gt;{}
-&amp;amp;=&amp;amp; \displaystyle\sum_{i=1}^{m}\Bigg(
-\log\frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}
+&amp;= \log\prod_{i=1}^{m} p(x^{(i)},y^{(i)};\phi,\mu_0,\mu_1,\Sigma) \\
+&amp;= \sum_{i=1}^{m}
+\log p(x^{(i)},y^{(i)};\phi,\mu_0,\mu_1,\Sigma) \\
+&amp;= \sum_{i=1}^{m}\Bigg(
+\log\frac{1}{(2\pi)^{n/2}\det(\Sigma)^{1/2}}
 -\frac{1}{2}(x^{(i)}-\mu_{y^{(i)}})^T
-\Sigma^{-1}(x^{(i)}-\mu_{y^{(i)}})
-+\mathbf{1}{y^{(i)}=1}\log\phi
-+\mathbf{1}{y^{(i)}=0}\log(1-\phi)
+\Sigma^{-1}(x^{(i)}-\mu_{y^{(i)}})+ 1(y^{(i)}=1)\log\phi+ 1(y^{(i)}=0)\log(1-\phi)
 \Bigg)
-\end{array}
+\end{aligned}
+$$&lt;p&gt;
+关于 $\phi$ 求梯度
 &lt;/p&gt;
 $$
-关于 $\phi$ 求梯度
-$$&lt;p&gt;
-\begin{array}{lcl}
+\begin{array}{rcl}
 \displaystyle\frac{\partial \ell}{\partial \phi}
-&amp;amp;=&amp;amp; \displaystyle
+&amp;=&amp; \displaystyle
 \sum_{i=1}^{m}
 \left(
-\frac{\mathbf{1}{y^{(i)}=1}}{\phi}
--\frac{\mathbf{1}{y^{(i)}=0}}{1-\phi}
+\frac{\mathbf{1}\{y^{(i)}=1\}}{\phi}
+-\frac{\mathbf{1}\{y^{(i)}=0\}}{1-\phi}
 \right)
-= 0&lt;/p&gt;
-&lt;p&gt;{}
-&amp;amp;\Longrightarrow&amp;amp;
-\displaystyle\sum_{i=1}^{m}\mathbf{1}{y^{(i)}=1}
-= m\phi&lt;/p&gt;
-&lt;h1 id="phi"&gt;{}
-&amp;amp;\Longrightarrow&amp;amp;
-\displaystyle
-\phi
-&lt;/h1&gt;&lt;p&gt;\frac{1}{m}\sum_{i=1}^{m}\mathbf{1}{y^{(i)}=1}
-\end{array}
-&lt;/p&gt;
-$$
-关于 $\mu_1,\mu_0$ 求梯度
-$$&lt;p&gt;
-\begin{array}{lcl}
-\nabla_{\mu_1}\ell
-&amp;amp;=&amp;amp; \displaystyle
-\sum_{i=1}^{m}
-\Sigma^{-1}(x^{(i)}-\mu_{y^{(i)}})
-\mathbf{1}{y^{(i)}=1}
-= 0&lt;/p&gt;
-&lt;p&gt;{}
-&amp;amp;\Longrightarrow&amp;amp;
-\displaystyle
-\sum_{i=1}^{m}
-(x^{(i)}-\mu_1)\mathbf{1}{y^{(i)}=1}
-= 0&lt;/p&gt;
-&lt;h1 id="mu_1"&gt;{}
-&amp;amp;\Longrightarrow&amp;amp;
-\displaystyle
-\mu_1
-&lt;/h1&gt;&lt;h1 id="nabla_sigma-1ell"&gt;\frac{\sum_{i=1}^{m}\mathbf{1}{y^{(i)}=1}x^{(i)}}
-{\sum_{i=1}^{m}\mathbf{1}{y^{(i)}=1}}
-\end{array}
-$$
-求 $\Sigma$ 时利用一些技巧，我们不直接求 $\Sigma$ 的极大似然估计，先求 $\Sigma^{-1}$ 的极大似然估计，利用如下两个公式：
-$$
-\nabla_A \det|A|
-= \det|A|(A^{-1})^T,
-\qquad
-\nabla_A(x^T A y)
-= \nabla_A \operatorname{trace}(x^T A y)
-= xy^T
-$$
-so
-$$
-\nabla_{\Sigma^{-1}}\ell
-&lt;/h1&gt;&lt;h2 id="leftfracm2logsigma-1right"&gt;\nabla_{\Sigma^{-1}}
-\left(\frac{m}{2}\log|\Sigma^{-1}|\right)
-&lt;/h2&gt;&lt;h2 id="fracm2sigma"&gt;\frac{1}{2}
-\nabla_{\Sigma^{-1}}
-\sum_{i=1}^{m}
-(x^{(i)}-\mu_{y^{(i)}})^T
-\Sigma^{-1}
-(x^{(i)}-\mu_{y^{(i)}})
 = 0
-;\Longrightarrow;
-\frac{m}{2}\Sigma
-&lt;/h2&gt;&lt;h1 id="sigma"&gt;\frac{1}{2}
-\sum_{i=1}^{m}
-(x^{(i)}-\mu_{y^{(i)}})
-(x^{(i)}-\mu_{y^{(i)}})^T
-= 0
-;\Longrightarrow;
-\Sigma
-&lt;/h1&gt;&lt;p&gt;\frac{1}{m}
-\sum_{i=1}^{m}
-(x^{(i)}-\mu_{y^{(i)}})
-(x^{(i)}-\mu_{y^{(i)}})^T
-$$
-因此结论成立。&lt;/p&gt;</description></item><item><title>CS229 Lecture 4</title><link>https://lunatide.tech/p/cs229-lecture-4/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-4/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-4/pic1.jpg" alt="Featured image of post CS229 Lecture 4" /&gt;&lt;p&gt;现在是2026年01月01号的00:00，该更新note了！新年快乐！&lt;/p&gt;
+&amp;\Longrightarrow&amp;
+\displaystyle\sum_{i=1}^{m}\mathbf{1}\{y^{(i)}=1\}
+= m\phi
+&amp;\Longrightarrow&amp;
+\displaystyle
+\phi=\frac{1}{m}\sum_{i=1}^{m}\mathbf{1}\{y^{(i)}=1\}
+\end{array}
+$$</description></item><item><title>CS229 Lecture 4</title><link>https://lunatide.tech/p/cs229-lecture-4/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-4/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-4/pic1.jpg" alt="Featured image of post CS229 Lecture 4" /&gt;&lt;p&gt;现在是2026年01月01号的00:00，该更新note了！新年快乐！&lt;/p&gt;
 &lt;h3 id="另外一种最大化ltheta的算法"&gt;另外一种最大化$l(\theta)$的算法
 &lt;/h3&gt;&lt;p&gt;回到logistic回归，其中$g(z)$是sigmoid函数，现在让我们讨论一种最大化$l(\theta)$的不同算法&lt;/p&gt;
 &lt;p&gt;我们先想一下求一个方程零点的牛顿法。假设我们有一个从实数到实数$ f : \mathbb{R} \to \mathbb{R} $，然后要找到一个$\theta$，来满足 $f(\theta)=0$，其中$0 \in \mathbb{R}$。牛顿法就是对 $\theta$ 进行如下的更新：
