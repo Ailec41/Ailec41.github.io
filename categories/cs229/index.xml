@@ -2,7 +2,47 @@
 &lt;/h3&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
 &lt;p&gt;下面就来看一个样例，来尝试建立一个邮件筛选器，使用机器学习的方法。这回咱们要来对邮件信息进行分类，来判断是否为商业广告邮件还是非垃圾邮件。在学会了怎么实现之后，我们就可以让邮件阅读器能够自动对垃圾信息进行过滤，或者单独把这些垃圾邮件放进一个单独的文件夹中。对邮件进行分类是一个案例，属于文本分类这一更广泛问题集合。&lt;/p&gt;
 &lt;p&gt;假设我们有了一个训练集（也就是一堆已经标好了是否为垃圾邮件的邮件）。要构建垃圾邮件分类器，咱们先要开始确定用来描述一封邮件的特征 \(x_i\) 有哪些。&lt;/p&gt;
-&lt;p&gt;我们将用一个特征向量来表示一封邮件，这个向量的长度等于字典中单词的个数。如果邮件中包含了字典中的第 \(i\) 个单词，那么令$x_i = 1$，反之则$x_i = 0$。例如:&lt;/p&gt;</description></item><item><title>CS229 Lecture 5</title><link>https://lunatide.tech/p/cs229-lecture-5/</link><pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-5/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-5/pic1.jpg" alt="Featured image of post CS229 Lecture 5" /&gt;&lt;h2 id="生成学习算法"&gt;生成学习算法
+&lt;p&gt;我们将用一个特征向量来表示一封邮件，这个向量的长度等于字典中单词的个数。如果邮件中包含了字典中的第 \(i\) 个单词，那么令$x_i = 1$，反之则$x_i = 0$。例如:&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-52/p1.jpg"
+width="369"
+height="262"
+srcset="https://lunatide.tech/p/cs229-lecture-52/p1_hu_24d2c244daf379eb.jpg 480w, https://lunatide.tech/p/cs229-lecture-52/p1_hu_781b30d3469ce0de.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="140"
+data-flex-basis="338px"
+&gt;&lt;/p&gt;
+&lt;p&gt;就用来表示一个邮件，其中包含了两个单词 “a” 和 “buy”，但没有单词 “aardvark”、“aardwolf” 或者 “zymurgy”。这个单词集合编码整理成的特征向量也成为词汇表，所以特征向量 x 的维度就等于词汇表的长度。&lt;/p&gt;
+&lt;p&gt;选好了特征向量了，接下来就是建立一个生成模型。所以我们必须对 $p(x \mid y)$ 进行建模。但是，假如我们的单词有五万个词，则特征向量 $x \in {0, 1}^{50000}$（即 $x$ 是一个 50000 维的向量，其值是 0 或者 1），如果我们要对这样的 $x$ 进行多项式分布的建模，那么就可能有 $2^{50000}$ 种可能的输出，然后就要用一个 $(2^{50000} - 1)$ 维的参数向量。这样参数明显太多了。&lt;/p&gt;
+&lt;p&gt;要给 $p(x \mid y)$ 建模，先来做一个非常强的假设。我们假设特征向量 $x_i$ 对于给定的 $y$ 是独立的。这个假设也叫做&lt;strong&gt;朴素贝叶斯假设&lt;/strong&gt;，基于此假设衍生的算法也就叫做&lt;strong&gt;朴素贝叶斯分类器&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;例如，如果 $y = 1$ 意味着一个邮件是垃圾邮件；然后其中 “buy” 是第2087个单词，而 “price” 是第39831个单词；那么接下来我们就假设，如果我告诉你 $y = 1$，也就是说某一个特定的邮件是垃圾邮件，那么对于 $x_{2087}$（也就是单词 buy 是否出现在邮件里）的了解并不会影响你对 $x_{39831}$（单词 price 出现的位置）的采信值。更正规一点，可以写成 $p(x_{2087} \mid y) = p(x_{2087} \mid y, x_{39831})$。（要注意这个并不是说 $x_{2087}$ 和 $x_{39831}$ 这两个特征是独立的，那样就变成了$p(X_{2087})=p(x_{2087} \mid x_{39831})$，相反，我们只假设$x_{2087}$和$x_{39831}$关于$y$条件独立）&lt;/p&gt;
+&lt;p&gt;我们现在有：&lt;/p&gt;
+$$
+\begin{aligned}
+p(x_1, \ldots, x_{50000} \mid y)
+&amp;= p(x_1 \mid y)\, p(x_2 \mid y, x_1)\, p(x_3 \mid y, x_1, x_2)\, \ldots \, p(x_{50000} \mid y, x_1, \ldots, x_{49999}) \\
+&amp;= p(x_1 \mid y)\, p(x_2 \mid y)\, p(x_3 \mid y)\, \ldots \, p(x_{50000} \mid y) \\
+&amp;= \prod_{i=1}^{n} p(x_i \mid y)
+\end{aligned}
+$$&lt;p&gt;第一个等式简单地遵循概率的通用属性，第二个等式使用 NB 假设。我们注意到，即使朴素贝叶斯假设是一个非常强的假设，所得的算法在许多问题上也能很好地工作。&lt;/p&gt;
+&lt;p&gt;我们的模型通过$\phi_{j \mid y=1} = p(x_j = 1 \mid y = 1), \phi_{j \mid y=0} = p(x_j = 1 \mid y = 0)$，以及$\phi_y = p(y = 1)$来参数化。像往常一样，给定训练集${(x^{(i)}, y^{(i)}); i = 1, \ldots, m}$，数据的似然性为：
+&lt;/p&gt;
+$$
+\mathcal{L}(\phi_y, \phi_{j \mid y=0}, \phi_{j \mid y=1})
+= \prod_{i=1}^{m} p(x^{(i)}, y^{(i)})
+$$&lt;p&gt;关于 $\phi_y, \phi_{j \mid y=0}, \phi_{j \mid y=1}$ 最大化上述给出最大似然估计：&lt;/p&gt;
+$$
+\phi_{j \mid y=1}
+= \frac{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1 \wedge x_j^{(i)} = 1\}}
+{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1\}}
+$$$$
+\phi_{j \mid y=0}
+= \frac{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 0 \wedge x_j^{(i)} = 1\}}
+{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 0\}}
+$$$$
+\phi_y
+= \frac{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1\}}{m}
+$$</description></item><item><title>CS229 Lecture 5</title><link>https://lunatide.tech/p/cs229-lecture-5/</link><pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-5/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-5/pic1.jpg" alt="Featured image of post CS229 Lecture 5" /&gt;&lt;h2 id="生成学习算法"&gt;生成学习算法
 &lt;/h2&gt;&lt;p&gt;目前为止说过的学习算法的模型都是$p(y \mid x;\theta)$，也就是给定$x$下的$y$的条件分布，以$\theta$为参数。例如，逻辑回归就是以$h_{\theta}(x)=g(\theta^Tx)$作为$p(y \mid x;\theta)$的模型，这里的$g$是一个sigmoid函数，接下来要讲一个不同类型的学习算法。&lt;/p&gt;
 &lt;p&gt;设想有这样的一种分类问题，我们要学习基于一个动物的某个特征来辨别它是大象(y=1)还是小狗(y=0)。给定一个训练集，用逻辑回归或者基础版的感知器算法这样的一个算法能找到一条直线，作为区分大象和小狗的边界。然后我们只要看值落在哪个区域就可以分辨出是大象还是小狗。&lt;/p&gt;
 &lt;p&gt;或者还有另外一种算法。首先，观察大象，然后我们针对大象的样子来进行建模。然后再观察小狗，针对小狗的样子另外建立一个模型。最后我们只需要把动物和这两个模型比对，越接近哪个就是哪个动物。&lt;/p&gt;
@@ -197,8 +237,8 @@ $$$$
 (x^{(i)}-\mu_{y^{(i)}})^T
 \end{array}
 $$&lt;p&gt;因此结论成立。&lt;/p&gt;
-&lt;h4 id="讨论高斯判别分析与logistic回归"&gt;讨论：高斯判别分析与logistic回归
-&lt;/h4&gt;&lt;p&gt;高斯判别分析模型与逻辑回归有很有趣的相关性。如果我们把变量 $ p(y = 1 \mid x; \phi, \mu_0, \mu_1, \Sigma) $作为一个 \(x\) 的函数，就会发现可以用如下的形式来表达：&lt;/p&gt;
+&lt;h3 id="讨论高斯判别分析与logistic回归"&gt;讨论：高斯判别分析与logistic回归
+&lt;/h3&gt;&lt;p&gt;高斯判别分析模型与逻辑回归有很有趣的相关性。如果我们把变量 $ p(y = 1 \mid x; \phi, \mu_0, \mu_1, \Sigma) $作为一个 \(x\) 的函数，就会发现可以用如下的形式来表达：&lt;/p&gt;
 $$
 p(y = 1 \mid x; \phi, \Sigma, \mu_0, \mu_1)=\frac{1}{1 + \exp(-\theta^T x)}
 $$&lt;p&gt;其中的 \(\theta\) 是对 \(\phi, \Sigma, \mu_0, \mu_1\) 的某种函数。这就是逻辑回归（也是一种判别分析算法）用来对\( p(y = 1 \mid x) \)建模的形式。&lt;/p&gt;
