@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LunaTide's Blog</title><link>https://lunatide.tech/</link><description>Recent content on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>concrete mathematics hw1</title><link>https://lunatide.tech/p/concrete-mathematics-hw1/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/concrete-mathematics-hw1/</guid><description>&lt;img src="https://lunatide.tech/p/concrete-mathematics-hw1/pic1.jpg" alt="Featured image of post concrete mathematics hw1" /&gt;&lt;p&gt;过年几天没怎么看公开课，这两天补一下&lt;/p&gt;
-&lt;p&gt;1.当 $n=2$时，两个集合为{1],{2}交集为空，所以从1推到2的时候有问题&lt;/p&gt;
-&lt;p&gt;2.设$T(n$)是把$n$个盘子从A移动到目标B的最少次数，初步可以得到递推式$T(n)\le 3T(n - 1) + 2$&lt;/p&gt;
-&lt;p&gt;模拟一下盘子的移动过程，首先我们要让$n -1$个较小的盘子从A移动到B，然后让之前A上最大的盘子移动到C，这一步要至少$T(n-1)+1$步(+1意思是最大的盘子移动)，我们希望最大的盘子在B的最下方，所以还得先让B上较小的那些盘子回到A，因此又需要$T(n-1)+1$步 ，最后最大盘到B后我们还需要把$n-1$个盘子移动到B，所以加起来至少需要$3T(n-1)+2$&lt;/p&gt;
-&lt;p&gt;因此$T(n)=3T(n-1)+2=3^n-1$&lt;/p&gt;
-&lt;p&gt;3.设$T(n$)是$n$个盘子所有合法的状态集合,$T(1)=3,T(2)=9$，我们guess$T(n)=3^n$&lt;/p&gt;
-&lt;p&gt;假设$n-1$时结论成立，下证$n$时结论也成立，回忆下上一道题的过程，其实虽然一共有5步，但是其实这是一个类似于周期的过程，总有一个时刻是最大的盘子再A，B或者C的柱子上，然后剩下的$n-1$个盘子在做移动&lt;/p&gt;
-&lt;p&gt;因此总共就是$3 \times 3^{n-1}=3^n$，得证&lt;/p&gt;
-&lt;p&gt;4.设$T(n)$是在合法状态下，存在$n$个圆盘需要最多的移动次数$\le 2^n-1$，$n$等于1的时候，需要一次移动，显然成立&lt;/p&gt;
-&lt;p&gt;假设$n-1$时结论成立，也就是说最多移动次数$\le 2^{n-1}-1$&lt;/p&gt;
-&lt;p&gt;$n$个盘子时候的第一个合法状态，如果最大的盘子已经在目标B柱上，那么只需要$T(n-1)$次操作就可以，显然成立&lt;/p&gt;
-&lt;p&gt;若最大盘子不在B柱上，我们首先需要将$n-1$个盘子移动到中间柱C，然后把大盘移动到B，最后递归剩下的盘子，最多$2^{n-1}-1$&lt;/p&gt;
-&lt;p&gt;因此总步数就是$2^n-1$，得证&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
+&lt;ol&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当 $n=2$ 时，两个集合为 ${1}, {2}$，交集为空，所以从 1 推到 2 的时候有问题。&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;设 $T(n)$ 是把 $n$ 个盘子从 A 移动到目标 B 的最少次数，初步可以得到递推式
+&lt;/p&gt;
+$$
+T(n)\le 3T(n - 1) + 2
+$$&lt;p&gt;模拟一下盘子的移动过程。&lt;/p&gt;
+&lt;p&gt;首先我们要让 $n-1$ 个较小的盘子从 A 移动到 B，然后让之前 A 上最大的盘子移动到 C，这一步要至少 $T(n-1)+1$ 步（+1 意思是最大的盘子移动）。&lt;/p&gt;
+&lt;p&gt;我们希望最大的盘子在 B 的最下方，所以还得先让 B 上较小的那些盘子回到 A，因此又需要 $T(n-1)+1$ 步。&lt;/p&gt;
+&lt;p&gt;最后最大盘到 B 后我们还需要把 $n-1$ 个盘子移动到 B，所以加起来至少需要&lt;/p&gt;
+$$
+3T(n-1)+2
+$$&lt;p&gt;因此&lt;/p&gt;
+$$
+T(n)=3T(n-1)+2=3^n-1
+$$&lt;ol start="3"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;设 $T(n)$ 是 $n$ 个盘子所有合法的状态集合，$T(1)=3, T(2)=9$，我们 guess
+&lt;/p&gt;
+$$
+T(n)=3^n
+$$&lt;p&gt;假设 $n-1$ 时结论成立，下证 $n$ 时结论也成立。&lt;/p&gt;
+&lt;p&gt;回忆上一道题的过程，其实虽然一共有 5 步，但是这是一个类似周期的过程。总有一个时刻是最大的盘子在 A、B 或者 C 的柱子上，然后剩下的 $n-1$ 个盘子在做移动。&lt;/p&gt;
+&lt;p&gt;因此总共就是&lt;/p&gt;
+$$
+3 \times 3^{n-1}=3^n
+$$&lt;p&gt;得证。&lt;/p&gt;
+&lt;ol start="4"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;设 $T(n)$ 是在合法状态下，存在 $n$ 个圆盘需要最多的移动次数$\le 2^n-1$&lt;/p&gt;
+&lt;p&gt;当 $n=1$ 时，需要一次移动，显然成立。&lt;/p&gt;
+&lt;p&gt;假设 $n-1$ 时结论成立，也就是说最多移动次数$\le 2^{n-1}-1$&lt;/p&gt;
+&lt;p&gt;$n$ 个盘子时候的第一个合法状态，如果最大的盘子已经在目标 B 柱上，那么只需要 $T(n-1)$ 次操作就可以，显然成立。&lt;/p&gt;
+&lt;p&gt;若最大盘子不在 B 柱上，我们首先需要将 $n-1$ 个盘子移动到中间柱 C，然后把大盘移动到 B，最后递归剩下的盘子，最多 $2^{n-1}-1$。&lt;/p&gt;
+&lt;p&gt;因此总步数就是&lt;/p&gt;
+$$
+2^n-1
+$$&lt;p&gt;得证。&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
 &lt;/h3&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
 &lt;p&gt;下面就来看一个样例，来尝试建立一个邮件筛选器，使用机器学习的方法。这回咱们要来对邮件信息进行分类，来判断是否为商业广告邮件还是非垃圾邮件。在学会了怎么实现之后，我们就可以让邮件阅读器能够自动对垃圾信息进行过滤，或者单独把这些垃圾邮件放进一个单独的文件夹中。对邮件进行分类是一个案例，属于文本分类这一更广泛问题集合。&lt;/p&gt;
 &lt;p&gt;假设我们有了一个训练集（也就是一堆已经标好了是否为垃圾邮件的邮件）。要构建垃圾邮件分类器，咱们先要开始确定用来描述一封邮件的特征 \(x_i\) 有哪些。&lt;/p&gt;
