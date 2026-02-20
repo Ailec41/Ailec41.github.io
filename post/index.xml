@@ -43,7 +43,43 @@ $$&lt;p&gt;得证。&lt;/p&gt;
 &lt;p&gt;因此总步数就是&lt;/p&gt;
 $$
 2^n-1
-$$&lt;p&gt;得证。&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
+$$&lt;p&gt;得证。&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
+&lt;/h3&gt;&lt;p&gt;接下里用一个文本分类方面的模型来对生成学习算法进行收尾，之前说的朴素贝叶斯方法已经可以解决很多分类问题了，不过还有另外一个算法在针对文本的分类效果要更好&lt;/p&gt;
+&lt;p&gt;在文本分类的特定上下文中，朴素贝叶斯使用了所谓的 &lt;strong&gt;多变量伯努利事件模型&lt;/strong&gt;。在这个模型中，我们假设生成电子邮件的方式是首先随机确定(根据类先验$p(y)$) 邮件是垃圾邮件还是非垃圾邮件，然后发送邮件的人通过字典根据概率$p(x_i = 1 \mid y)$ 独立决定是否包括邮件中的每个单词。因此，邮件的概率由&lt;br&gt;
+&lt;/p&gt;
+$$
+p(y)\prod_{i=1}^{n} p(x_i \mid y)
+$$&lt;p&gt;
+给出。&lt;/p&gt;
+&lt;p&gt;这里有个不同的模型，称为&lt;strong&gt;多项事件模型&lt;/strong&gt;。为了描述这个模型，我们将使用不同的表示法和一组特征来表示电子邮件。我们令 $x_i$ 表示电子邮件中第 $i$ 个单词的标识。因此，$x_i$ 现在是一个整数，取值为 ${1, \dots, |V|}$，其中 $|V|$ 是我们词汇量的大小（字典）。$n$ 个单词的电子邮件现在由长度为 $n$ 的向量 $(x_1, x_2, \dots, x_n)$ 表示；请注意，$n$ 可能因不同文档而异。例如，如果电子邮件以 “A NIPS …” 开头，那么 $x_1 = 1$（“a” 是字典中的第 1 个单词），$x_2 = 35000$（如果 “nips” 是字典中的第 35000 个单词）。&lt;/p&gt;
+&lt;p&gt;在多项事件模型中，我们假设生成电子邮件的方式是通过如下随机过程：首先确定邮件是垃圾邮件/非垃圾邮件（根据 $p(y)$）。然后，电子邮件的发件人首先从某个多项分布生成 $x_1$（$p(x_1 \mid y)$）。接下来，第二个单词 $x_2$ 独立于 $x_1$ 且从相同的多项分布中选择，并且类似地对于 $x_3, x_4$ 等等，直到已经生成了电子邮件的所有 $n$ 个单词。因此，邮件的总概率由&lt;br&gt;
+&lt;/p&gt;
+$$
+p(y)\prod_{i=1}^{n} p(x_i \mid y)
+$$&lt;p&gt;
+给出。请注意，此公式看起来与我们之前在多变量伯努利事件模型下的邮件概率公式类似，但公式中的项现在意味着非常不同的事物。特别是 $x_j \mid y$ 现在服从多项分布，而不是伯努利分布。&lt;/p&gt;
+&lt;p&gt;我们的新模型的参数如前所述是 $\phi_y = p(y)$，$\phi_{k \mid y=1} = p(x_j = k \mid y = 1)$（对于任何 $j$），以及 $\phi_{k \mid y=0} = p(x_j = k \mid y = 0)$。注意，我们假设 $p(x_j \mid y)$ 对于 $j$ 的所有值是相同的（即，生成单词的分布不依赖于其在电子邮件中的位置 $j$）。&lt;/p&gt;
+&lt;p&gt;如果给定训练集 ${(x^{(i)}, y^{(i)}); i = 1, \dots, m}$，其中\(x^{(i)} = (x^{(i)}_1, x^{(i)}_2, \dots, x^{(i)}_{n_i})\)（这里，$n_i$ 是第 $i$ 个训练样本的单词数），数据的似然性由下式给出：
+&lt;/p&gt;
+$$
+\mathcal{L}(\phi_y, \phi_{k \mid y=0}, \phi_{k \mid y=1})=
+\prod_{i=1}^{m} p(x^{(i)}, y^{(i)})=
+\prod_{i=1}^{m}
+\left(
+\prod_{j=1}^{n_i} p(x^{(i)}_j \mid y^{(i)}; \phi_{k \mid y=0}, \phi_{k \mid y=1})
+\right)p(y^{(i)}; \phi_y)
+$$&lt;p&gt;最大化上式会产生参数的最大似然估计：&lt;/p&gt;
+$$
+\phi_{k \mid y=1}=\frac{\sum_{i=1}^{m} \sum_{j=1}^{n_i} \mathbf{1}\{x^{(i)}_j = k \land y^{(i)} = 1\}}{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1\} n_i}
+$$$$
+\phi_{k \mid y=0}=\frac
+{\sum_{i=1}^{m} \sum_{j=1}^{n_i} \mathbf{1}\{x^{(i)}_j = k \land y^{(i)} = 0\}}
+{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 0\} n_i}
+$$$$
+\phi_y=\frac
+{\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1\}}
+{m}
+$$</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
 &lt;/h3&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
 &lt;p&gt;下面就来看一个样例，来尝试建立一个邮件筛选器，使用机器学习的方法。这回咱们要来对邮件信息进行分类，来判断是否为商业广告邮件还是非垃圾邮件。在学会了怎么实现之后，我们就可以让邮件阅读器能够自动对垃圾信息进行过滤，或者单独把这些垃圾邮件放进一个单独的文件夹中。对邮件进行分类是一个案例，属于文本分类这一更广泛问题集合。&lt;/p&gt;
 &lt;p&gt;假设我们有了一个训练集（也就是一堆已经标好了是否为垃圾邮件的邮件）。要构建垃圾邮件分类器，咱们先要开始确定用来描述一封邮件的特征 \(x_i\) 有哪些。&lt;/p&gt;
