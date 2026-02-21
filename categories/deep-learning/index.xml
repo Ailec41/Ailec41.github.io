@@ -35,35 +35,99 @@ $$$$
 {\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1\}}
 {m}
 $$&lt;p&gt;如果我们在估计 $\phi_{k \mid y=1}$ 和 $\phi_{k \mid y=0}$ 时应用拉普拉斯平滑，我们对分子加 1，对分母加 $|V|$，并得到：&lt;/p&gt;
-&lt;h1 id="phi_k-mid-y1"&gt;$$
-\phi_{k \mid y=1}
-&lt;/h1&gt;&lt;p&gt;\frac{
+$$
+\phi_{k \mid y=1}=
+\frac{
 \sum_{i=1}^{m} \sum_{j=1}^{n_i}
-\mathbf{1}{x^{(i)}_j = k \land y^{(i)} = 1}&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1
+\mathbf{1}\{x^{(i)}_j = k \land y^{(i)} = 1+ 1
 }{
-\sum_{i=1}^{m} \mathbf{1}{y^{(i)} = 1} n_i&lt;/li&gt;
-&lt;li&gt;|V|
+\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1+ |V|
 }
-$$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id="phi_k-mid-y0"&gt;$$
-\phi_{k \mid y=0}
-&lt;/h1&gt;&lt;p&gt;\frac{
+$$$$
+\phi_{k \mid y=0}=
+\frac{
 \sum_{i=1}^{m} \sum_{j=1}^{n_i}
-\mathbf{1}{x^{(i)}_j = k \land y^{(i)} = 0}&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1
+\mathbf{1}\{x^{(i)}_j = k \land y^{(i)} = 0\}+ 1
 }{
-\sum_{i=1}^{m} \mathbf{1}{y^{(i)} = 0} n_i&lt;/li&gt;
-&lt;li&gt;|V|
+\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 0\} n_i + |V|
 }
-$$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;虽然不一定是最好的分类算法，但朴素贝叶斯分类器通常效果非常好。考虑到它的简单性和易于实现，它通常也非常适合作为第一个尝试。&lt;/p&gt;
+$$&lt;p&gt;虽然不一定是最好的分类算法，但朴素贝叶斯分类器通常效果非常好。考虑到它的简单性和易于实现，它通常也非常适合作为第一个尝试。&lt;/p&gt;
 &lt;h3 id="支持向量机"&gt;支持向量机
-&lt;/h3&gt;&lt;p&gt;这一章节主要讲的是&lt;strong&gt;支持向量机(SVM)学习算法&lt;/strong&gt;，SVM是现成的最好的监督学习算法。为了&lt;/p&gt;</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
+&lt;/h3&gt;&lt;p&gt;这一章节主要讲的是&lt;strong&gt;支持向量机(SVM)学习算法&lt;/strong&gt;，SVM是现成的最好的监督学习算法。为了讲述SVM，我们首先需要讨论间隔以及将数据以大的“间隔”分开的想法。接下来，我们将讨论最优间隔分类器，这将引导我们对拉格朗日对偶的讨论。我们还将看到核方法，它提供了一种在非常高维（例如无限维）特征空间中有效应用SVM的方法，最后，我们会使用SMO算法结束这章，该方法可以有效地实现支持向量机&lt;/p&gt;
+&lt;h4 id="边界直觉"&gt;边界：直觉
+&lt;/h4&gt;&lt;p&gt;我们将通过讨论间隔来开始我们关于SVM的讨论。本节将给出关于间隔和我们预测的“信心”的直觉；这些想法将在第3节中正式提出。&lt;/p&gt;
+&lt;p&gt;考虑logistic回归，其中概率 $p(y = 1 \mid x; \theta)$ 由 $h_\theta(x) = g(\theta^T x)$ 建模。然后，当且仅当 $h_\theta(x) \ge 0.5$ 时，我们才会预测输入 $x$ 为“1”，或者等价的，当且仅当 $\theta^T x \ge 0$。&lt;/p&gt;
+&lt;p&gt;考虑一个正训练样本 $(y = 1)$。$\theta^T x$ 越大，$h_\theta(x) = p(y = 1 \mid x; w, b)$ 也越大，因此标记为1的“置信度”也越高。因此，非正式地，我们可以对 $y = 1$ 进行非常自信的预测，如果 $\theta^T x \gg 0$。类似地，我们将logistic回归视为对 $y = 0$ 进行非常自信的预测，如果 $\theta^T x \ll 0$。&lt;/p&gt;
+&lt;p&gt;给定一个训练集，再次非正式地看起来我们已经找到了一个对训练数据很好的拟合，如果我们可以找到 $\theta$，以便每当 $y^{(i)} = 1$ 时，$\theta^T x^{(i)} \gg 0$，并且每当 $y^{(i)} = 0$ 时，$\theta^T x^{(i)} \ll 0$，因为这将反映所有训练样本的非常有信心（和正确）的分类。这似乎是一个很好的目标，我们很快就会使用函数间隔的概念来形式化这个想法。&lt;/p&gt;
+&lt;p&gt;对于不同的直觉，请考虑下图，其中 x 代表正训练样本，o 代表负训练样本。决策边界（这是由等式 $\theta^T x = 0$ 给出的线，也称为&lt;strong&gt;分离超平面&lt;/strong&gt;）也在图中，并且三个点也被标记为 A、B 和 C。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-6/p1.jpg"
+width="428"
+height="330"
+srcset="https://lunatide.tech/p/cs229-lecture-6/p1_hu_aa6a43531a60774f.jpg 480w, https://lunatide.tech/p/cs229-lecture-6/p1_hu_4f137f80d66a21b5.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="129"
+data-flex-basis="311px"
+&gt;&lt;/p&gt;
+&lt;p&gt;注意到A点离决策边界很远。如果我们被要求在A处对 $y$ 的值进行预测，那么我们应该非常确信 $y = 1$。相反，C点非常接近决策边界，虽然它位于我们预测 $y = 1$ 的决策边界的一侧，但似乎只是对决策边界的一个小变化很容易导致我们的预测改变为 $y = 0$。因此，我们对A处的预测比对C的预测更有信心。B点位于这两种情况之间，更广泛地说，我们看到如果一点远离分离超平面，那么我们对预测可能会更有信心。&lt;/p&gt;
+&lt;p&gt;同样，非正式地，我们认为，如果给定一个训练集，我们设法找到一个决策边界，使我们能够在训练样例上做出所有正确和自信（意味着远离决策边界）的预测，那将是非常好的。我们稍后将使用几何间隔的概念将其形式化。&lt;/p&gt;
+&lt;h4 id="符号"&gt;符号
+&lt;/h4&gt;&lt;p&gt;为了使我们对SVM的讨论更容易，我们首先需要引入一个新的符号来讨论分类。我们将考虑用于解决带有标签 $y$ 和特征 $x$ 的二元分类问题的线性分类器。从现在开始，我们将使用 $y \in {-1, 1}$（而不是 ${0, 1}$）来表示类标签。此外，我们将使用参数 $w, b$，而不是使用向量 $\theta$ 来参数化我们的线性分类器，并将分类器改写为&lt;/p&gt;
+$$
+h_{w,b}(x) = g(w^T x + b)
+$$&lt;p&gt;这里，如果 $z \ge 0$，则 $g(z) = 1$，否则 $g(z) = -1$。这个 “$w, b$” 表示法允许我们明确地将截距项 $b$ 与其他参数分开处理。（我们也放弃了以前让 $x_0 = 1$ 成为输入特征向量中的额外坐标的约定。）因此，$b$ 扮演以前 $\theta_0$ 的角色，$w$ 扮演 $(\theta_1, \dots, \theta_n)^T$ 的角色。&lt;/p&gt;
+&lt;p&gt;还要注意，根据我们上面对 $g$ 的定义，我们的分类器将直接预测 $1$ 或 $-1$（参见感知机算法），而不是首先进行估计 $y$ 为 $1$ 的概率的中间步骤（这是 logistic 回归所做的）。&lt;/p&gt;
+&lt;h4 id="函数和几何间隔"&gt;函数和几何间隔
+&lt;/h4&gt;&lt;p&gt;让我们形式化函数间隔和几何间隔的概念。给定一个训练样本 $(x^{(i)}, y^{(i)})$，我们根据训练样本定义 $(w,b)$ 的&lt;strong&gt;函数间隔&lt;/strong&gt;为&lt;/p&gt;
+$$
+\hat{\gamma}^{(i)} = y^{(i)} (w^T x^{(i)} + b)
+$$&lt;p&gt;注意，如果 $y^{(i)} = 1$，那么为了使函数间隔变大（即，为了使我们的预测有信心和正确），我们需要 $w^T x^{(i)} + b$ 为大的正数。相反，如果 $y^{(i)} = -1$，那么为了使函数间隔变大，我们需要 $w^T x^{(i)} + b$ 为（绝对值）大的负数。此外，如果 $y^{(i)} (w^T x^{(i)} + b) &amp;gt; 0$，那么我们对这个例子的预测是正确的。因此，大的函数间隔代表了自信和正确的预测。&lt;/p&gt;
+&lt;p&gt;对于上面给出的线性分类器 $g$（取 ${-1,1}$ 中的值），函数间隔的一个属性使得它不是一个非常好的置信度量。给定我们的选择 $g$，我们注意到如果我们用 $2w$ 代替 $w$，用 $2b$ 代替 $b$，那么因为&lt;/p&gt;
+$$
+g(w^T x + b) = g(2w^T x + 2b)
+$$&lt;p&gt;所以这根本不会改变 $h_{w,b}(x)$。即，$g$，因此也是 $h_{w,b}(x)$，仅取决于 $w^T x + b$ 的符号，而不取决于其模长。然而，用 $(2w, 2b)$ 代替 $(w, b)$ 也会导致我们的函数间隔乘以 2。因此，通过利用对 $w$ 和 $b$ 的缩放，我们可以使函数间隔任意大，但实际上没有改变任何有意义的事情，因此强制某种归一化条件可能是有意义的，例如 $|w|_2 = 1$；也就是说，我们可以用 $(w/|w|_2, b/|w|_2)$ 代替 $(w, b)$，然后考虑 $(w/|w|_2, b/|w|_2)$ 的函数间隔。&lt;/p&gt;
+&lt;p&gt;给定训练集&lt;/p&gt;
+$$
+S = \{(x^{(i)}, y^{(i)}); i = 1, \dots, m\}
+$$&lt;p&gt;我们还将 $(w,b)$ 关于 $S$ 的函数间隔定义为训练样本中最小的函数间隔，用 $\hat{\gamma}$ 表示，因此可以写成：&lt;/p&gt;
+$$
+\hat{\gamma} = \min_{i=1,\dots,m} \hat{\gamma}^{(i)}
+$$&lt;p&gt;接下来，我们来谈谈&lt;strong&gt;几何间隔&lt;/strong&gt;。请看下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-6/p2.jpg"
+width="388"
+height="282"
+srcset="https://lunatide.tech/p/cs229-lecture-6/p2_hu_61ca2fb55350e50e.jpg 480w, https://lunatide.tech/p/cs229-lecture-6/p2_hu_ecdc56822db7d5a1.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="137"
+data-flex-basis="330px"
+&gt;&lt;/p&gt;
+&lt;p&gt;上图展示了对应于 $(w,b)$ 的决策边界以及向量 $w$。注意，$w$ 与分离超平面正交。考虑 A 处的点，它代表某个训练样本 $x^{(i)}$，标签为 $y^{(i)} = 1$，它与决策边界的距离为 $\gamma^{(i)}$，由线段 $AB$ 给出。&lt;/p&gt;
+&lt;p&gt;我们怎样才能得到 $\gamma^{(i)}$ 的值？注意到 $w/|w|$ 是和 $w$ 同向的单位长度向量。由于 A 代表 $x^{(i)}$，因此我们发现点 $B$ 由&lt;/p&gt;
+$$
+x^{(i)} - \gamma^{(i)} \frac{w}{\|w\|}
+$$&lt;p&gt;给出。但这一点在决策边界上，决策边界上的所有点 $x$ 都满足方程 $w^T x + b = 0$。因此，&lt;/p&gt;
+$$
+w^T \left( x^{(i)} - \gamma^{(i)} \frac{w}{\|w\|} \right) + b = 0
+$$&lt;p&gt;解出 $\gamma^{(i)}$ 得到&lt;/p&gt;
+$$
+\gamma^{(i)}=
+\frac{w^T x^{(i)} + b}{\|w\|}=
+\left( \frac{w}{\|w\|} \right)^T x^{(i)} + \frac{b}{\|w\|}
+$$&lt;p&gt;这是针对图中 A 处的正训练样本的情况得到的，其中处于决策边界的“正”侧是好的。更一般地，我们定义 $(w,b)$ 相对于训练样本 $(x^{(i)}, y^{(i)})$ 的几何间隔为&lt;/p&gt;
+$$
+\gamma^{(i)}=
+y^{(i)} \left(
+\left( \frac{w}{\|w\|} \right)^T x^{(i)} + \frac{b}{\|w\|}
+\right)
+$$&lt;p&gt;请注意，如果 $|w| = 1$，那么函数间隔等于几何间隔——这就为我们提供了一种方法来联系这两种不同的间隔概念。此外，几何间隔对于重新缩放参数是不变的；即，如果我们用 $2w$ 代替 $w$，用 $2b$ 代替 $b$，则几何间隔不会改变。事实上，这将在以后派上用场。具体来说，由于这种参数缩放的不变性，当试图将 $w$ 和 $b$ 拟合到训练数据时，我们可以对 $w$ 施加任意缩放约束而不改变任何重要的东西；例如，我们可以要求 $|w| = 1$，或 $|w|_1 = 5$，或 $|w_1 + b| + |w_2| = 2$，只需重新调整 $w$ 和 $b$ 即可满足其中任何一个。&lt;/p&gt;
+&lt;p&gt;给定训练集&lt;/p&gt;
+$$
+S = \{(x^{(i)}, y^{(i)}); i = 1, \dots, m\}
+$$&lt;p&gt;我们还将 $(w,b)$ 关于 $S$ 的几何间隔定义为训练样本中最小的几何间隔，用 $\gamma$ 表示，因此可以写成：&lt;/p&gt;
+$$
+\gamma = \min_{i=1,\dots,m} \gamma^{(i)}
+$$</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
 &lt;/h3&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
 &lt;p&gt;下面就来看一个样例，来尝试建立一个邮件筛选器，使用机器学习的方法。这回咱们要来对邮件信息进行分类，来判断是否为商业广告邮件还是非垃圾邮件。在学会了怎么实现之后，我们就可以让邮件阅读器能够自动对垃圾信息进行过滤，或者单独把这些垃圾邮件放进一个单独的文件夹中。对邮件进行分类是一个案例，属于文本分类这一更广泛问题集合。&lt;/p&gt;
 &lt;p&gt;假设我们有了一个训练集（也就是一堆已经标好了是否为垃圾邮件的邮件）。要构建垃圾邮件分类器，咱们先要开始确定用来描述一封邮件的特征 \(x_i\) 有哪些。&lt;/p&gt;
