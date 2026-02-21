@@ -43,7 +43,21 @@ $$&lt;p&gt;得证。&lt;/p&gt;
 &lt;p&gt;因此总步数就是&lt;/p&gt;
 $$
 2^n-1
-$$&lt;p&gt;得证。&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
+$$&lt;p&gt;得证。&lt;/p&gt;
+&lt;ol start="5"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不能，一个新的圆和原来的圆最多增加两个交点，最多增加六块区域，6+8=14&lt;/p&gt;
+&lt;ol start="6"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;每多一条直线，和原有的每条直线增加一个交点，也就是增加n-1个交点，最多增加n-2个新区域&lt;/p&gt;
+&lt;p&gt;设有界区域的最大个数是$a_n$个，那么$a_n=a_{n-1}+n-2$
+&lt;/p&gt;
+$$
+a_1=a_2=0,a_n=\sum_{i=0}^{n-2}i
+$$&lt;p&gt;
+7.&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
 &lt;/h3&gt;&lt;p&gt;接下里用一个文本分类方面的模型来对生成学习算法进行收尾，之前说的朴素贝叶斯方法已经可以解决很多分类问题了，不过还有另外一个算法在针对文本的分类效果要更好&lt;/p&gt;
 &lt;p&gt;在文本分类的特定上下文中，朴素贝叶斯使用了所谓的 &lt;strong&gt;多变量伯努利事件模型&lt;/strong&gt;。在这个模型中，我们假设生成电子邮件的方式是首先随机确定(根据类先验$p(y)$) 邮件是垃圾邮件还是非垃圾邮件，然后发送邮件的人通过字典根据概率$p(x_i = 1 \mid y)$ 独立决定是否包括邮件中的每个单词。因此，邮件的概率由&lt;br&gt;
 &lt;/p&gt;
@@ -79,7 +93,36 @@ $$$$
 \phi_y=\frac
 {\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1\}}
 {m}
-$$</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
+$$&lt;p&gt;如果我们在估计 $\phi_{k \mid y=1}$ 和 $\phi_{k \mid y=0}$ 时应用拉普拉斯平滑，我们对分子加 1，对分母加 $|V|$，并得到：&lt;/p&gt;
+&lt;h1 id="phi_k-mid-y1"&gt;$$
+\phi_{k \mid y=1}
+&lt;/h1&gt;&lt;p&gt;\frac{
+\sum_{i=1}^{m} \sum_{j=1}^{n_i}
+\mathbf{1}{x^{(i)}_j = k \land y^{(i)} = 1}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1
+}{
+\sum_{i=1}^{m} \mathbf{1}{y^{(i)} = 1} n_i&lt;/li&gt;
+&lt;li&gt;|V|
+}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="phi_k-mid-y0"&gt;$$
+\phi_{k \mid y=0}
+&lt;/h1&gt;&lt;p&gt;\frac{
+\sum_{i=1}^{m} \sum_{j=1}^{n_i}
+\mathbf{1}{x^{(i)}_j = k \land y^{(i)} = 0}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1
+}{
+\sum_{i=1}^{m} \mathbf{1}{y^{(i)} = 0} n_i&lt;/li&gt;
+&lt;li&gt;|V|
+}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然不一定是最好的分类算法，但朴素贝叶斯分类器通常效果非常好。考虑到它的简单性和易于实现，它通常也非常适合作为第一个尝试。&lt;/p&gt;
+&lt;h3 id="支持向量机"&gt;支持向量机
+&lt;/h3&gt;&lt;p&gt;这一章节主要讲的是&lt;strong&gt;支持向量机(SVM)学习算法&lt;/strong&gt;，SVM是现成的最好的监督学习算法。为了&lt;/p&gt;</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
 &lt;/h3&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
 &lt;p&gt;下面就来看一个样例，来尝试建立一个邮件筛选器，使用机器学习的方法。这回咱们要来对邮件信息进行分类，来判断是否为商业广告邮件还是非垃圾邮件。在学会了怎么实现之后，我们就可以让邮件阅读器能够自动对垃圾信息进行过滤，或者单独把这些垃圾邮件放进一个单独的文件夹中。对邮件进行分类是一个案例，属于文本分类这一更广泛问题集合。&lt;/p&gt;
 &lt;p&gt;假设我们有了一个训练集（也就是一堆已经标好了是否为垃圾邮件的邮件）。要构建垃圾邮件分类器，咱们先要开始确定用来描述一封邮件的特征 \(x_i\) 有哪些。&lt;/p&gt;

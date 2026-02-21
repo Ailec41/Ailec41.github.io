@@ -34,7 +34,36 @@ $$$$
 \phi_y=\frac
 {\sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 1\}}
 {m}
-$$</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
+$$&lt;p&gt;如果我们在估计 $\phi_{k \mid y=1}$ 和 $\phi_{k \mid y=0}$ 时应用拉普拉斯平滑，我们对分子加 1，对分母加 $|V|$，并得到：&lt;/p&gt;
+&lt;h1 id="phi_k-mid-y1"&gt;$$
+\phi_{k \mid y=1}
+&lt;/h1&gt;&lt;p&gt;\frac{
+\sum_{i=1}^{m} \sum_{j=1}^{n_i}
+\mathbf{1}{x^{(i)}_j = k \land y^{(i)} = 1}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1
+}{
+\sum_{i=1}^{m} \mathbf{1}{y^{(i)} = 1} n_i&lt;/li&gt;
+&lt;li&gt;|V|
+}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="phi_k-mid-y0"&gt;$$
+\phi_{k \mid y=0}
+&lt;/h1&gt;&lt;p&gt;\frac{
+\sum_{i=1}^{m} \sum_{j=1}^{n_i}
+\mathbf{1}{x^{(i)}_j = k \land y^{(i)} = 0}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1
+}{
+\sum_{i=1}^{m} \mathbf{1}{y^{(i)} = 0} n_i&lt;/li&gt;
+&lt;li&gt;|V|
+}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然不一定是最好的分类算法，但朴素贝叶斯分类器通常效果非常好。考虑到它的简单性和易于实现，它通常也非常适合作为第一个尝试。&lt;/p&gt;
+&lt;h3 id="支持向量机"&gt;支持向量机
+&lt;/h3&gt;&lt;p&gt;这一章节主要讲的是&lt;strong&gt;支持向量机(SVM)学习算法&lt;/strong&gt;，SVM是现成的最好的监督学习算法。为了&lt;/p&gt;</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
 &lt;/h3&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
 &lt;p&gt;下面就来看一个样例，来尝试建立一个邮件筛选器，使用机器学习的方法。这回咱们要来对邮件信息进行分类，来判断是否为商业广告邮件还是非垃圾邮件。在学会了怎么实现之后，我们就可以让邮件阅读器能够自动对垃圾信息进行过滤，或者单独把这些垃圾邮件放进一个单独的文件夹中。对邮件进行分类是一个案例，属于文本分类这一更广泛问题集合。&lt;/p&gt;
 &lt;p&gt;假设我们有了一个训练集（也就是一堆已经标好了是否为垃圾邮件的邮件）。要构建垃圾邮件分类器，咱们先要开始确定用来描述一封邮件的特征 \(x_i\) 有哪些。&lt;/p&gt;

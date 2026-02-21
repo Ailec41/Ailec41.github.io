@@ -43,4 +43,18 @@ $$&lt;p&gt;得证。&lt;/p&gt;
 &lt;p&gt;因此总步数就是&lt;/p&gt;
 $$
 2^n-1
-$$&lt;p&gt;得证。&lt;/p&gt;</description></item></channel></rss>
+$$&lt;p&gt;得证。&lt;/p&gt;
+&lt;ol start="5"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不能，一个新的圆和原来的圆最多增加两个交点，最多增加六块区域，6+8=14&lt;/p&gt;
+&lt;ol start="6"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;每多一条直线，和原有的每条直线增加一个交点，也就是增加n-1个交点，最多增加n-2个新区域&lt;/p&gt;
+&lt;p&gt;设有界区域的最大个数是$a_n$个，那么$a_n=a_{n-1}+n-2$
+&lt;/p&gt;
+$$
+a_1=a_2=0,a_n=\sum_{i=0}^{n-2}i
+$$&lt;p&gt;
+7.&lt;/p&gt;</description></item></channel></rss>
