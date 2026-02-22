@@ -23,7 +23,67 @@ $$<p>得证。</p><ol start=4><li></li></ol><p>设 $T(n)$ 是在合法状态下�
 2^n-1
 $$<p>得证。</p><ol start=5><li></li></ol><p>不能，一个新的圆和原来的圆最多增加两个交点，最多增加六块区域，6+8=14</p><ol start=6><li></li></ol><p>每多一条直线，和原有的每条直线增加一个交点，也就是增加n-1个交点，最多增加n-2个新区域</p><p>设有界区域的最大个数是$a_n$个，那么$a_n=a_{n-1}+n-2$</p>$$
 a_1=a_2=0,a_n=\sum_{i=0}^{n-2}i
-$$<p>7.</p><p>$H(1)=J(2)-J(1)=0 \neq 2$</p><ol start=8><li></li></ol></section><footer class=article-footer></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><footer class=site-footer><section class=copyright>&copy;
+$$<p>7.</p><p>$H(1)=J(2)-J(1)=0 \neq 2$</p><ol start=8><li></li></ol><p>从$Q_2$写到$Q_6$，容易发现，$Q_k=Q_{k-5},k \ge 5$</p><ol start=9><li></li></ol><p>(a)</p><p>令</p>$$
+x_n=\frac{x_1+\cdots+x_{n-1}}{n-1},
+$$<p>证明 $P(n)\Rightarrow P(n-1)$</p><p>取任意 $x_1,\dots,x_{n-1}\ge0$，记</p>$$
+S=x_1+\cdots+x_{n-1},\qquad
+x_n=\frac{S}{n-1}.
+$$$$
+x_1\cdots x_{n-1}\cdot\frac{S}{n-1}
+\le
+\left(
+\frac{S+\frac{S}{n-1}}{n}
+\right)^n.
+$$$$
+x_1\cdots x_{n-1}\cdot\frac{S}{n-1}
+\le
+\left(\frac{S}{n-1}\right)^n.
+$$<ul><li><p>若 $S=0$，则 $x_1=\cdots=x_{n-1}=0$，显然 $P(n-1)$ 成立；</p></li><li><p>若 $S>0$，两边同除以 $\dfrac{S}{n-1}>0$，得</p></li></ul>$$
+x_1\cdots x_{n-1}
+\le
+\left(\frac{S}{n-1}\right)^{n-1}=
+\left(
+\frac{x_1+\cdots+x_{n-1}}{n-1}
+\right)^{n-1}.
+$$<p>因此</p>$$
+P(n)\Rightarrow P(n-1)\quad (n>1).
+$$<p>(b)</p><p>设 $x_1,\dots,x_{2n}\ge 0$，记</p>$$
+A=\frac{x_1+\dots+x_n}{n},\qquad
+B=\frac{x_{n+1}+\dots+x_{2n}}{n}.
+$$<p>由 $P(n)$ 得</p>$$
+x_1\cdots x_n \le A^n,
+\qquad
+x_{n+1}\cdots x_{2n} \le B^n.
+$$<p>因此</p>$$
+\prod_{i=1}^{2n} x_i=
+(x_1\cdots x_n)(x_{n+1}\cdots x_{2n})
+\le
+A^n B^n=
+(AB)^n.
+$$<p>由 $P(2)$</p>$$
+(AB)^n
+\le
+\left(\frac{A+B}{2}\right)^{2n}.
+$$<p>于是</p>$$
+\prod_{i=1}^{2n} x_i
+\le
+(AB)^n
+\le
+\left(\frac{A+B}{2}\right)^{2n}.
+$$<p>而</p>$$
+\frac{A+B}{2}=
+\frac{
+\frac{x_1+\dots+x_n}{n}+
+\frac{x_{n+1}+\dots+x_{2n}}{n}
+}{2}=
+\frac{x_1+\dots+x_{2n}}{2n}.
+$$<p>因此</p>$$
+\prod_{i=1}^{2n} x_i
+\le
+\left(
+\frac{x_1+\dots+x_{2n}}{2n}
+\right)^{2n}.
+$$<p>得证</p></section><footer class=article-footer></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><footer class=site-footer><section class=copyright>&copy;
 2025 -
 2026 LunaTide's Blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.31.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 <button class="pswp__button pswp__button--share" title=Share></button>

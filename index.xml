@@ -384,7 +384,96 @@ $$&lt;p&gt;
 &lt;p&gt;$H(1)=J(2)-J(1)=0 \neq 2$&lt;/p&gt;
 &lt;ol start="8"&gt;
 &lt;li&gt;&lt;/li&gt;
-&lt;/ol&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
+&lt;/ol&gt;
+&lt;p&gt;从$Q_2$写到$Q_6$，容易发现，$Q_k=Q_{k-5},k \ge 5$&lt;/p&gt;
+&lt;ol start="9"&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;(a)&lt;/p&gt;
+&lt;p&gt;令
+&lt;/p&gt;
+$$
+x_n=\frac{x_1+\cdots+x_{n-1}}{n-1},
+$$&lt;p&gt;
+证明 $P(n)\Rightarrow P(n-1)$&lt;/p&gt;
+&lt;p&gt;取任意 $x_1,\dots,x_{n-1}\ge0$，记&lt;/p&gt;
+$$
+S=x_1+\cdots+x_{n-1},\qquad
+x_n=\frac{S}{n-1}.
+$$$$
+x_1\cdots x_{n-1}\cdot\frac{S}{n-1}
+\le
+\left(
+\frac{S+\frac{S}{n-1}}{n}
+\right)^n.
+$$$$
+x_1\cdots x_{n-1}\cdot\frac{S}{n-1}
+\le
+\left(\frac{S}{n-1}\right)^n.
+$$&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;若 $S=0$，则 $x_1=\cdots=x_{n-1}=0$，显然 $P(n-1)$ 成立；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;若 $S&amp;gt;0$，两边同除以 $\dfrac{S}{n-1}&amp;gt;0$，得&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+$$
+x_1\cdots x_{n-1}
+\le
+\left(\frac{S}{n-1}\right)^{n-1}=
+\left(
+\frac{x_1+\cdots+x_{n-1}}{n-1}
+\right)^{n-1}.
+$$&lt;p&gt;因此&lt;/p&gt;
+$$
+P(n)\Rightarrow P(n-1)\quad (n&gt;1).
+$$&lt;p&gt;
+(b)&lt;/p&gt;
+&lt;p&gt;设 $x_1,\dots,x_{2n}\ge 0$，记&lt;/p&gt;
+$$
+A=\frac{x_1+\dots+x_n}{n},\qquad
+B=\frac{x_{n+1}+\dots+x_{2n}}{n}.
+$$&lt;p&gt;由 $P(n)$ 得&lt;/p&gt;
+$$
+x_1\cdots x_n \le A^n,
+\qquad
+x_{n+1}\cdots x_{2n} \le B^n.
+$$&lt;p&gt;因此&lt;/p&gt;
+$$
+\prod_{i=1}^{2n} x_i=
+(x_1\cdots x_n)(x_{n+1}\cdots x_{2n})
+\le
+A^n B^n=
+(AB)^n.
+$$&lt;p&gt;由 $P(2)$&lt;/p&gt;
+$$
+(AB)^n
+\le
+\left(\frac{A+B}{2}\right)^{2n}.
+$$&lt;p&gt;于是&lt;/p&gt;
+$$
+\prod_{i=1}^{2n} x_i
+\le
+(AB)^n
+\le
+\left(\frac{A+B}{2}\right)^{2n}.
+$$&lt;p&gt;而&lt;/p&gt;
+$$
+\frac{A+B}{2}=
+\frac{
+\frac{x_1+\dots+x_n}{n}+
+\frac{x_{n+1}+\dots+x_{2n}}{n}
+}{2}=
+\frac{x_1+\dots+x_{2n}}{2n}.
+$$&lt;p&gt;因此&lt;/p&gt;
+$$
+\prod_{i=1}^{2n} x_i
+\le
+\left(
+\frac{x_1+\dots+x_{2n}}{2n}
+\right)^{2n}.
+$$&lt;p&gt;得证&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
 &lt;/h3&gt;&lt;p&gt;接下里用一个文本分类方面的模型来对生成学习算法进行收尾，之前说的朴素贝叶斯方法已经可以解决很多分类问题了，不过还有另外一个算法在针对文本的分类效果要更好&lt;/p&gt;
 &lt;p&gt;在文本分类的特定上下文中，朴素贝叶斯使用了所谓的 &lt;strong&gt;多变量伯努利事件模型&lt;/strong&gt;。在这个模型中，我们假设生成电子邮件的方式是首先随机确定(根据类先验$p(y)$) 邮件是垃圾邮件还是非垃圾邮件，然后发送邮件的人通过字典根据概率$p(x_i = 1 \mid y)$ 独立决定是否包括邮件中的每个单词。因此，邮件的概率由&lt;br&gt;
 &lt;/p&gt;
