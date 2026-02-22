@@ -158,7 +158,170 @@ $$$$
 \quad i = 1, \dots, k
 \tag{7}
 $$&lt;p&gt;此外，如果某个 $w&amp;rsquo;, \alpha&amp;rsquo;, \beta&amp;rsquo;$ 满足 KKT 条件，那么它也是原始和对偶问题的解。&lt;/p&gt;
-&lt;p&gt;我们注意方程 (5)，这被称为 &lt;strong&gt;KKT 对偶互补条件&lt;/strong&gt;。具体来说，它推出如果 $\alpha&amp;rsquo;_i &amp;gt; 0$，那么 $g_i(w&amp;rsquo;) = 0$。（即，“$g_i(w&amp;rsquo;) \le 0$” 约束是&lt;strong&gt;有效的&lt;/strong&gt;，这意味着它取等号而不是不等号。）稍后，这将是证明 SVM 只有少量“支持向量”的关键；当我们讨论 SMO 算法时，KKT 对偶互补条件也将为我们提供收敛性测试。&lt;/p&gt;</description></item><item><title>concrete mathematics hw1</title><link>https://lunatide.tech/p/concrete-mathematics-hw1/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/concrete-mathematics-hw1/</guid><description>&lt;img src="https://lunatide.tech/p/concrete-mathematics-hw1/pic1.jpg" alt="Featured image of post concrete mathematics hw1" /&gt;&lt;p&gt;过年几天没怎么看公开课，这两天补一下&lt;/p&gt;
+&lt;p&gt;我们注意方程 (5)，这被称为 &lt;strong&gt;KKT 对偶互补条件&lt;/strong&gt;。具体来说，它推出如果 $\alpha&amp;rsquo;_i &amp;gt; 0$，那么 $g_i(w&amp;rsquo;) = 0$。（即，“$g_i(w&amp;rsquo;) \le 0$” 约束是&lt;strong&gt;有效的&lt;/strong&gt;，这意味着它取等号而不是不等号。）稍后，这将是证明 SVM 只有少量“支持向量”的关键；当我们讨论 SMO 算法时，KKT 对偶互补条件也将为我们提供收敛性测试。&lt;/p&gt;
+&lt;h3 id="最优间隔分类器-1"&gt;最优间隔分类器
+&lt;/h3&gt;&lt;p&gt;之前，我们提出了以下（原始）优化问题来找到最优间隔分类器：&lt;/p&gt;
+$$
+\min_{w,b} \ \frac{1}{2}\|w\|^2
+$$$$
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge 1, \ i = 1, \dots, m
+$$&lt;p&gt;我们可以将限制条件写成&lt;/p&gt;
+$$
+g_i(w) = -y^{(i)}(w^T x^{(i)} + b) + 1 \le 0
+$$&lt;p&gt;我们对每个训练样本都有一个这样的约束。注意，根据 KKT 对偶互补条件，我们将仅对函数间隔等于 1 的训练样本具有 $\alpha_i &amp;gt; 0$（即对应于取等号的约束条件，$g_i(w) = 0$）。请看下图，其中实线表示具有最大间隔分离的超平面。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-7/p1.jpg"
+width="493"
+height="339"
+srcset="https://lunatide.tech/p/cs229-lecture-7/p1_hu_23e88243116dffc.jpg 480w, https://lunatide.tech/p/cs229-lecture-7/p1_hu_bb1bfdf4d419014c.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+&gt;&lt;/p&gt;
+&lt;p&gt;间距最小的点恰好是最接近决策边界的点；这里，这些点是平行于决策边界的虚线上三个点（一个负样本和两个正样本）。因此，在我们的优化问题的最优解中，只有三个 $\alpha_i$，即对应于这三个训练样本的 $\alpha_i$ 将是非零的。这三个点在这个问题中被称为&lt;strong&gt;支持向量&lt;/strong&gt;。支持向量的数量比训练集的大小小得多的事实将在以后有用。&lt;/p&gt;
+&lt;p&gt;让我们继续。当我们推导问题的对偶形式时，需要注意的一个关键想法是我们将尝试仅根据内积 $\langle x^{(i)}, x^{(j)} \rangle$ 来编写算法（在输入特征空间中的点之间将其视为 $(x^{(i)})^T x^{(j)}$）。当我们应用内核技巧时，我们可以用这些内积来表达我们的算法，这一事实将非常关键。&lt;/p&gt;
+&lt;p&gt;当我们为优化问题构造拉格朗日算子时，我们有：&lt;/p&gt;
+$$
+\mathcal{L}(w,\alpha,\beta)=
+\frac{1}{2}\|w\|^2-
+\sum_{i=1}^{m}
+\alpha_i
+\left[
+y^{(i)}(w^T x^{(i)} + b) - 1
+\right]
+\tag{8}
+$$&lt;p&gt;注意，只有 $\alpha_i$ 乘子而没有 $\beta_i$ 乘子，因为问题只有不等式约束。&lt;/p&gt;
+&lt;p&gt;让我们找到问题的对偶形式。为此，我们需要首先关于 $w,b$ 最小化 $\mathcal{L}(w,\alpha,\beta)$（对于固定的 $\alpha_i$），从而得到 $\theta_D$。我们通过令 $\mathcal{L}$ 关于 $w$ 和 $b$ 的偏导数为零来做到这一点。我们有：&lt;/p&gt;
+$$
+\nabla_w \mathcal{L}(w,\alpha,\beta)=
+w-
+\sum_{i=1}^{m}
+\alpha_i y^{(i)} x^{(i)}=
+0
+$$&lt;p&gt;这意味着&lt;/p&gt;
+$$
+w=
+\sum_{i=1}^{m}
+\alpha_i y^{(i)} x^{(i)}
+\tag{9}
+$$&lt;p&gt;关于 $b$ 的求导，我们得到&lt;/p&gt;
+$$
+\nabla_b \mathcal{L}(w,\alpha,\beta)=
+\sum_{i=1}^{m}
+\alpha_i y^{(i)}=
+0
+\tag{10}
+$$&lt;p&gt;如果我们利用等式 (9) 中 $w$ 的定义并将其带入拉格朗日算子（等式 (8)），并简化，我们得到&lt;/p&gt;
+$$
+\mathcal{L}(w,\alpha,\beta)=
+\sum_{i=1}^{m} \alpha_i-
+\frac{1}{2}
+\sum_{i=1}^{m}
+\sum_{j=1}^{m}
+y^{(i)} y^{(j)}
+\alpha_i \alpha_j
+(x^{(i)})^T x^{(j)}-
+b \sum_{i=1}^{m} \alpha_i y^{(i)}
+$$&lt;p&gt;但是根据公式 (10)，最后一项为 0，所以我们得到&lt;/p&gt;
+$$
+\mathcal{L}(w,\alpha,\beta)=
+\sum_{i=1}^{m} \alpha_i-
+\frac{1}{2}
+\sum_{i=1}^{m}
+\sum_{j=1}^{m}
+y^{(i)} y^{(j)}
+\alpha_i \alpha_j
+(x^{(i)})^T x^{(j)}
+$$&lt;p&gt;回想一下，通过关于 $w,b$ 最小化 $\mathcal{L}$，我们得到了上面的等式。将这与约束 $\alpha_i \ge 0$ 和约束 (10) 放在一起，我们得到以下对偶优化问题：&lt;/p&gt;
+$$
+\max_{\alpha}
+\quad
+W(\alpha)=
+\sum_{i=1}^{m} \alpha_i-
+\frac{1}{2}
+\sum_{i=1}^{m}
+\sum_{j=1}^{m}
+y^{(i)} y^{(j)}
+\alpha_i \alpha_j
+\langle x^{(i)}, x^{(j)} \rangle
+$$$$
+\text{s.t.}
+\quad
+\alpha_i \ge 0,
+\quad i = 1, \dots, m
+$$$$
+\sum_{i=1}^{m} \alpha_i y^{(i)} = 0
+$$&lt;p&gt;不难验证在我们的优化问题中确实满足 $p&amp;rsquo; = d&amp;rsquo;$ 和 KKT 条件（等式 (3)–(7)）所需的条件。因此，我们可以解决对偶问题来代替解决原始问题。具体来说，在上面的对偶问题中，我们有一个最大化问题，其中参数是 $\alpha_i$。我们稍后将讨论我们将用于解决对偶问题的特定算法，但如果我们确实能够解决它（即在满足约束条件下找到最大化 $W(\alpha)$ 的 $\alpha$），然后我们可以使用等式 (9) 返回作为 $\alpha$ 的函数的最优 $w$。找到 $w&amp;rsquo;$ 后，通过考虑原始问题，找到截距项 $b$ 的最优值也是直截了当的：&lt;/p&gt;
+$$
+b'=-
+\frac{
+\max_{i: y^{(i)}=-1} {w'}^T x^{(i)}+
+\min_{i: y^{(i)}=1} {w'}^T x^{(i)}
+}{2}
+\tag{11}
+$$&lt;p&gt;事实上，对于 $\alpha_i \ne 0$，我们有&lt;/p&gt;
+$$
+g_i(w)=- y^{(i)}(w^T x^{(i)} + b) + 1=
+0
+$$&lt;p&gt;所以&lt;/p&gt;
+$$
+y^{(i)}(w^T x^{(i)} + b) = 1
+\quad \Longrightarrow \quad
+w^T x^{(i)} + b = y^{(i)}
+\quad \Longrightarrow \quad
+b = y^{(i)} - w^T x^{(i)}
+$$&lt;p&gt;注意到&lt;/p&gt;
+$$
+g_i(w)=- y^{(i)}(w^T x^{(i)} + b) + 1 \le 0
+\quad \Longleftrightarrow \quad
+y^{(i)}(w^T x^{(i)} + b) \ge 1
+$$&lt;p&gt;如果 $y^{(i)} = 1$，那么&lt;/p&gt;
+$$
+w^T x^{(i)} + b \ge 1
+$$&lt;p&gt;如果 $y^{(i)} = -1$，那么&lt;/p&gt;
+$$
+w^T x^{(i)} + b \le -1
+$$&lt;p&gt;从而满足&lt;/p&gt;
+$$
+g_i(w)=- y^{(i)}(w^T x^{(i)} + b) + 1=
+0
+$$&lt;p&gt;的点必然为&lt;/p&gt;
+$$
+\arg \min_{i: y^{(i)}=1} w^T x^{(i)},
+\qquad
+\arg \max_{i: y^{(i)}=-1} w^T x^{(i)}
+$$&lt;p&gt;结合之前的式子以及最优的 $w$ 为 $w&amp;rsquo;$ 可得&lt;/p&gt;
+$$
+b=
+1-
+\min_{i: y^{(i)}=1} {w'}^T x^{(i)}=-1-
+\max_{i: y^{(i)}=-1} {w'}^T x^{(i)}
+$$&lt;p&gt;两式相加可得&lt;/p&gt;
+$$
+b'=-
+\frac{
+\max_{i: y^{(i)}=-1} {w'}^T x^{(i)}+
+\min_{i: y^{(i)}=1} {w'}^T x^{(i)}
+}{2}
+$$&lt;p&gt;
+在继续之前，让我们更仔细地看一下等式 (9)，它给出了 $w$ 的最佳值（$\alpha$ 的最佳值）。假设我们已经将模型的参数拟合到训练集，现在希望在新的输入 $x$ 处进行预测。我们将计算 $w^T x + b$，并且当且仅当该项大于零时才预测 $y = 1$。但是使用 (9)，这项也可以写成：&lt;/p&gt;
+$$
+\begin{align}
+w^T x + b&amp;=
+\left(
+\sum_{i=1}^{m}
+\alpha_i y^{(i)} x^{(i)}
+\right)^T x+ b
+\tag{12}
+\\&amp;=
+\sum_{i=1}^{m}
+\alpha_i y^{(i)}
+\langle x^{(i)}, x \rangle+ b
+\tag{13}
+\end{align}
+$$&lt;p&gt;
+因此，如果我们找到 $\alpha_i$，为了进行预测，我们必须计算仅取决于 $x$ 与训练集中的点之间的内积。此外，我们之前看到除了支持向量之外，$\alpha_i$ 都将为零。因此，上述求和中的许多项将为零，并且我们确实只需要找到 $x$ 和支持向量之间的内积（通常只有一小部分）就能计算 (13) 并进行预测。&lt;/p&gt;
+&lt;p&gt;通过讨论优化问题的对偶形式，我们获得了对问题结构的重要洞察，并且还能够仅根据输入特征向量之间的内积来编写整个算法。在下一节中，我们将利用属性核方法应用于我们的分类问题。由此产生的算法，&lt;strong&gt;支持向量机&lt;/strong&gt;，将能够在非常高维空间中有效地学习。&lt;/p&gt;</description></item><item><title>concrete mathematics hw1</title><link>https://lunatide.tech/p/concrete-mathematics-hw1/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/concrete-mathematics-hw1/</guid><description>&lt;img src="https://lunatide.tech/p/concrete-mathematics-hw1/pic1.jpg" alt="Featured image of post concrete mathematics hw1" /&gt;&lt;p&gt;过年几天没怎么看公开课，这两天补一下&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;/li&gt;
 &lt;/ol&gt;
