@@ -1,4 +1,164 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 7</title><link>https://lunatide.tech/p/cs229-lecture-7/</link><pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-7/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-7/pic1.jpg" alt="Featured image of post CS229 Lecture 7" /&gt;&lt;h3 id="最优间隔分类器"&gt;最优间隔分类器
+&lt;/h3&gt;&lt;p&gt;给定一个训练集，从我们之前的讨论中可以看出，一个自然的想法是试图找到一个最大化（几何）间隔的决策边界，因为这将反映出对训练集的一个非常有信心的预测和一个对训练数据良好的“拟合”。具体而言，这将导致分类器将正和负训练样本用一个“间隙”（几何间隔）分开。&lt;/p&gt;
+&lt;p&gt;现在，假设我们得到一个线性可分的训练集；即，可以使用某个分离超平面分离正负样本。我们如何找到达到最大几何间隔的那个？我们可以提出以下优化问题：&lt;/p&gt;
+$$
+\max_{\gamma, w, b} \ \gamma
+$$$$
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge \gamma, \quad i = 1, \dots, m
+$$$$
+\|w\| = 1
+$$&lt;p&gt;即，我们希望最大化 $\gamma$，使得每个训练样本具有至少 $\gamma$ 的函数间隔。$|w| = 1$ 的约束确保函数间隔等于几何间隔，因此我们也保证所有几何间隔至少为 $\gamma$。因此，解决该问题将导致 $(w,b)$ 相对于训练集具有最大可能的几何间隔。&lt;/p&gt;
+&lt;p&gt;如果我们能解决上面的优化问题，我们就完成了。但是 $|w| = 1$ 约束是一个棘手的（非凸的）条件，并且这个问题肯定不是我们可以使用标准优化软件来解决的任何格式。所以，让我们尝试将问题转化为更好的问题。考虑：&lt;/p&gt;
+$$
+\max_{\hat{\gamma}, w, b} \ \frac{\hat{\gamma}}{\|w\|}
+$$$$
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge \hat{\gamma}, \quad i = 1, \dots, m
+$$&lt;p&gt;这里，我们将最大化 $\hat{\gamma}/|w|$，使得函数间隔都至少为 $\hat{\gamma}$。由于几何间隔和函数间隔的关系为 $\gamma = \hat{\gamma}/|w|$，这将给出我们想要的答案。此外，我们已经摆脱了约束 $|w| = 1$。缺点是我们仍然有一个棘手的（再次，非凸）目标函数 $\hat{\gamma}/|w|$；而且，我们仍然没有任何可以解决这种形式的优化问题的现成软件。&lt;/p&gt;
+&lt;p&gt;回想一下我们之前的讨论，我们可以在 $w$ 和 $b$ 上添加任意缩放约束而不改变任何东西。这是我们现在使用的关键想法。我们将引入缩放约束，即 $w,b$ 相对于训练集的函数间隔必须为 1：&lt;/p&gt;
+$$
+\hat{\gamma} = 1
+$$&lt;p&gt;由于将 $w$ 和 $b$ 乘以某个常数将导致函数间隔乘以相同的常数（这是缩放约束），并且实际上我们可以进行重新缩放 $w,b$ 的操作。对上述问题应用此性质，并注意到最大化 $\gamma/|w| = 1/|w|$ 与最小化 $|w|^2$ 相同，我们现在有以下优化问题：&lt;/p&gt;
+$$
+\min_{w,b} \ \frac{1}{2} \|w\|^2
+$$$$
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge 1, \quad i = 1, \dots, m
+$$&lt;p&gt;我们现在已经将问题转化为可以高效解决的形式。以上是具有凸二次目标和仅有线性约束的优化问题。它的解为我们提供了&lt;strong&gt;最优间隔分类器&lt;/strong&gt;。这个优化问题可以使用商业二次规划（QP）程序来解决。&lt;/p&gt;
+&lt;p&gt;虽然我们现在可以解决问题，但我们后面还是要讨论拉格朗日对偶问题。这将推导出我们的优化问题的对偶形式，它将在允许我们使用核方法（kernel）让最优间隔分类器在非常高维空间中高效运转方面发挥关键作用。对偶形式还将允许我们推导出一种有效的算法来解决上述优化问题，该优化问题通常比通用 QP 软件做得更好。&lt;/p&gt;
+&lt;h3 id="拉格朗日对偶"&gt;拉格朗日对偶
+&lt;/h3&gt;&lt;p&gt;让我们暂时搁置 SVM 和最大间隔分类器，然后讨论如何解决约束优化问题。&lt;/p&gt;
+&lt;p&gt;考虑如下形式的问题：&lt;/p&gt;
+$$
+\min_{w} \ f(w)
+$$$$
+\text{s.t.} \quad h_i(w) = 0, \quad i = 1, \dots, l
+$$&lt;p&gt;在这种方法中，我们将拉格朗日算子定义为&lt;/p&gt;
+$$
+\mathcal{L}(w, \beta)=
+f(w)+
+\sum_{i=1}^{l} \beta_i h_i(w)
+$$&lt;p&gt;这里，$\beta_i$ 被称为拉格朗日乘子。然后我们求出 $\mathcal{L}$ 的偏导数并设为零：&lt;/p&gt;
+$$
+\frac{\partial \mathcal{L}}{\partial w_i} = 0,
+\qquad
+\frac{\partial \mathcal{L}}{\partial \beta_i} = 0
+$$&lt;p&gt;接着求解 $w$ 和 $\beta$。&lt;/p&gt;
+&lt;p&gt;在本节中，我们将此推广为带约束的优化问题，在这些问题中我们可能存在不等式以及等式约束。由于时间的限制，我们无法详细介绍拉格朗日二元对偶理论，但我们将给出主要思想和结果，然后应用于我们的最优间隔分类器的优化问题。&lt;/p&gt;
+&lt;p&gt;考虑以下内容，我们将其称为&lt;strong&gt;原始优化问题&lt;/strong&gt;：&lt;/p&gt;
+$$
+\min_{w} \ f(w)
+$$$$
+\text{s.t.} \quad g_i(w) \le 0, \quad i = 1, \dots, k
+$$$$
+h_i(w) = 0, \quad i = 1, \dots, l
+$$&lt;p&gt;为了解决这个问题，我们首先定义&lt;strong&gt;广义拉格朗日算子&lt;/strong&gt;：&lt;/p&gt;
+$$
+\mathcal{L}(w, \alpha, \beta)=
+f(w)+
+\sum_{i=1}^{k} \alpha_i g_i(w)+
+\sum_{i=1}^{l} \beta_i h_i(w)
+$$&lt;p&gt;这里，$\alpha_i$ 和 $\beta_i$ 是拉格朗日乘子。考虑&lt;/p&gt;
+$$
+\theta_P(w)=
+\max_{\alpha, \beta : \alpha_i \ge 0}
+\mathcal{L}(w, \alpha, \beta)
+$$&lt;p&gt;这里，“$P$” 下标代表“原始”。假设给定某个 $w$。如果 $w$ 违反任何原始约束（即，对于某个 $i$，$g_i(w) &amp;gt; 0$ 或 $h_i(w) \neq 0$），那么可以验证&lt;/p&gt;
+$$
+\theta_P(w)=
+\max_{\alpha, \beta : \alpha_i \ge 0}
+\left(
+f(w)+
+\sum_{i=1}^{k} \alpha_i g_i(w)+
+\sum_{i=1}^{l} \beta_i h_i(w)
+\right)
+\tag{1}
+$$$$
+= \infty
+\tag{2}
+$$&lt;p&gt;相反，如果对于特定的 $w$ 确实满足约束，则 $\theta_P(w) = f(w)$。因此，&lt;/p&gt;
+$$
+\theta_P(w)=
+\begin{cases}
+f(w) &amp; \text{如果 } w \text{ 满足原始约束} \\
+\infty &amp; \text{其他}
+\end{cases}
+$$&lt;p&gt;因此，对于所有满足原始约束的 $w$，$\theta_P$ 与我们的问题中的目标具有相同的值，并且如果 $w$ 违反约束条件，那么 $\theta_P$ 为正无穷大。因此，如果我们考虑最小化问题&lt;/p&gt;
+$$
+\min_w \theta_P(w)=
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)
+$$&lt;p&gt;我们看到它与我们原始的原始问题是同一个问题（即具有相同的解）。为了以后的使用，我们还将目标的最优值定义为&lt;/p&gt;
+$$
+p' = \min_w \theta_P(w)
+$$&lt;p&gt;我们称之为原始问题的值。&lt;/p&gt;
+&lt;p&gt;现在，让我们看一个稍微不同的问题。我们定义&lt;/p&gt;
+$$
+\theta_D(\alpha,\beta)=
+\min_w \mathcal{L}(w,\alpha,\beta)
+$$&lt;p&gt;这里，下标 “$D$” 代表“对偶”。还要注意，在 $\theta_P$ 的定义中，我们关于 $\alpha,\beta$ 进行了优化（最大化），而这里是关于 $w$ 的最小化。&lt;/p&gt;
+&lt;p&gt;我们现在可以提出对偶优化问题：&lt;/p&gt;
+$$
+\max_{\alpha,\beta:\alpha_i \ge 0} \theta_D(\alpha,\beta)=
+\max_{\alpha,\beta:\alpha_i \ge 0} \min_w \mathcal{L}(w,\alpha,\beta)
+$$&lt;p&gt;这与上面显示的原始问题完全相同，只是现在交换了 “max” 和 “min” 的顺序。我们还将对偶问题的目标的最优值定义为&lt;/p&gt;
+$$
+d' = \max_{\alpha,\beta:\alpha_i \ge 0} \theta_D(\alpha,\beta)
+$$&lt;p&gt;原始和对偶问题之间有什么关系？很容易证明如下这一点：&lt;/p&gt;
+$$
+d'=
+\max_{\alpha,\beta:\alpha_i \ge 0} \min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)=
+p'
+$$&lt;p&gt;事实上，我们显然有&lt;/p&gt;
+$$
+\min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\mathcal{L}(w,\alpha,\beta)
+\le
+\max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)
+$$&lt;p&gt;从而&lt;/p&gt;
+$$
+\min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)=
+p'
+$$&lt;p&gt;并且&lt;/p&gt;
+$$
+d'=
+\max_{\alpha,\beta:\alpha_i \ge 0} \min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)=
+p'
+$$&lt;p&gt;但是，在某些条件下，我们会有&lt;/p&gt;
+$$
+d' = p'
+$$&lt;p&gt;这样我们就可以解决对偶问题来代替原始问题。让我们看看这些条件是什么。&lt;/p&gt;
+&lt;p&gt;假设 $f$ 和 $g_i$ 是凸函数（即 Hessian 矩阵是正定的），$h_i$ 是仿射函数（即 $h_i(w) = a_i^T w + b$）。进一步假设 $g_i$ 约束是（严格地）可行的；这意味着存在某个 $w$ 使得对所有的 $i$ 有 $g_i(w) &amp;lt; 0$。&lt;/p&gt;
+&lt;p&gt;在我们的上述假设下，必将存在 $w&amp;rsquo;, \alpha&amp;rsquo;, \beta&amp;rsquo;$，使得 $w&amp;rsquo;$ 是原始问题的解，$\alpha&amp;rsquo;, \beta&amp;rsquo;$ 是对偶问题的解，而且&lt;/p&gt;
+$$
+p' = d' = \mathcal{L}(w', \alpha', \beta')
+$$&lt;p&gt;此外，$w&amp;rsquo;, \alpha&amp;rsquo;, \beta&amp;rsquo;$ 满足 Karush-Kuhn-Tucker (KKT) 条件，如下：&lt;/p&gt;
+$$
+\frac{\partial}{\partial w_i} \mathcal{L}(w', \alpha', \beta') = 0,
+\quad i = 1, \dots, n
+\tag{3}
+$$$$
+\frac{\partial}{\partial \beta_i} \mathcal{L}(w', \alpha', \beta') = 0,
+\quad i = 1, \dots, l
+\tag{4}
+$$$$
+\alpha'_i g_i(w') = 0,
+\quad i = 1, \dots, k
+\tag{5}
+$$$$
+g_i(w') \le 0,
+\quad i = 1, \dots, k
+\tag{6}
+$$$$
+\alpha'_i \ge 0,
+\quad i = 1, \dots, k
+\tag{7}
+$$&lt;p&gt;此外，如果某个 $w&amp;rsquo;, \alpha&amp;rsquo;, \beta&amp;rsquo;$ 满足 KKT 条件，那么它也是原始和对偶问题的解。&lt;/p&gt;
+&lt;p&gt;我们注意方程 (5)，这被称为 &lt;strong&gt;KKT 对偶互补条件&lt;/strong&gt;。具体来说，它推出如果 $\alpha&amp;rsquo;_i &amp;gt; 0$，那么 $g_i(w&amp;rsquo;) = 0$。（即，“$g_i(w&amp;rsquo;) \le 0$” 约束是&lt;strong&gt;有效的&lt;/strong&gt;，这意味着它取等号而不是不等号。）稍后，这将是证明 SVM 只有少量“支持向量”的关键；当我们讨论 SMO 算法时，KKT 对偶互补条件也将为我们提供收敛性测试。&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
 &lt;/h3&gt;&lt;p&gt;接下里用一个文本分类方面的模型来对生成学习算法进行收尾，之前说的朴素贝叶斯方法已经可以解决很多分类问题了，不过还有另外一个算法在针对文本的分类效果要更好&lt;/p&gt;
 &lt;p&gt;在文本分类的特定上下文中，朴素贝叶斯使用了所谓的 &lt;strong&gt;多变量伯努利事件模型&lt;/strong&gt;。在这个模型中，我们假设生成电子邮件的方式是首先随机确定(根据类先验$p(y)$) 邮件是垃圾邮件还是非垃圾邮件，然后发送邮件的人通过字典根据概率$p(x_i = 1 \mid y)$ 独立决定是否包括邮件中的每个单词。因此，邮件的概率由&lt;br&gt;
 &lt;/p&gt;

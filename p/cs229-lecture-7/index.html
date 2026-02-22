@@ -1,0 +1,140 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="cs229 note"><title>CS229 Lecture 7</title><link rel=canonical href=https://lunatide.tech/p/cs229-lecture-7/><link rel=stylesheet href=https://lunatide.tech/scss/style.min.6a692fd055deae459f2a9767f57f3855ba80cafd5041317f24f7360f6ca47cdf.css><meta property='og:title' content="CS229 Lecture 7"><meta property='og:description' content="cs229 note"><meta property='og:url' content='https://lunatide.tech/p/cs229-lecture-7/'><meta property='og:site_name' content="LunaTide's Blog"><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2026-02-22T00:00:00+00:00'><meta property='article:modified_time' content='2026-02-22T00:00:00+00:00'><meta property='og:image' content='https://lunatide.tech/p/cs229-lecture-7/pic1.jpg'><meta name=twitter:title content="CS229 Lecture 7"><meta name=twitter:description content="cs229 note"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://lunatide.tech/p/cs229-lecture-7/pic1.jpg'><link rel="shortcut icon" href=https://lunatide.tech/./favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=https://lunatide.tech/><img src=https://lunatide.tech/img/avatar_hu_8b8c7ec71f46c47e.jpeg width=300 height=297 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>😓</span></figure><div class=site-meta><h1 class=site-name><a href=https://lunatide.tech/>LunaTide's Blog</a></h1><h2 class=site-description>Welcome to my Blog</h2></div></header><ol class=menu-social><li><a href=http://codeforces.com target=_blank title=codeforces rel=me><svg viewBox="0 0 24 24" id="code-forces"><path fill="#F44336" d="M24 19.5V12a1.5 1.5.0 00-1.5-1.5h-3A1.5 1.5.0 0018 12v7.5a1.5 1.5.0 001.5 1.5h3a1.5 1.5.0 001.5-1.5z"/><path fill="#2196F3" d="M13.5 21a1.5 1.5.0 001.5-1.5v-15A1.5 1.5.0 0013.5 3h-3C9.673 3 9 3.672 9 4.5v15c0 .828.673 1.5 1.5 1.5h3z"/><path fill="#FFC107" d="M0 19.5c0 .828.673 1.5 1.5 1.5h3A1.5 1.5.0 006 19.5V9A1.5 1.5.0 004.5 7.5h-3C.673 7.5.0 8.172.0 9v10.5z"/></svg></a></li><li><a href=https://www.zhihu.com target=_blank title=Zhihu rel=me><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-zhihu"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 6h6v12h-2l-2 2-1-2h-1z"/><path d="M4 12h6.5"/><path d="M10.5 6h-5"/><path d="M6 4c-.5 2.5-1.5 3.5-2.5 4.5"/><path d="M8 6v7c0 4.5-2 5.5-4 7"/><path d="M11 18l-3-5"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=https://lunatide.tech/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=https://lunatide.tech/%E5%85%B3%E4%BA%8E/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=https://lunatide.tech/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档</span></a></li><li><a href=https://lunatide.tech/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=https://lunatide.tech/%E5%8F%8B%E9%93%BE/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>友链</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=https://lunatide.tech/p/cs229-lecture-7/><img src=https://lunatide.tech/p/cs229-lecture-7/pic1_hu_3824d4ba7b18be99.jpg srcset="https://lunatide.tech/p/cs229-lecture-7/pic1_hu_3824d4ba7b18be99.jpg 800w, https://lunatide.tech/p/cs229-lecture-7/pic1_hu_d4ff581470c2f562.jpg 1600w" width=800 height=419 loading=lazy alt="Featured image of post CS229 Lecture 7"></a></div><div class=article-details><header class=article-category><a href=https://lunatide.tech/categories/deep-learning/>Deep Learning
+</a><a href=https://lunatide.tech/categories/cs229/>CS229</a></header><div class=article-title-wrapper><h2 class=article-title><a href=https://lunatide.tech/p/cs229-lecture-7/>CS229 Lecture 7</a></h2><h3 class=article-subtitle>cs229 note</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2026-02-22</time></div></footer></div></header><section class=article-content><h3 id=最优间隔分类器>最优间隔分类器</h3><p>给定一个训练集，从我们之前的讨论中可以看出，一个自然的想法是试图找到一个最大化（几何）间隔的决策边界，因为这将反映出对训练集的一个非常有信心的预测和一个对训练数据良好的“拟合”。具体而言，这将导致分类器将正和负训练样本用一个“间隙”（几何间隔）分开。</p><p>现在，假设我们得到一个线性可分的训练集；即，可以使用某个分离超平面分离正负样本。我们如何找到达到最大几何间隔的那个？我们可以提出以下优化问题：</p>$$
+\max_{\gamma, w, b} \ \gamma
+$$$$
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge \gamma, \quad i = 1, \dots, m
+$$$$
+\|w\| = 1
+$$<p>即，我们希望最大化 $\gamma$，使得每个训练样本具有至少 $\gamma$ 的函数间隔。$|w| = 1$ 的约束确保函数间隔等于几何间隔，因此我们也保证所有几何间隔至少为 $\gamma$。因此，解决该问题将导致 $(w,b)$ 相对于训练集具有最大可能的几何间隔。</p><p>如果我们能解决上面的优化问题，我们就完成了。但是 $|w| = 1$ 约束是一个棘手的（非凸的）条件，并且这个问题肯定不是我们可以使用标准优化软件来解决的任何格式。所以，让我们尝试将问题转化为更好的问题。考虑：</p>$$
+\max_{\hat{\gamma}, w, b} \ \frac{\hat{\gamma}}{\|w\|}
+$$$$
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge \hat{\gamma}, \quad i = 1, \dots, m
+$$<p>这里，我们将最大化 $\hat{\gamma}/|w|$，使得函数间隔都至少为 $\hat{\gamma}$。由于几何间隔和函数间隔的关系为 $\gamma = \hat{\gamma}/|w|$，这将给出我们想要的答案。此外，我们已经摆脱了约束 $|w| = 1$。缺点是我们仍然有一个棘手的（再次，非凸）目标函数 $\hat{\gamma}/|w|$；而且，我们仍然没有任何可以解决这种形式的优化问题的现成软件。</p><p>回想一下我们之前的讨论，我们可以在 $w$ 和 $b$ 上添加任意缩放约束而不改变任何东西。这是我们现在使用的关键想法。我们将引入缩放约束，即 $w,b$ 相对于训练集的函数间隔必须为 1：</p>$$
+\hat{\gamma} = 1
+$$<p>由于将 $w$ 和 $b$ 乘以某个常数将导致函数间隔乘以相同的常数（这是缩放约束），并且实际上我们可以进行重新缩放 $w,b$ 的操作。对上述问题应用此性质，并注意到最大化 $\gamma/|w| = 1/|w|$ 与最小化 $|w|^2$ 相同，我们现在有以下优化问题：</p>$$
+\min_{w,b} \ \frac{1}{2} \|w\|^2
+$$$$
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge 1, \quad i = 1, \dots, m
+$$<p>我们现在已经将问题转化为可以高效解决的形式。以上是具有凸二次目标和仅有线性约束的优化问题。它的解为我们提供了<strong>最优间隔分类器</strong>。这个优化问题可以使用商业二次规划（QP）程序来解决。</p><p>虽然我们现在可以解决问题，但我们后面还是要讨论拉格朗日对偶问题。这将推导出我们的优化问题的对偶形式，它将在允许我们使用核方法（kernel）让最优间隔分类器在非常高维空间中高效运转方面发挥关键作用。对偶形式还将允许我们推导出一种有效的算法来解决上述优化问题，该优化问题通常比通用 QP 软件做得更好。</p><h3 id=拉格朗日对偶>拉格朗日对偶</h3><p>让我们暂时搁置 SVM 和最大间隔分类器，然后讨论如何解决约束优化问题。</p><p>考虑如下形式的问题：</p>$$
+\min_{w} \ f(w)
+$$$$
+\text{s.t.} \quad h_i(w) = 0, \quad i = 1, \dots, l
+$$<p>在这种方法中，我们将拉格朗日算子定义为</p>$$
+\mathcal{L}(w, \beta)=
+f(w)+
+\sum_{i=1}^{l} \beta_i h_i(w)
+$$<p>这里，$\beta_i$ 被称为拉格朗日乘子。然后我们求出 $\mathcal{L}$ 的偏导数并设为零：</p>$$
+\frac{\partial \mathcal{L}}{\partial w_i} = 0,
+\qquad
+\frac{\partial \mathcal{L}}{\partial \beta_i} = 0
+$$<p>接着求解 $w$ 和 $\beta$。</p><p>在本节中，我们将此推广为带约束的优化问题，在这些问题中我们可能存在不等式以及等式约束。由于时间的限制，我们无法详细介绍拉格朗日二元对偶理论，但我们将给出主要思想和结果，然后应用于我们的最优间隔分类器的优化问题。</p><p>考虑以下内容，我们将其称为<strong>原始优化问题</strong>：</p>$$
+\min_{w} \ f(w)
+$$$$
+\text{s.t.} \quad g_i(w) \le 0, \quad i = 1, \dots, k
+$$$$
+h_i(w) = 0, \quad i = 1, \dots, l
+$$<p>为了解决这个问题，我们首先定义<strong>广义拉格朗日算子</strong>：</p>$$
+\mathcal{L}(w, \alpha, \beta)=
+f(w)+
+\sum_{i=1}^{k} \alpha_i g_i(w)+
+\sum_{i=1}^{l} \beta_i h_i(w)
+$$<p>这里，$\alpha_i$ 和 $\beta_i$ 是拉格朗日乘子。考虑</p>$$
+\theta_P(w)=
+\max_{\alpha, \beta : \alpha_i \ge 0}
+\mathcal{L}(w, \alpha, \beta)
+$$<p>这里，“$P$” 下标代表“原始”。假设给定某个 $w$。如果 $w$ 违反任何原始约束（即，对于某个 $i$，$g_i(w) > 0$ 或 $h_i(w) \neq 0$），那么可以验证</p>$$
+\theta_P(w)=
+\max_{\alpha, \beta : \alpha_i \ge 0}
+\left(
+f(w)+
+\sum_{i=1}^{k} \alpha_i g_i(w)+
+\sum_{i=1}^{l} \beta_i h_i(w)
+\right)
+\tag{1}
+$$$$
+= \infty
+\tag{2}
+$$<p>相反，如果对于特定的 $w$ 确实满足约束，则 $\theta_P(w) = f(w)$。因此，</p>$$
+\theta_P(w)=
+\begin{cases}
+f(w) & \text{如果 } w \text{ 满足原始约束} \\
+\infty & \text{其他}
+\end{cases}
+$$<p>因此，对于所有满足原始约束的 $w$，$\theta_P$ 与我们的问题中的目标具有相同的值，并且如果 $w$ 违反约束条件，那么 $\theta_P$ 为正无穷大。因此，如果我们考虑最小化问题</p>$$
+\min_w \theta_P(w)=
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)
+$$<p>我们看到它与我们原始的原始问题是同一个问题（即具有相同的解）。为了以后的使用，我们还将目标的最优值定义为</p>$$
+p' = \min_w \theta_P(w)
+$$<p>我们称之为原始问题的值。</p><p>现在，让我们看一个稍微不同的问题。我们定义</p>$$
+\theta_D(\alpha,\beta)=
+\min_w \mathcal{L}(w,\alpha,\beta)
+$$<p>这里，下标 “$D$” 代表“对偶”。还要注意，在 $\theta_P$ 的定义中，我们关于 $\alpha,\beta$ 进行了优化（最大化），而这里是关于 $w$ 的最小化。</p><p>我们现在可以提出对偶优化问题：</p>$$
+\max_{\alpha,\beta:\alpha_i \ge 0} \theta_D(\alpha,\beta)=
+\max_{\alpha,\beta:\alpha_i \ge 0} \min_w \mathcal{L}(w,\alpha,\beta)
+$$<p>这与上面显示的原始问题完全相同，只是现在交换了 “max” 和 “min” 的顺序。我们还将对偶问题的目标的最优值定义为</p>$$
+d' = \max_{\alpha,\beta:\alpha_i \ge 0} \theta_D(\alpha,\beta)
+$$<p>原始和对偶问题之间有什么关系？很容易证明如下这一点：</p>$$
+d'=
+\max_{\alpha,\beta:\alpha_i \ge 0} \min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)=
+p'
+$$<p>事实上，我们显然有</p>$$
+\min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\mathcal{L}(w,\alpha,\beta)
+\le
+\max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)
+$$<p>从而</p>$$
+\min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)=
+p'
+$$<p>并且</p>$$
+d'=
+\max_{\alpha,\beta:\alpha_i \ge 0} \min_w \mathcal{L}(w,\alpha,\beta)
+\le
+\min_w \max_{\alpha,\beta:\alpha_i \ge 0} \mathcal{L}(w,\alpha,\beta)=
+p'
+$$<p>但是，在某些条件下，我们会有</p>$$
+d' = p'
+$$<p>这样我们就可以解决对偶问题来代替原始问题。让我们看看这些条件是什么。</p><p>假设 $f$ 和 $g_i$ 是凸函数（即 Hessian 矩阵是正定的），$h_i$ 是仿射函数（即 $h_i(w) = a_i^T w + b$）。进一步假设 $g_i$ 约束是（严格地）可行的；这意味着存在某个 $w$ 使得对所有的 $i$ 有 $g_i(w) &lt; 0$。</p><p>在我们的上述假设下，必将存在 $w&rsquo;, \alpha&rsquo;, \beta&rsquo;$，使得 $w&rsquo;$ 是原始问题的解，$\alpha&rsquo;, \beta&rsquo;$ 是对偶问题的解，而且</p>$$
+p' = d' = \mathcal{L}(w', \alpha', \beta')
+$$<p>此外，$w&rsquo;, \alpha&rsquo;, \beta&rsquo;$ 满足 Karush-Kuhn-Tucker (KKT) 条件，如下：</p>$$
+\frac{\partial}{\partial w_i} \mathcal{L}(w', \alpha', \beta') = 0,
+\quad i = 1, \dots, n
+\tag{3}
+$$$$
+\frac{\partial}{\partial \beta_i} \mathcal{L}(w', \alpha', \beta') = 0,
+\quad i = 1, \dots, l
+\tag{4}
+$$$$
+\alpha'_i g_i(w') = 0,
+\quad i = 1, \dots, k
+\tag{5}
+$$$$
+g_i(w') \le 0,
+\quad i = 1, \dots, k
+\tag{6}
+$$$$
+\alpha'_i \ge 0,
+\quad i = 1, \dots, k
+\tag{7}
+$$<p>此外，如果某个 $w&rsquo;, \alpha&rsquo;, \beta&rsquo;$ 满足 KKT 条件，那么它也是原始和对偶问题的解。</p><p>我们注意方程 (5)，这被称为 <strong>KKT 对偶互补条件</strong>。具体来说，它推出如果 $\alpha&rsquo;_i > 0$，那么 $g_i(w&rsquo;) = 0$。（即，“$g_i(w&rsquo;) \le 0$” 约束是<strong>有效的</strong>，这意味着它取等号而不是不等号。）稍后，这将是证明 SVM 只有少量“支持向量”的关键；当我们讨论 SMO 算法时，KKT 对偶互补条件也将为我们提供收敛性测试。</p></section><footer class=article-footer></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-6/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-6/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 6" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 6</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-52/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-52/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 5(2)" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 5(2)</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-5/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-5/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 5" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 5</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-4/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-4/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 4" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 4</h2></div></a></article><article class=has-image><a href=https://lunatide.tech/p/cs229-lecture-3/><div class=article-image><img src=https://lunatide.tech/p/cs229-lecture-3/pic1.e3fe3f7deb19da40529efe3fac8bb5cd_hu_aa0783468c169fc4.jpg width=250 height=150 loading=lazy alt="Featured image of post CS229 Lecture 3" data-hash="md5-4/4/fesZ2kBSnv4/rIu1zQ=="></div><div class=article-details><h2 class=article-title>CS229 Lecture 3</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2025 -
+2026 LunaTide's Blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.31.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=https://lunatide.tech/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
