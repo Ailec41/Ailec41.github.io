@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 7</title><link>https://lunatide.tech/p/cs229-lecture-7/</link><pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-7/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-7/pic1.jpg" alt="Featured image of post CS229 Lecture 7" /&gt;&lt;h3 id="最优间隔分类器"&gt;最优间隔分类器
-&lt;/h3&gt;&lt;p&gt;给定一个训练集，从我们之前的讨论中可以看出，一个自然的想法是试图找到一个最大化（几何）间隔的决策边界，因为这将反映出对训练集的一个非常有信心的预测和一个对训练数据良好的“拟合”。具体而言，这将导致分类器将正和负训练样本用一个“间隙”（几何间隔）分开。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 7</title><link>https://lunatide.tech/p/cs229-lecture-7/</link><pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-7/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-7/pic1.jpg" alt="Featured image of post CS229 Lecture 7" /&gt;&lt;h2 id="最优间隔分类器"&gt;最优间隔分类器
+&lt;/h2&gt;&lt;p&gt;给定一个训练集，从我们之前的讨论中可以看出，一个自然的想法是试图找到一个最大化（几何）间隔的决策边界，因为这将反映出对训练集的一个非常有信心的预测和一个对训练数据良好的“拟合”。具体而言，这将导致分类器将正和负训练样本用一个“间隙”（几何间隔）分开。&lt;/p&gt;
 &lt;p&gt;现在，假设我们得到一个线性可分的训练集；即，可以使用某个分离超平面分离正负样本。我们如何找到达到最大几何间隔的那个？我们可以提出以下优化问题：&lt;/p&gt;
 $$
 \max_{\gamma, w, b} \ \gamma
@@ -24,8 +24,8 @@ $$$$
 \text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \ge 1, \quad i = 1, \dots, m
 $$&lt;p&gt;我们现在已经将问题转化为可以高效解决的形式。以上是具有凸二次目标和仅有线性约束的优化问题。它的解为我们提供了&lt;strong&gt;最优间隔分类器&lt;/strong&gt;。这个优化问题可以使用商业二次规划（QP）程序来解决。&lt;/p&gt;
 &lt;p&gt;虽然我们现在可以解决问题，但我们后面还是要讨论拉格朗日对偶问题。这将推导出我们的优化问题的对偶形式，它将在允许我们使用核方法（kernel）让最优间隔分类器在非常高维空间中高效运转方面发挥关键作用。对偶形式还将允许我们推导出一种有效的算法来解决上述优化问题，该优化问题通常比通用 QP 软件做得更好。&lt;/p&gt;
-&lt;h3 id="拉格朗日对偶"&gt;拉格朗日对偶
-&lt;/h3&gt;&lt;p&gt;让我们暂时搁置 SVM 和最大间隔分类器，然后讨论如何解决约束优化问题。&lt;/p&gt;
+&lt;h2 id="拉格朗日对偶"&gt;拉格朗日对偶
+&lt;/h2&gt;&lt;p&gt;让我们暂时搁置 SVM 和最大间隔分类器，然后讨论如何解决约束优化问题。&lt;/p&gt;
 &lt;p&gt;考虑如下形式的问题：&lt;/p&gt;
 $$
 \min_{w} \ f(w)
@@ -159,8 +159,8 @@ $$$$
 \tag{7}
 $$&lt;p&gt;此外，如果某个 $w&amp;rsquo;, \alpha&amp;rsquo;, \beta&amp;rsquo;$ 满足 KKT 条件，那么它也是原始和对偶问题的解。&lt;/p&gt;
 &lt;p&gt;我们注意方程 (5)，这被称为 &lt;strong&gt;KKT 对偶互补条件&lt;/strong&gt;。具体来说，它推出如果 $\alpha&amp;rsquo;_i &amp;gt; 0$，那么 $g_i(w&amp;rsquo;) = 0$。（即，“$g_i(w&amp;rsquo;) \le 0$” 约束是&lt;strong&gt;有效的&lt;/strong&gt;，这意味着它取等号而不是不等号。）稍后，这将是证明 SVM 只有少量“支持向量”的关键；当我们讨论 SMO 算法时，KKT 对偶互补条件也将为我们提供收敛性测试。&lt;/p&gt;
-&lt;h3 id="最优间隔分类器-1"&gt;最优间隔分类器
-&lt;/h3&gt;&lt;p&gt;之前，我们提出了以下（原始）优化问题来找到最优间隔分类器：&lt;/p&gt;
+&lt;h2 id="最优间隔分类器-1"&gt;最优间隔分类器
+&lt;/h2&gt;&lt;p&gt;之前，我们提出了以下（原始）优化问题来找到最优间隔分类器：&lt;/p&gt;
 $$
 \min_{w,b} \ \frac{1}{2}\|w\|^2
 $$$$
@@ -321,8 +321,8 @@ w^T x + b&amp;=
 \end{align}
 $$&lt;p&gt;
 因此，如果我们找到 $\alpha_i$，为了进行预测，我们必须计算仅取决于 $x$ 与训练集中的点之间的内积。此外，我们之前看到除了支持向量之外，$\alpha_i$ 都将为零。因此，上述求和中的许多项将为零，并且我们确实只需要找到 $x$ 和支持向量之间的内积（通常只有一小部分）就能计算 (13) 并进行预测。&lt;/p&gt;
-&lt;p&gt;通过讨论优化问题的对偶形式，我们获得了对问题结构的重要洞察，并且还能够仅根据输入特征向量之间的内积来编写整个算法。在下一节中，我们将利用属性核方法应用于我们的分类问题。由此产生的算法，&lt;strong&gt;支持向量机&lt;/strong&gt;，将能够在非常高维空间中有效地学习。&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h3 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
-&lt;/h3&gt;&lt;p&gt;接下里用一个文本分类方面的模型来对生成学习算法进行收尾，之前说的朴素贝叶斯方法已经可以解决很多分类问题了，不过还有另外一个算法在针对文本的分类效果要更好&lt;/p&gt;
+&lt;p&gt;通过讨论优化问题的对偶形式，我们获得了对问题结构的重要洞察，并且还能够仅根据输入特征向量之间的内积来编写整个算法。在下一节中，我们将利用属性核方法应用于我们的分类问题。由此产生的算法，&lt;strong&gt;支持向量机&lt;/strong&gt;，将能够在非常高维空间中有效地学习。&lt;/p&gt;</description></item><item><title>CS229 Lecture 6</title><link>https://lunatide.tech/p/cs229-lecture-6/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-6/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-6/pic1.jpg" alt="Featured image of post CS229 Lecture 6" /&gt;&lt;h2 id="针对文本分类的事件模型"&gt;针对文本分类的事件模型
+&lt;/h2&gt;&lt;p&gt;接下里用一个文本分类方面的模型来对生成学习算法进行收尾，之前说的朴素贝叶斯方法已经可以解决很多分类问题了，不过还有另外一个算法在针对文本的分类效果要更好&lt;/p&gt;
 &lt;p&gt;在文本分类的特定上下文中，朴素贝叶斯使用了所谓的 &lt;strong&gt;多变量伯努利事件模型&lt;/strong&gt;。在这个模型中，我们假设生成电子邮件的方式是首先随机确定(根据类先验$p(y)$) 邮件是垃圾邮件还是非垃圾邮件，然后发送邮件的人通过字典根据概率$p(x_i = 1 \mid y)$ 独立决定是否包括邮件中的每个单词。因此，邮件的概率由&lt;br&gt;
 &lt;/p&gt;
 $$
@@ -375,10 +375,10 @@ $$$$
 \sum_{i=1}^{m} \mathbf{1}\{y^{(i)} = 0\} n_i + |V|
 }
 $$&lt;p&gt;虽然不一定是最好的分类算法，但朴素贝叶斯分类器通常效果非常好。考虑到它的简单性和易于实现，它通常也非常适合作为第一个尝试。&lt;/p&gt;
-&lt;h3 id="支持向量机"&gt;支持向量机
-&lt;/h3&gt;&lt;p&gt;这一章节主要讲的是&lt;strong&gt;支持向量机(SVM)学习算法&lt;/strong&gt;，SVM是现成的最好的监督学习算法。为了讲述SVM，我们首先需要讨论间隔以及将数据以大的“间隔”分开的想法。接下来，我们将讨论最优间隔分类器，这将引导我们对拉格朗日对偶的讨论。我们还将看到核方法，它提供了一种在非常高维（例如无限维）特征空间中有效应用SVM的方法，最后，我们会使用SMO算法结束这章，该方法可以有效地实现支持向量机&lt;/p&gt;
-&lt;h4 id="边界直觉"&gt;边界：直觉
-&lt;/h4&gt;&lt;p&gt;我们将通过讨论间隔来开始我们关于SVM的讨论。本节将给出关于间隔和我们预测的“信心”的直觉；这些想法将在第3节中正式提出。&lt;/p&gt;
+&lt;h2 id="支持向量机"&gt;支持向量机
+&lt;/h2&gt;&lt;p&gt;这一章节主要讲的是&lt;strong&gt;支持向量机(SVM)学习算法&lt;/strong&gt;，SVM是现成的最好的监督学习算法。为了讲述SVM，我们首先需要讨论间隔以及将数据以大的“间隔”分开的想法。接下来，我们将讨论最优间隔分类器，这将引导我们对拉格朗日对偶的讨论。我们还将看到核方法，它提供了一种在非常高维（例如无限维）特征空间中有效应用SVM的方法，最后，我们会使用SMO算法结束这章，该方法可以有效地实现支持向量机&lt;/p&gt;
+&lt;h3 id="边界直觉"&gt;边界：直觉
+&lt;/h3&gt;&lt;p&gt;我们将通过讨论间隔来开始我们关于SVM的讨论。本节将给出关于间隔和我们预测的“信心”的直觉；这些想法将在第3节中正式提出。&lt;/p&gt;
 &lt;p&gt;考虑logistic回归，其中概率 $p(y = 1 \mid x; \theta)$ 由 $h_\theta(x) = g(\theta^T x)$ 建模。然后，当且仅当 $h_\theta(x) \ge 0.5$ 时，我们才会预测输入 $x$ 为“1”，或者等价的，当且仅当 $\theta^T x \ge 0$。&lt;/p&gt;
 &lt;p&gt;考虑一个正训练样本 $(y = 1)$。$\theta^T x$ 越大，$h_\theta(x) = p(y = 1 \mid x; w, b)$ 也越大，因此标记为1的“置信度”也越高。因此，非正式地，我们可以对 $y = 1$ 进行非常自信的预测，如果 $\theta^T x \gg 0$。类似地，我们将logistic回归视为对 $y = 0$ 进行非常自信的预测，如果 $\theta^T x \ll 0$。&lt;/p&gt;
 &lt;p&gt;给定一个训练集，再次非正式地看起来我们已经找到了一个对训练数据很好的拟合，如果我们可以找到 $\theta$，以便每当 $y^{(i)} = 1$ 时，$\theta^T x^{(i)} \gg 0$，并且每当 $y^{(i)} = 0$ 时，$\theta^T x^{(i)} \ll 0$，因为这将反映所有训练样本的非常有信心（和正确）的分类。这似乎是一个很好的目标，我们很快就会使用函数间隔的概念来形式化这个想法。&lt;/p&gt;
@@ -394,14 +394,14 @@ data-flex-basis="311px"
 &gt;&lt;/p&gt;
 &lt;p&gt;注意到A点离决策边界很远。如果我们被要求在A处对 $y$ 的值进行预测，那么我们应该非常确信 $y = 1$。相反，C点非常接近决策边界，虽然它位于我们预测 $y = 1$ 的决策边界的一侧，但似乎只是对决策边界的一个小变化很容易导致我们的预测改变为 $y = 0$。因此，我们对A处的预测比对C的预测更有信心。B点位于这两种情况之间，更广泛地说，我们看到如果一点远离分离超平面，那么我们对预测可能会更有信心。&lt;/p&gt;
 &lt;p&gt;同样，非正式地，我们认为，如果给定一个训练集，我们设法找到一个决策边界，使我们能够在训练样例上做出所有正确和自信（意味着远离决策边界）的预测，那将是非常好的。我们稍后将使用几何间隔的概念将其形式化。&lt;/p&gt;
-&lt;h4 id="符号"&gt;符号
-&lt;/h4&gt;&lt;p&gt;为了使我们对SVM的讨论更容易，我们首先需要引入一个新的符号来讨论分类。我们将考虑用于解决带有标签 $y$ 和特征 $x$ 的二元分类问题的线性分类器。从现在开始，我们将使用 $y \in {-1, 1}$（而不是 ${0, 1}$）来表示类标签。此外，我们将使用参数 $w, b$，而不是使用向量 $\theta$ 来参数化我们的线性分类器，并将分类器改写为&lt;/p&gt;
+&lt;h3 id="符号"&gt;符号
+&lt;/h3&gt;&lt;p&gt;为了使我们对SVM的讨论更容易，我们首先需要引入一个新的符号来讨论分类。我们将考虑用于解决带有标签 $y$ 和特征 $x$ 的二元分类问题的线性分类器。从现在开始，我们将使用 $y \in {-1, 1}$（而不是 ${0, 1}$）来表示类标签。此外，我们将使用参数 $w, b$，而不是使用向量 $\theta$ 来参数化我们的线性分类器，并将分类器改写为&lt;/p&gt;
 $$
 h_{w,b}(x) = g(w^T x + b)
 $$&lt;p&gt;这里，如果 $z \ge 0$，则 $g(z) = 1$，否则 $g(z) = -1$。这个 “$w, b$” 表示法允许我们明确地将截距项 $b$ 与其他参数分开处理。（我们也放弃了以前让 $x_0 = 1$ 成为输入特征向量中的额外坐标的约定。）因此，$b$ 扮演以前 $\theta_0$ 的角色，$w$ 扮演 $(\theta_1, \dots, \theta_n)^T$ 的角色。&lt;/p&gt;
 &lt;p&gt;还要注意，根据我们上面对 $g$ 的定义，我们的分类器将直接预测 $1$ 或 $-1$（参见感知机算法），而不是首先进行估计 $y$ 为 $1$ 的概率的中间步骤（这是 logistic 回归所做的）。&lt;/p&gt;
-&lt;h4 id="函数和几何间隔"&gt;函数和几何间隔
-&lt;/h4&gt;&lt;p&gt;让我们形式化函数间隔和几何间隔的概念。给定一个训练样本 $(x^{(i)}, y^{(i)})$，我们根据训练样本定义 $(w,b)$ 的&lt;strong&gt;函数间隔&lt;/strong&gt;为&lt;/p&gt;
+&lt;h3 id="函数和几何间隔"&gt;函数和几何间隔
+&lt;/h3&gt;&lt;p&gt;让我们形式化函数间隔和几何间隔的概念。给定一个训练样本 $(x^{(i)}, y^{(i)})$，我们根据训练样本定义 $(w,b)$ 的&lt;strong&gt;函数间隔&lt;/strong&gt;为&lt;/p&gt;
 $$
 \hat{\gamma}^{(i)} = y^{(i)} (w^T x^{(i)} + b)
 $$&lt;p&gt;注意，如果 $y^{(i)} = 1$，那么为了使函数间隔变大（即，为了使我们的预测有信心和正确），我们需要 $w^T x^{(i)} + b$ 为大的正数。相反，如果 $y^{(i)} = -1$，那么为了使函数间隔变大，我们需要 $w^T x^{(i)} + b$ 为（绝对值）大的负数。此外，如果 $y^{(i)} (w^T x^{(i)} + b) &amp;gt; 0$，那么我们对这个例子的预测是正确的。因此，大的函数间隔代表了自信和正确的预测。&lt;/p&gt;
@@ -450,8 +450,8 @@ S = \{(x^{(i)}, y^{(i)}); i = 1, \dots, m\}
 $$&lt;p&gt;我们还将 $(w,b)$ 关于 $S$ 的几何间隔定义为训练样本中最小的几何间隔，用 $\gamma$ 表示，因此可以写成：&lt;/p&gt;
 $$
 \gamma = \min_{i=1,\dots,m} \gamma^{(i)}
-$$</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h3 id="朴素贝叶斯"&gt;朴素贝叶斯
-&lt;/h3&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
+$$</description></item><item><title>CS229 Lecture 5(2)</title><link>https://lunatide.tech/p/cs229-lecture-52/</link><pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-52/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-52/pic1.jpg" alt="Featured image of post CS229 Lecture 5(2)" /&gt;&lt;h2 id="朴素贝叶斯"&gt;朴素贝叶斯
+&lt;/h2&gt;&lt;p&gt;在GDA中，特征向量x是连续的值为实数的向量。下面我们要讲的是当 \(x_i\) 是离散的时候所使用的另一种学习算法。&lt;/p&gt;
 &lt;p&gt;下面就来看一个样例，来尝试建立一个邮件筛选器，使用机器学习的方法。这回咱们要来对邮件信息进行分类，来判断是否为商业广告邮件还是非垃圾邮件。在学会了怎么实现之后，我们就可以让邮件阅读器能够自动对垃圾信息进行过滤，或者单独把这些垃圾邮件放进一个单独的文件夹中。对邮件进行分类是一个案例，属于文本分类这一更广泛问题集合。&lt;/p&gt;
 &lt;p&gt;假设我们有了一个训练集（也就是一堆已经标好了是否为垃圾邮件的邮件）。要构建垃圾邮件分类器，咱们先要开始确定用来描述一封邮件的特征 \(x_i\) 有哪些。&lt;/p&gt;
 &lt;p&gt;我们将用一个特征向量来表示一封邮件，这个向量的长度等于字典中单词的个数。如果邮件中包含了字典中的第 \(i\) 个单词，那么令$x_i = 1$，反之则$x_i = 0$。例如:&lt;/p&gt;
@@ -655,8 +655,8 @@ $$&lt;p&gt;并选择具有较高后验概率的类别。&lt;/p&gt;
 &lt;/table&gt;
 &lt;p&gt;因此，对于居住面积为890平方英尺的房屋，我们将相应特征 $x_i$ 的值设置为 3然后我们可以应用朴素贝叶斯算法，并使用多项分布对 $p(x_i \mid y)$ 建模，如前所述。当原始的连续值属性没有通过多元正态分布很好地建模时，
 对特征进行离散化并使用朴素贝叶斯（而不是 GDA）通常会产生更好的分类器。&lt;/p&gt;
-&lt;h3 id="拉普拉斯平滑"&gt;拉普拉斯平滑
-&lt;/h3&gt;&lt;p&gt;我们已经描述过的朴素贝叶斯算法可以很好地解决许多问题，但是有一个简单的改变可以使它更好地工作，特别是对于文本分类。让我们简要讨论当前形式的算法问题，然后讨论我们如何解决它。&lt;/p&gt;
+&lt;h2 id="拉普拉斯平滑"&gt;拉普拉斯平滑
+&lt;/h2&gt;&lt;p&gt;我们已经描述过的朴素贝叶斯算法可以很好地解决许多问题，但是有一个简单的改变可以使它更好地工作，特别是对于文本分类。让我们简要讨论当前形式的算法问题，然后讨论我们如何解决它。&lt;/p&gt;
 &lt;p&gt;考虑垃圾邮件/电子邮件分类，让我们假设，在完成 CS229 并完成项目的优秀工作后，您决定在 2003 年 6 月左右将您所做的工作提交给 NIPS 会议进行发布因为您最终在电子邮件中讨论会议，所以您也开始收到带有 “nips” 字样的消息。但这是你的第一篇 NIPS 论文，直到这个时候，你还没有看到任何包含 “nips” 这个词的电子邮件；特别是 “nips” 并没有出现在你的垃圾邮件/非垃圾邮件的训练集中。假设 “nips” 是字典中的第 35000 个单词，那么你的朴素贝叶斯垃圾邮件过滤器已经选择了参数$\phi_{35000 \mid y}$ 的最大似然估计值：&lt;/p&gt;
 $$
 \begin{array}{lcl}
@@ -745,10 +745,10 @@ $$
 \arg\max_y p(y \mid x)
 = \arg\max_y \frac{p(x \mid y)p(y)}{p(x)}
 = \arg\max_y p(x \mid y)p(y).
-$$&lt;h3 id="高斯判别分析"&gt;高斯判别分析
-&lt;/h3&gt;&lt;p&gt;我们要学习的第一个生成学习算法就是高斯判别分析，在这个模型里面，我们假设$p(x \mid y)$是一个多元正态分布。所以首先我们简单讲下多元正态分布的一些特点&lt;/p&gt;
-&lt;h4 id="多元正态分布"&gt;多元正态分布
-&lt;/h4&gt;&lt;p&gt;$n$ 维的多元正态分布，也称为多元高斯分布，由&lt;strong&gt;均值向量&lt;/strong&gt; $\mu \in \mathbb{R}^n$ 以及&lt;strong&gt;协方差矩阵&lt;/strong&gt;$\Sigma \in \mathbb{R}^{n \times n}$ 参数化，其中 $\Sigma \ge 0$ 是半正定对称矩阵。多元正态分布也写为 $\mathcal{N}(\mu, \Sigma)$，其密度由下式给出：&lt;/p&gt;
+$$&lt;h2 id="高斯判别分析"&gt;高斯判别分析
+&lt;/h2&gt;&lt;p&gt;我们要学习的第一个生成学习算法就是高斯判别分析，在这个模型里面，我们假设$p(x \mid y)$是一个多元正态分布。所以首先我们简单讲下多元正态分布的一些特点&lt;/p&gt;
+&lt;h3 id="多元正态分布"&gt;多元正态分布
+&lt;/h3&gt;&lt;p&gt;$n$ 维的多元正态分布，也称为多元高斯分布，由&lt;strong&gt;均值向量&lt;/strong&gt; $\mu \in \mathbb{R}^n$ 以及&lt;strong&gt;协方差矩阵&lt;/strong&gt;$\Sigma \in \mathbb{R}^{n \times n}$ 参数化，其中 $\Sigma \ge 0$ 是半正定对称矩阵。多元正态分布也写为 $\mathcal{N}(\mu, \Sigma)$，其密度由下式给出：&lt;/p&gt;
 $$
 p(x; \mu, \Sigma)
 = \frac{1}{(2\pi)^{n/2} \lvert \Sigma \rvert^{1/2}}
@@ -764,8 +764,8 @@ $$&lt;p&gt;
 向量值随机变量 $Z$ 的&lt;strong&gt;协方差&lt;/strong&gt;定义为$\mathrm{Cov}(Z) = E[(Z - E[Z])(Z - E[Z])^T]$。这概括了实值随机变量方差的概念。协方差也可以定义为$\mathrm{Cov}(Z) = E[ZZ^T] - (E[Z])(E[Z])^T$。如果 $X \sim \mathcal{N}(\mu,\Sigma)$，那么&lt;/p&gt;
 $$
 \mathrm{Cov}(X) = \Sigma
-$$&lt;h4 id="高斯判别分析模型"&gt;高斯判别分析模型
-&lt;/h4&gt;&lt;p&gt;假如我们有一个分类问题，其中输入特征$x$是一系列的连续随机变量，那就可以使用高斯判别分析模型，其中对$p(x \mid y)$用多元正态分布来进行建模，这个模型为：
+$$&lt;h3 id="高斯判别分析模型"&gt;高斯判别分析模型
+&lt;/h3&gt;&lt;p&gt;假如我们有一个分类问题，其中输入特征$x$是一系列的连续随机变量，那就可以使用高斯判别分析模型，其中对$p(x \mid y)$用多元正态分布来进行建模，这个模型为：
 &lt;/p&gt;
 $$
 \begin{array}{c}
@@ -921,8 +921,8 @@ $$$$
 (x^{(i)}-\mu_{y^{(i)}})^T
 \end{array}
 $$&lt;p&gt;因此结论成立。&lt;/p&gt;
-&lt;h3 id="讨论高斯判别分析与logistic回归"&gt;讨论：高斯判别分析与logistic回归
-&lt;/h3&gt;&lt;p&gt;高斯判别分析模型与逻辑回归有很有趣的相关性。如果我们把变量 $ p(y = 1 \mid x; \phi, \mu_0, \mu_1, \Sigma) $作为一个 \(x\) 的函数，就会发现可以用如下的形式来表达：&lt;/p&gt;
+&lt;h2 id="讨论高斯判别分析与logistic回归"&gt;讨论：高斯判别分析与logistic回归
+&lt;/h2&gt;&lt;p&gt;高斯判别分析模型与逻辑回归有很有趣的相关性。如果我们把变量 $ p(y = 1 \mid x; \phi, \mu_0, \mu_1, \Sigma) $作为一个 \(x\) 的函数，就会发现可以用如下的形式来表达：&lt;/p&gt;
 $$
 p(y = 1 \mid x; \phi, \Sigma, \mu_0, \mu_1)=\frac{1}{1 + \exp(-\theta^T x)}
 $$&lt;p&gt;其中的 \(\theta\) 是对 \(\phi, \Sigma, \mu_0, \mu_1\) 的某种函数。这就是逻辑回归（也是一种判别分析算法）用来对\( p(y = 1 \mid x) \)建模的形式。&lt;/p&gt;
@@ -1034,8 +1034,8 @@ p(y=1 \mid x;\phi,\Sigma,\mu_0,\mu_1)=
 \right.
 $$&lt;p&gt;
 那么这两个模型，我们应该如何选择呢？一般来说，高斯判别分析和logistic回归，对同一个训练集，可能给出的判别曲线是不一样的。哪一个更好一点呢？&lt;/p&gt;</description></item><item><title>CS229 Lecture 4</title><link>https://lunatide.tech/p/cs229-lecture-4/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-4/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-4/pic1.jpg" alt="Featured image of post CS229 Lecture 4" /&gt;&lt;p&gt;现在是2026年01月01号的00:00，该更新note了！新年快乐！&lt;/p&gt;
-&lt;h3 id="另外一种最大化ltheta的算法"&gt;另外一种最大化$l(\theta)$的算法
-&lt;/h3&gt;&lt;p&gt;回到logistic回归，其中$g(z)$是sigmoid函数，现在让我们讨论一种最大化$l(\theta)$的不同算法&lt;/p&gt;
+&lt;h2 id="另外一种最大化ltheta的算法"&gt;另外一种最大化$l(\theta)$的算法
+&lt;/h2&gt;&lt;p&gt;回到logistic回归，其中$g(z)$是sigmoid函数，现在让我们讨论一种最大化$l(\theta)$的不同算法&lt;/p&gt;
 &lt;p&gt;我们先想一下求一个方程零点的牛顿法。假设我们有一个从实数到实数$ f : \mathbb{R} \to \mathbb{R} $，然后要找到一个$\theta$，来满足 $f(\theta)=0$，其中$0 \in \mathbb{R}$。牛顿法就是对 $\theta$ 进行如下的更新：
 &lt;/p&gt;
 $$
