@@ -41,19 +41,12 @@ x_3 x_3
 \end{bmatrix}
 $$&lt;p&gt;注意，虽然计算 $\phi(x)$ 需要 $O(n^2)$ 的时间，但是计算 $K(x, z)$ 只需要 $O(n)$ 时间——和输入属性的维度呈线性关系。&lt;/p&gt;
 &lt;p&gt;对于相关的核，考虑：&lt;/p&gt;
-&lt;p&gt;$$
-\begin{aligned}
-K(x, z)
-&amp;amp;= (x^T z + c)^2 \
-&amp;amp;= \left( \sum_{i=1}^{n} x_i z_i + c \right)^2 \
-&amp;amp;= \sum_{i,j=1}^{n} (x_i x_j)(z_i z_j)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;\sum_{i=1}^{n} (\sqrt{2c}, x_i)(\sqrt{2c}, z_i)&lt;/li&gt;
-&lt;li&gt;c^2
-\end{aligned}
 $$
-相应的特征映射为（再次给出 $n = 3$ 的情形）&lt;/li&gt;
-&lt;/ul&gt;
+\begin{aligned}
+K(x, z)&amp;= (x^T z + c)^2 \\&amp;= \left( \sum_{i=1}^{n} x_i z_i + c \right)^2 \\&amp;= \sum_{i,j=1}^{n} (x_i x_j)(z_i z_j)+ \sum_{i=1}^{n} (\sqrt{2c}\, x_i)(\sqrt{2c}\, z_i)+ c^2
+\end{aligned}
+$$&lt;p&gt;
+相应的特征映射为（再次给出 $n = 3$ 的情形）&lt;/p&gt;
 $$
 \phi(x) =
 \begin{bmatrix}
@@ -99,29 +92,22 @@ $$
 K(x, z) = \phi(x)^T \phi(z)
 $$&lt;p&gt;现在假设 $K$ 确实对应于某个特征映射 $\phi$ 的有效核。现在，考虑有限的 $m$ 点（不一定是训练集）${x^{(1)}, \dots, x^{(m)}}$，并且定义 $m \times m$ 矩阵 $K$，使得其第 $(i, j)$ 个元素为 $K(x^{(i)}, x^{(j)})$。该矩阵称为核矩阵。请注意，由于核函数 $K(x, z)$ 和核矩阵 $K$ 之间存在明显的密切关系，我们经常滥用符号使用 $K$ 来表示核函数 $K(x, z)$ 和核矩阵 $K$。&lt;/p&gt;
 &lt;p&gt;现在，如果 $K$ 是有效的核，则&lt;/p&gt;
-&lt;h1 id="k_ij"&gt;$$
-K_{ij}
-&lt;/h1&gt;&lt;h1 id="kxi-xj"&gt;K(x^{(i)}, x^{(j)})
-&lt;/h1&gt;&lt;h1 id="phixit-phixj"&gt;\phi(x^{(i)})^T \phi(x^{(j)})
-&lt;/h1&gt;&lt;h1 id="phixjt-phixi"&gt;\phi(x^{(j)})^T \phi(x^{(i)})
-&lt;/h1&gt;&lt;h1 id="kxj-xi"&gt;K(x^{(j)}, x^{(i)})
-&lt;/h1&gt;&lt;p&gt;K_{ji}
-$$&lt;/p&gt;
-&lt;p&gt;因此 $K$ 是对称矩阵。更重要的是，令 $\phi_k(x)$ 表示向量 $\phi(x)$ 的第 $k$ 个坐标，我们发现对于任何向量 $z$，我们都有&lt;/p&gt;
+$$
+K_{ij}=
+K(x^{(i)}, x^{(j)})=
+\phi(x^{(i)})^T \phi(x^{(j)})=
+\phi(x^{(j)})^T \phi(x^{(i)})=
+K(x^{(j)}, x^{(i)})=
+K_{ji}
+$$&lt;p&gt;因此 $K$ 是对称矩阵。更重要的是，令 $\phi_k(x)$ 表示向量 $\phi(x)$ 的第 $k$ 个坐标，我们发现对于任何向量 $z$，我们都有&lt;/p&gt;
 $$
 \begin{aligned}
-z^T K z
-&amp;=
-\sum_i \sum_j z_i K_{ij} z_j \\
-&amp;=
-\sum_i \sum_j z_i \phi(x^{(i)})^T \phi(x^{(j)}) z_j \\
-&amp;=
-\sum_i \sum_j z_i \sum_k \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\
-&amp;=
-\sum_k \sum_i \sum_j z_i \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\
-&amp;=
-\sum_k \left( \sum_i z_i \phi_k(x^{(i)}) \right)^2 \\
-&amp;\ge 0
+z^T K z&amp;=
+\sum_i \sum_j z_i K_{ij} z_j \\&amp;=
+\sum_i \sum_j z_i \phi(x^{(i)})^T \phi(x^{(j)}) z_j \\&amp;=
+\sum_i \sum_j z_i \sum_k \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\&amp;=
+\sum_k \sum_i \sum_j z_i \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\&amp;=
+\sum_k \left( \sum_i z_i \phi_k(x^{(i)}) \right)^2 \\&amp;\ge 0
 \end{aligned}
 $$&lt;p&gt;由于 $z$ 是任意的，这表明 $K$ 是半正定的（$K \ge 0$）。&lt;/p&gt;
 &lt;p&gt;因此，我们已经证明，如果 $K$ 是有效核（即，如果它对应于某些特征映射 $\phi$），则相应的核矩阵 $K \in \mathbb{R}^{m \times m}$ 是半正定对称矩阵。更一般地说，这不仅是 $K$ 成为有效核（也称为 Mercer 核）的必要条件，而且是充分条件。以下结果归功于 Mercer。&lt;/p&gt;
@@ -156,90 +142,61 @@ $$
 -\xi_i &amp;\le 0, \quad i = 1, \dots, m
 \end{aligned}
 $$&lt;p&gt;我们可以得到拉格朗日算子&lt;/p&gt;
-&lt;p&gt;$$
+$$
 \begin{aligned}
-\mathcal{L}(w,b,\xi,\alpha,r)
-&amp;amp;= \frac{1}{2} \lVert w \rVert^2&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;C \sum_{i=1}^{m} \xi_i \
-&amp;amp;\quad - \sum_{i=1}^{m} \alpha_i \big[ y^{(i)} (w^T x^{(i)} + b) - 1 + \xi_i \big]&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ul&gt;
-&lt;li&gt;\sum_{i=1}^{m} r_i \xi_i
+\mathcal{L}(w,b,\xi,\alpha,r)&amp;= \frac{1}{2} \lVert w \rVert^2+ C \sum_{i=1}^{m} \xi_i \\&amp;\quad - \sum_{i=1}^{m} \alpha_i \big[ y^{(i)} (w^T x^{(i)} + b) - 1 + \xi_i \big]- \sum_{i=1}^{m} r_i \xi_i
 \end{aligned}
-$$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这里，$\alpha_i$ 和 $r_i$ 是我们的拉格朗日乘子（约束为 $\ge 0$）。求偏导并令其为 $0$ 可得：&lt;/p&gt;
-&lt;h1 id="nabla_w-mathcallwbxialphar"&gt;$$
-\nabla_w \mathcal{L}(w,b,\xi,\alpha,r)
-&lt;/h1&gt;&lt;p&gt;w - \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} = 0
-$$&lt;/p&gt;
-&lt;h1 id="nabla_b-mathcallwbxialphar"&gt;$$
-\nabla_b \mathcal{L}(w,b,\xi,\alpha,r)
-&lt;/h1&gt;&lt;p&gt;\sum_{i=1}^{m} \alpha_i y^{(i)} = 0
-$$&lt;/p&gt;
-&lt;h1 id="nabla_xi_i-mathcallwbxialphar"&gt;$$
-\nabla_{\xi_i} \mathcal{L}(w,b,\xi,\alpha,r)
-&lt;/h1&gt;&lt;p&gt;C - \alpha_i - r_i = 0
-$$&lt;/p&gt;
-&lt;p&gt;化简第一个式子可得&lt;/p&gt;
+$$&lt;p&gt;这里，$\alpha_i$ 和 $r_i$ 是我们的拉格朗日乘子（约束为 $\ge 0$）。求偏导并令其为 $0$ 可得：&lt;/p&gt;
+$$
+\nabla_w \mathcal{L}(w,b,\xi,\alpha,r)=
+w - \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} = 0
+$$$$
+\nabla_b \mathcal{L}(w,b,\xi,\alpha,r)=
+\sum_{i=1}^{m} \alpha_i y^{(i)} = 0
+$$$$
+\nabla_{\xi_i} \mathcal{L}(w,b,\xi,\alpha,r)=
+C - \alpha_i - r_i = 0
+$$&lt;p&gt;化简第一个式子可得&lt;/p&gt;
 $$
 w = \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)}
 $$&lt;p&gt;带入原式可得&lt;/p&gt;
-&lt;p&gt;$$
+$$
 \begin{aligned}
-\mathcal{L}(w,b,\xi,\alpha,r)
-&amp;amp;= \sum_{i=1}^{m} \alpha_i&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m}
+\mathcal{L}(w,b,\xi,\alpha,r)&amp;= \sum_{i=1}^{m} \alpha_i- \frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m}
 y^{(i)} y^{(j)} \alpha_i \alpha_j
-(x^{(i)})^T x^{(j)} \
-&amp;amp;\quad - b \sum_{i=1}^{m} \alpha_i y^{(i)}&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ul&gt;
-&lt;li&gt;\sum_{i=1}^{m} (C - \alpha_i - r_i) \xi_i
+(x^{(i)})^T x^{(j)} \\
+&amp;\quad - b \sum_{i=1}^{m} \alpha_i y^{(i)}+ \sum_{i=1}^{m} (C - \alpha_i - r_i) \xi_i
 \end{aligned}
-$$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;注意到&lt;/p&gt;
+$$&lt;p&gt;注意到&lt;/p&gt;
 $$
 \sum_{i=1}^{m} \alpha_i y^{(i)} = 0,
 \qquad
 \alpha_i + r_i = C
 $$&lt;p&gt;所以&lt;/p&gt;
-&lt;h1 id="mathcallwbxialphar"&gt;$$
-\mathcal{L}(w,b,\xi,\alpha,r)
-&lt;/h1&gt;&lt;p&gt;\sum_{i=1}^{m} \alpha_i&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m}
+$$
+\mathcal{L}(w,b,\xi,\alpha,r)=
+\sum_{i=1}^{m} \alpha_i- \frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m}
 y^{(i)} y^{(j)} \alpha_i \alpha_j
 (x^{(i)})^T x^{(j)}
-$$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;由 $\xi_i \ge 0$ 且 $r_i \ge 0$ 可得&lt;/p&gt;
+$$&lt;p&gt;由 $\xi_i \ge 0$ 且 $r_i \ge 0$ 可得&lt;/p&gt;
 $$
 \alpha_i \le C,
 \qquad
 \alpha_i \ge 0
 $$&lt;p&gt;因此对偶问题为&lt;/p&gt;
-&lt;p&gt;$$
+$$
 \begin{aligned}
 \max_{\alpha} \quad
-W(\alpha)
-&amp;amp;=
-\sum_{i=1}^{m} \alpha_i&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;\frac{1}{2}
+W(\alpha)&amp;=
+\sum_{i=1}^{m} \alpha_i- \frac{1}{2}
 \sum_{i=1}^{m} \sum_{j=1}^{m}
 y^{(i)} y^{(j)} \alpha_i \alpha_j
-(x^{(i)})^T x^{(j)} \
+(x^{(i)})^T x^{(j)} \\
 \text{s.t.} \quad
-&amp;amp; 0 \le \alpha_i \le C, \quad i = 1, \dots, m \
-&amp;amp; \sum_{i=1}^{m} \alpha_i y^{(i)} = 0
+&amp; 0 \le \alpha_i \le C, \quad i = 1, \dots, m \\
+&amp; \sum_{i=1}^{m} \alpha_i y^{(i)} = 0
 \end{aligned}
-$$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;和以前一样，我们像公式 (9) 那样用 $\alpha$ 表示 $w$。这样在求解对偶问题后，我们可以继续使用公式 (13) 进行预测。注意，在添加 $\ell_1$ 正则化后，对偶问题的唯一变化是原来的约束 $0 \le \alpha_i$ 现在变为 $0 \le \alpha_i \le C$；注意此时 $b$ 的计算也必须修改。&lt;/p&gt;
+$$&lt;p&gt;和以前一样，我们像公式 (9) 那样用 $\alpha$ 表示 $w$。这样在求解对偶问题后，我们可以继续使用公式 (13) 进行预测。注意，在添加 $\ell_1$ 正则化后，对偶问题的唯一变化是原来的约束 $0 \le \alpha_i$ 现在变为 $0 \le \alpha_i \le C$；注意此时 $b$ 的计算也必须修改。&lt;/p&gt;
 &lt;p&gt;此外，KKT 对偶互补条件（在下一节中将有助于测试 SMO 算法的收敛）是：&lt;/p&gt;
 $$
 \alpha_i = 0
