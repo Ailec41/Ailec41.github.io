@@ -1,4 +1,515 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS229 on LunaTide's Blog</title><link>https://lunatide.tech/categories/cs229/</link><description>Recent content in CS229 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/cs229/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 8</title><link>https://lunatide.tech/p/cs229-lecture-8/</link><pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-8/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-8/pic1.jpg" alt="Featured image of post CS229 Lecture 8" /&gt;&lt;h2 id="核方法"&gt;核方法
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS229 on LunaTide's Blog</title><link>https://lunatide.tech/categories/cs229/</link><description>Recent content in CS229 on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/cs229/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 12</title><link>https://lunatide.tech/p/cs229-lecture-12/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-12/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-12/pic1.jpg" alt="Featured image of post CS229 Lecture 12" /&gt;&lt;h3 id="k均值聚类算法"&gt;$k$均值聚类算法
+&lt;/h3&gt;&lt;p&gt;在聚类问题中，我们得到训练集 ${x^{(i)}, \ldots, x^{(m)}}$，然后想把数据分成几个相关的“簇”。这里 $x^{(i)} \in \mathbb{R}^n$，但是没有有 $y^{(i)}$。所以这是个非监督学习问题。&lt;/p&gt;
+&lt;p&gt;$k$ 均值聚类算法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;随机初始化 $C$ 个聚类中心 $\mu_1, \ldots, \mu_k \in \mathbb{R}^n$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;重复如下操作直到收敛：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对每个 $i$，令
+&lt;/p&gt;
+$$
+c^{(i)} := \arg\min_j \|x^{(i)} - \mu_j\|^2
+$$&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对每个 $j$，令
+&lt;/p&gt;
+$$
+\mu_j := \frac{\sum_{i=1}^{m} 1\{c^{(i)} = j\}x^{(i)}}{\sum_{i=1}^{m} 1\{c^{(i)} = j\}}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;算法的内层循环重复两个步骤：(i) 把每个训练样本 $x^{(i)}$ “分配”给距离最近的聚类中心；(ii) 将聚类中心 $\mu_j$ 移动到所分配的样本点的中心。下图展示了$k$ 值均类算法的过程&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-12/a.jpg"
+width="576"
+height="387"
+srcset="https://lunatide.tech/p/cs229-lecture-12/a_hu_361e64120e313615.jpg 480w, https://lunatide.tech/p/cs229-lecture-12/a_hu_ecd9d3f7d5261673.jpg 1024w"
+loading="lazy"
+alt="a"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="357px"
+&gt;&lt;/p&gt;
+&lt;p&gt;$k$ 均值聚类法是否保证收敛呢？是的，至少从某种意义上说。特别地，我们定义如下损失函数（distortion function）：&lt;/p&gt;
+$$
+J(c,\mu) = \sum_{i=1}^{m} \|x^{(i)} - \mu_{c^{(i)}}\|^2
+$$&lt;p&gt;因此，$J$ 衡量每个训练样本 $x^{(i)}$ 和其聚类中心 $\mu_{c^{(i)}}$ 距离的平方和。可以看出 $k$ 均值聚类算法就是 $J$ 坐标下降的过程。特别地，$k$ 均值聚类算法内层的循环重复对 $J$ 进行最小化，先固定 $\mu$，根据 $c$ 来最小化 $J$，再固定 $c$，根据 $\mu$ 来进行最小化。因此 $J$ 一定单调递减，并且 $J$ 的值一定收敛。&lt;/p&gt;
+&lt;p&gt;损失函数 $J$ 是一个非凸函数，所以 $J$ 的坐标下降法无法保证收敛到全局最小值。换句话说，$k$ 均值聚类可能只是局部最优。尽管如此，$k$ 均值聚类通常效果很好并且给出很好地聚类。但是如果你担心陷入比较差的局部最小值，一种常用的方法是多次运行 $k$ 均值聚类（对聚类中心 $\mu_j$ 使用不同的随机初始值）。然后，从所有不同的聚类结果中选择提供最小损失函数的 $J(c,\mu)$ 的聚类。&lt;/p&gt;
+&lt;h3 id="高斯混合模型和-em-算法"&gt;高斯混合模型和 EM 算法
+&lt;/h3&gt;&lt;p&gt;在这部分的讲义中，我们将使用 EM（Expectation-Maximization）算法进行密度估计。&lt;/p&gt;
+&lt;p&gt;假设我们像往常一样给定训练集 ${x^{(i)}, \ldots, x^{(m)}}$。因为我们在讨论非监督学习，这些数据点没有标签。&lt;/p&gt;
+&lt;p&gt;我们希望用特定的联合分布 $p(x^{(i)}, z^{(i)}) = p(x^{(i)} \mid z^{(i)})p(z^{(i)})$ 来对数据进行建模。这里，$z^{(i)} \sim$ 多项分布 $(\phi)$（其中 $\phi_j \ge 0, \sum_{j=1}^{k} \phi_j = 1$，参数 $\phi_j = p(z^{(i)} = j)$），$x^{(i)} \mid z^{(i)} = j \sim \mathcal{N}(\mu_j, \Sigma_j)$。令 $k$ 表示 $z^{(i)}$ 可以取值的数量。因此，我们的模型假定每个 $x^{(i)}$ 是按如下方式生成的：从 ${1, \ldots, k}$ 中随机选择 $z^{(i)}$，然后 $x^{(i)}$ 是从依赖 $z^{(i)}$ 的 $k$ 个高斯分布中得到的。这个模型被称为高斯混合模型。此外，注意到 $z^{(i)}$ 是隐藏变量，这意味着他们是不可见的。这将使我们的估计问题更加困难。&lt;/p&gt;
+&lt;p&gt;我们模型的参数是 $\phi, \mu$ 和 $\Sigma$。为了估计他们，我们可以把数据的似然函数按如下方式写出：&lt;/p&gt;
+$$
+l(\phi, \mu, \Sigma)= \sum_{i=1}^{m} \log p(x^{(i)}; \phi, \mu, \Sigma)= \sum_{i=1}^{m} \log \sum_{z^{(i)}=1}^{k} p(x^{(i)} \mid z^{(i)}; \mu, \Sigma)p(z^{(i)}; \phi)
+$$&lt;p&gt;但是，如果我们将上述方程的导数置为 0 并尝试解出参数，我们将发现无法得到参数的最大似然估计的解析形式（closed form）。&lt;/p&gt;
+&lt;p&gt;随机变量 $z^{(i)}$ 表示每个 $x^{(i)}$ 来自哪个高斯分布中的哪个，注意到如果我们知道 $z^{(i)}$ 是什么，上述最大似然问题将很简单。特别地，我们可以按如下方式写出最大似然函数&lt;/p&gt;
+$$
+l(\phi, \mu, \Sigma)= \sum_{i=1}^{m} \log p(x^{(i)} \mid z^{(i)}; \mu, \Sigma) + \log p(z^{(i)}; \phi)
+$$&lt;p&gt;关于 $\phi, \mu, \Sigma$ 求上述的最大值可以得到参数：&lt;/p&gt;
+$$
+\phi_j = \frac{1}{m} \sum_{i=1}^{m} 1\{z^{(i)} = j\},
+$$$$
+\mu_j = \frac{\sum_{i=1}^{m} 1\{z^{(i)} = j\}x^{(i)}}{\sum_{i=1}^{m} 1\{z^{(i)} = j\}},
+$$$$
+\Sigma_j= \frac{\sum_{i=1}^{m} 1\{z^{(i)} = j\}(x^{(i)} - \mu_j)(x^{(i)} - \mu_j)^T}
+{\sum_{i=1}^{m} 1\{z^{(i)} = j\}}
+$$&lt;p&gt;事实上，我们发现如果 $z^{(i)}$ 已知，那么最大似然估计几乎等同于我们已经讨论过的高斯判别分析模型中对参数的估计，除了 $z^{(i)}$ 在此处扮演类别标签的角色。&lt;/p&gt;
+&lt;p&gt;但是，在我们的密度估计问题中，$z^{(i)}$ 是未知的。所以我们可以做什么？&lt;/p&gt;
+&lt;p&gt;EM 算法是一个迭代算法，它有两个主要步骤。应用到我们的问题中，在 E 步骤中，它尝试去“猜” $z^{(i)}$ 的值。在 M 步骤中，它根据猜测的值更新模型的参数。因为在 M 步骤中我们假设第一步猜测的结果正确，最大化的过程就变得简单了。算法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;重复直到收敛：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;（E 步骤）对每个 $i,j$，令
+&lt;/p&gt;
+$$
+w_j^{(i)} := p(z^{(i)} = j \mid x^{(i)}; \phi, \mu, \Sigma)
+$$&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;（M 步骤）更新参数：
+&lt;/p&gt;
+$$
+\phi_j := \frac{1}{m} \sum_{i=1}^{m} w_j^{(i)},
+$$$$
+\mu_j := \frac{\sum_{i=1}^{m} w_j^{(i)}x^{(i)}}{\sum_{i=1}^{m} w_j^{(i)}},
+$$$$
+\Sigma_j := \frac{\sum_{i=1}^{m} w_j^{(i)}(x^{(i)} - \mu_j)(x^{(i)} - \mu_j)^T}{\sum_{i=1}^{m} w_j^{(i)}}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在 E 步骤中，我们利用 $x^{(i)}$ 和现在的参数计算参数 $z^{(i)}$ 的后验分布。即，利用贝叶斯法则，我们得到：&lt;/p&gt;
+$$
+p(z^{(i)} = j \mid x^{(i)}; \phi, \mu, \Sigma)=
+\frac{p(x^{(i)} \mid z^{(i)} = j; \mu, \Sigma)p(z^{(i)} = j; \phi)}
+{\sum_{l=1}^{k} p(x^{(i)} \mid z^{(i)} = l; \mu, \Sigma)p(z^{(i)} = l; \phi)}
+$$&lt;p&gt;在 E 步骤中计算得到的 $w_j^{(i)}$ 表示我们对值 $z^{(i)}$ 的“软”猜测。&lt;/p&gt;
+&lt;p&gt;此外，你可以把 M 步骤的更新和 $z^{(i)}$ 已知时的公式作对比。他们是类似的，除了将表示每个点来自哪个高斯分布的示性函数 $1{z^{(i)} = j}$ 替换为 $w_j^{(i)}$。&lt;/p&gt;
+&lt;p&gt;EM 算法也让人联想起 $k$ 均值聚类算法，除了我们使用“软”赋值 $w_j^{(i)}$ 而不是“硬”赋值 $c(i)$。类似 $k$ 均值聚类，EM 算法也容易导致局部最优，所以用多个不同的初始值初始化可能是个好办法。&lt;/p&gt;
+&lt;p&gt;很明显 EM 算法对重复猜测 $z^{(i)}$ 的解释很自然；但它是如何产生的，并且我们是否能保证它的某个特效，例如收敛性？在下一部分的讲义中，我们对 EM 算法做一个更一般的解读，这将使我们更容易应用到有隐藏变量的估计问题中并且保证收敛。&lt;/p&gt;
+&lt;h2 id="em-算法"&gt;EM 算法
+&lt;/h2&gt;&lt;p&gt;在之前的讲义中，我们讨论了如何将 EM 算法应用到高斯混合模型的拟合。在这部分讲义中，我们将给出 EM 算法更广阔的视角，并且将展示如何将它应用到一大类有隐藏变量的估计问题。我们将从 Jeson 不等式开始讨论，这是个非常有用的结论。&lt;/p&gt;
+&lt;h3 id="jeson-不等式"&gt;Jeson 不等式
+&lt;/h3&gt;&lt;p&gt;令 $f$ 是一个定义域为实数的函数。注意到 $f$ 是凸函数如果 $f&amp;rsquo;&amp;rsquo;(x) \ge 0$（对每个 $x \in \mathbb{R}$）。如果 $f$ 的输入是向量，那么上述条件就变为 $f$ 的 hessian 矩阵 $H$ 是半正定（$H \ge 0$）。如果对每个 $x$，$f&amp;rsquo;&amp;rsquo;(x) &amp;gt; 0$，那么我们称 $f$ 是严格凸的（在向量情形，相应的陈述是 $H$ 为正定，写作 $H &amp;gt; 0$）。Jenson 不等式可以陈述如下：&lt;/p&gt;
+&lt;h4 id="定理"&gt;定理
+&lt;/h4&gt;&lt;p&gt;令 $f$ 为一个凸函数，$X$ 是一个随机变量，那么：&lt;/p&gt;
+$$
+\mathbb{E}[f(x)] \ge f(\mathbb{E}[X])
+$$&lt;p&gt;此外，如果 $f$ 是一个严格凸函数，那么 $\mathbb{E}[f(x)] = f(\mathbb{E}[X])$ 当且仅当 $X = \mathbb{E}[X]$ 以概率 1 成立（即 $X$ 是一个常数）。&lt;/p&gt;
+&lt;img src="b.jpg" style="zoom:80%;" /&gt;
+&lt;p&gt;这里，$f$ 是实线所示的凸函数。此外，$X$ 是一个随机变量，有 0.5 的概率取 $a$，0.5 的概率取 $b$。因此，$X$ 的期望是 $a$ 和 $b$ 的中点。&lt;/p&gt;
+&lt;p&gt;我们还看到 $f(a), f(b)$ 和 $f(\mathbb{E}[X])$ 在 $y$ 轴上标记出来。此外，$\mathbb{E}[f(X)]$ 的值是 $f(a)$ 和 $f(b)$ 中点的 $y$ 坐标。从我们的例子中，可以看出如果 $f$ 是凸的，那么一定有 $\mathbb{E}[f(x)] \ge f[\mathbb{E}[X]]$。&lt;/p&gt;
+&lt;h4 id="注记"&gt;注记
+&lt;/h4&gt;&lt;p&gt;注意到如果 $f$ 是（严格）凹的当且仅当 $-f$ 是（严格）凸的（即 $f&amp;rsquo;&amp;rsquo;(x) \le 0$ 或 $H \le 0$）。Jenson 不等式对凹函数也正确，但是不等号反向。&lt;/p&gt;
+&lt;h3 id="em-算法-1"&gt;EM 算法
+&lt;/h3&gt;&lt;p&gt;假设我们有一个估计问题，训练集 ${x^{(i)}, \ldots, x^{(m)}}$ 有 $m$ 个独立样本。我们希望拟合模型 $p(x,z)$ 的参数，似然函数如下&lt;/p&gt;
+$$
+l(\theta)
+= \sum_{i=1}^{m} \log p(x; \theta)
+= \sum_{i=1}^{m} \log \sum_z \log p(x,z; \theta)
+$$&lt;p&gt;但是，准确找到参数 $\theta$ 的最大似然估计可能很难。这里 $z^{(i)}$ 是隐藏变量；通常的情形是，如果 $z^{(i)}$ 被观测到了，那么最大似然估计将会很简单。&lt;/p&gt;
+&lt;p&gt;在这种情形下，EM 算法给出一个处理最大似然估计的有效方法。准确地最大化 $l(\theta)$ 可能很难，我们的策略是取而代之的构造一个 $l$ 的下界（E 步骤），然后优化下界（M 步骤）。&lt;/p&gt;
+&lt;p&gt;对每个 $i$，令 $Q_i$ 是关于 $z$ 的某个分布（$\sum_z Q_i(z)=1, Q_i(z)\ge 0$），考虑下式&lt;/p&gt;
+$$
+\sum_i \log p(x^{(i)}; \theta)= \sum_i \log \sum_{z^{(i)}} p(x^{(i)}, z^{(i)}; \theta)
+\tag{1}
+$$$$
+= \sum_i \log \sum_{z^{(i)}} Q_i(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})}
+\tag{2}
+$$$$
+\ge \sum_i \sum_{z^{(i)}} Q_i(z^{(i)}) \log \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})}
+\tag{3}
+$$&lt;p&gt;最后一步利用了 Jeson 不等式。特别地，$f(x)=\log x$ 是一个凹函数，因为在它的定义域 $x \in \mathbb{R}^+$ 上 $f&amp;rsquo;&amp;rsquo;(x) = -\frac{1}{x^2} &amp;lt; 0$。此外，如下求和式&lt;/p&gt;
+$$
+\sum_{z^{(i)}} Q_i(z^{(i)}) \left[\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})}\right]
+$$&lt;p&gt;是因于 $\left[\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})}\right]$ 关于 $z^{(i)}$ 的期望，$z^{(i)}$ 的分布是由 $Q_i(z^{(i)})$ 确定的。根据 Jeson 不等式，我们有&lt;/p&gt;
+$$
+f\left(\mathbb{E}_{z^{(i)} \sim Q_i}\left[\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})}\right]\right)\ge\mathbb{E}_{z^{(i)} \sim Q_i}\left[
+f\left(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})}\right)
+\right]
+$$&lt;p&gt;其中 $z^{(i)} \sim Q_i$ 表示期望是关于从分布 $Q_i$ 抽取的 $z^{(i)}$ 得来的。这允许我们从公式（2）推导到公式（3）。&lt;/p&gt;
+&lt;p&gt;现在，对任意分布 $Q_i$，上述不等式给出一个 $l(\theta)$ 的下界。关于 $Q_i$：由很多种选择，应该选择哪个呢？如果我们对参数 $\theta$ 有一些猜测，很自然地想到选择使得下界尽可能紧的 $Q_i$。即，我们将使得在 $\theta$ 处上述不等号取等号。（后面我们将看到，随着 EM 算法的迭代，$l(\theta)$ 单调递增。）&lt;/p&gt;
+&lt;p&gt;为了使对某个特定的 $\theta$，下界更紧，我们需要涉及 Jenson 不等式的地方取等号。为了这个条件成立，我们知道只要期望是关于“常”随机变量取的即可。即，我们需要：&lt;/p&gt;
+$$
+\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})} = c
+$$&lt;p&gt;对某个不依赖的 $z^{(i)}$ 的常数 $c$ 成立。这可以通过如下选择完成&lt;/p&gt;
+$$
+Q_i(z^{(i)}) \propto p(x^{(i)}, z^{(i)}; \theta)
+$$&lt;p&gt;事实上，既然我们已知 $\sum_i Q_i(z^{(i)}) = 1$，上式事实上告诉我们&lt;/p&gt;
+$$
+Q_i(z^{(i)})= \frac{p(x^{(i)}, z^{(i)}; \theta)}{\sum_z p(x^{(i)}, z; \theta)}= \frac{p(x^{(i)}, z^{(i)}; \theta)}{p(x^{(i)}; \theta)}= p(z^{(i)} \mid x^{(i)}; \theta)
+$$&lt;p&gt;因此，在给定 $x^{(i)}$ 和 $\theta$ 的条件下，我们只要把 $Q_i$ 设置为 $z^{(i)}$ 的后验分布即可。&lt;/p&gt;
+&lt;p&gt;现在，对于这样 $Q_i$ 的选择，上述不等式给出我们尝试最大化的对数似然的下界。这是 E 步骤。在 M 步骤中，我们最大化上述下界来获得新的参数 $\theta$。重复这两个步骤就给出了 EM 算法，叙述如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;重复直到收敛：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;（E 步骤）对每个 $i$，令
+&lt;/p&gt;
+$$
+Q_i(z^{(i)}) = p(z^{(i)} \mid x^{(i)}; \theta)
+$$&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;（M 步骤）令
+&lt;/p&gt;
+$$
+\theta := \arg\max_{\theta} \sum_i \sum_{z^{(i)}} Q_i(z^{(i)}) \log \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>CS229 Lecture 11</title><link>https://lunatide.tech/p/cs229-lecture-11/</link><pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-11/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-11/pic1.jpg" alt="Featured image of post CS229 Lecture 11" /&gt;&lt;h2 id="无限个假设的情况"&gt;无限个假设的情况
+&lt;/h2&gt;&lt;p&gt;介绍之前给出一些定义。&lt;/p&gt;
+&lt;p&gt;给定集合 $S = {x^{(1)}, \ldots, x^{(d)}}$，其中 $x^{(i)} \in \mathcal{X}$，我们称 $\mathcal{H}$ 打散（shatter）$S$ 如果 $\mathcal{H}$ 能实现 $S$ 上任意一种标记。即对任意标签集 ${y^{(1)}, \ldots, y^{(d)}}$，存在 $h \in \mathcal{H}$ 使得 $h(x^{(i)}) = y^{(i)}$。给定集合 $\mathcal{H}$，定义 VC 维（Vapnik–Chervonenkis dimension）为 $\mathcal{H}$ 能打散的最大集合的大小，用 $VC(\mathcal{H})$ 表示，如果 $\mathcal{H}$ 能打散任意数量的集合，那么 $VC(\mathcal{H}) = \infty$。&lt;/p&gt;
+&lt;p&gt;二维线性分类器（$h(x) = 1{\theta_0 + \theta_1 x_1 + \theta_2 x_2 \ge 0}$）的假设类 $\mathcal{H}$ 能否将上述情形打散呢？答案是肯定的，如下图所示：&lt;/p&gt;
+&lt;img src="a.jpg" style="zoom:67%;" /&gt;
+&lt;p&gt;此外，不难看出 $\mathcal{H}$ 无法打散 4 个点的情形，所以 $VC(\mathcal{H}) = 3$。&lt;/p&gt;
+&lt;p&gt;需要注意的是，尽管 $VC(\mathcal{H}) = 3$，但仍然有 3 个点的情形无法被打散，如下图所示：&lt;/p&gt;
+&lt;img src="b.jpg" style="zoom:67%;" /&gt;
+&lt;p&gt;换句话说，在 VC 维的定义下，为了证明 $VC(\mathcal{H}) \ge d$，只要证明至少有一个规模为 $d$ 的集合能被打散即可。&lt;/p&gt;
+&lt;p&gt;接下来给出学习理论中的重要定理：&lt;/p&gt;
+&lt;h3 id="定理"&gt;定理
+&lt;/h3&gt;&lt;p&gt;给定 $\mathcal{H}$，令 $d = VC(\mathcal{H})$，那么有至少 $1 - \delta$ 的概率，对于任意 $h \in \mathcal{H}$，&lt;/p&gt;
+$$
+|\epsilon(h) - \hat{\epsilon}(h)| \le O\left(\sqrt{\frac{d}{m} \log \frac{m}{d} + \frac{1}{m} \log \frac{1}{\delta}}\right)
+$$&lt;p&gt;因为，至少有 $1 - \delta$ 的概率，我们有：&lt;/p&gt;
+$$
+\epsilon(\hat{h}) \le \epsilon(h^*) + O\left(\sqrt{\frac{d}{m} \log \frac{m}{d} + \frac{1}{m} \log \frac{1}{\delta}}\right)
+$$&lt;p&gt;换句话说，如果假设类的 VC 维有限，那么当 $m$ 比较大的时候一致收敛就会成立，和之前一样，这就能让我们用 $\epsilon(h^*)$ 的形式给出 $\epsilon(h)$ 的上界。我们还有如下推论：&lt;/p&gt;
+&lt;h3 id="推论"&gt;推论
+&lt;/h3&gt;&lt;p&gt;为了让 $|\epsilon(h) - \hat{\epsilon}(h)| \le \gamma$ 对于任意 $h \in \mathcal{H}$ 有至少 $1 - \delta$ 的概率成立（从而可以推出 $\epsilon(\hat{h}) \le \epsilon(h^*) + 2\gamma$），只要满足&lt;/p&gt;
+$$
+m = O_{\gamma,\delta}(d)
+$$&lt;p&gt;换句话说，要使假设类 $\mathcal{H}$ 的表现比较好，我们需要和其 VC 维线性关系的数据，实际中，VC 维往往和参数数量呈线性关系，所以一般情况下训练样本数要和参数数量呈线性关系。&lt;/p&gt;
+&lt;p&gt;备注：有关 VC 维的部分这里比较简略，可以参考相关课程或教材。&lt;/p&gt;
+&lt;h2 id="正则化与模型选择"&gt;正则化与模型选择
+&lt;/h2&gt;&lt;p&gt;这一讲主要介绍如何权衡偏差与方差，选择适合的模型以及参数&lt;/p&gt;
+&lt;h3 id="交叉验证"&gt;交叉验证
+&lt;/h3&gt;&lt;p&gt;假设给定训练集 $S$，我们已经了解经验风险最小化，来看下面一个使用经验风险最小化推导的算法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 $S$ 上训练每个模型 $M_i$，得到假设 $h_i$&lt;/li&gt;
+&lt;li&gt;选择具有最小训练误差的假设&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这个算法是没有用的。考虑选择多项式的次数，多项式次数越高，那么模型在训练集上的表现就越好，因此就有较小的训练误差。所以这个模型会选择一个高方差、高次数的多项式模型，这通常是一个糟糕的选择。&lt;/p&gt;
+&lt;p&gt;现在有一个效果更好的算法，叫做保留交叉验证（hold-out cross validation），也叫做简单交叉验证（simple cross validation），步骤如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将 $S$ 随机分为 $S_{\text{train}}$（一般为 70%）和 $S_{\text{cv}}$（剩余的 30%），这里 $S_{\text{cv}}$ 被称为保留交叉验证集&lt;/li&gt;
+&lt;li&gt;在 $S_{\text{train}}$ 训练每个模型 $M_i$ 获得 $h_i$&lt;/li&gt;
+&lt;li&gt;选择在交叉验证集上误差 $\hat{\epsilon}&lt;em&gt;{S&lt;/em&gt;{\text{cv}}}(h_i)$ 最小的假设 $h_i$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过在我们没有训练过的样本 $S_{\text{cv}}$ 上做测试，我们得到了对 $h_i$ 的真实泛化误差的更好估计，而且可以选择具有最小泛化误差估计的假设。通常，交叉验证集合的比例选在 $\frac{1}{4} - \frac{1}{3}$ 之间，30% 是一个经典的选择。&lt;/p&gt;
+&lt;p&gt;另一种选择是，将步骤 3 替换为根据 $\arg\min_i \hat{\epsilon}&lt;em&gt;{S&lt;/em&gt;{\text{cv}}}(h_i)$ 选择模型 $M_i$，然后在全体数据 $S$ 上重新训练 $M_i$。这通常是一个好方法。&lt;/p&gt;
+&lt;p&gt;保留交叉验证的劣势在于浪费了约 30% 的数据，即使我们选择在全体数据上重新训练模型，我们仍然是在 $0.7m$ 的数据上找到最优模型，因为我们每次只是在 $0.7m$ 的数据上训练模型。当数据充足或廉价时问题不大，但数据较少时需要更好的方法。&lt;/p&gt;
+&lt;p&gt;下面是一个方法，被称为 $k$ 折交叉验证（$k$-fold cross validation），每次保留的数据更少：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将 $S$ 随机划分为 $k$ 个不相交的子集，每个子集有 $m/k$ 个训练样本，记为 $S_1, \ldots, S_k$&lt;/li&gt;
+&lt;li&gt;对每个模型 $M_i$，进行如下评估：
+&lt;ul&gt;
+&lt;li&gt;对 $j = 1, \ldots, k$
+&lt;ul&gt;
+&lt;li&gt;在 $S_1 \cup \cdots \cup S_{j-1} \cup S_{j+1} \cup \cdots \cup S_k$ 上训练 $M_i$ 得到 $h_{ij}$&lt;/li&gt;
+&lt;li&gt;在 $S_j$ 上测试 $h_{ij}$，得到 $\hat{\epsilon}&lt;em&gt;{S_j}(h&lt;/em&gt;{ij})$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;计算 $\hat{\epsilon}&lt;em&gt;{S_j}(h&lt;/em&gt;{ij})$ 的平均值来估计模型 $M_i$ 的泛化误差&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;选择具有最小泛化误差估计的模型 $M_i$，在 $S$ 上重新训练模型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$k$ 的经典选择是 10。尽管每次验证的数据只有 $1/k$，但计算成本更高，因为需要训练 $k$ 次。&lt;/p&gt;
+&lt;p&gt;当数据非常少时，可以选择 $k = m$，即每次只留下一个样本作为测试，这种方法称为留一法交叉验证（leave-one-out cross validation）。&lt;/p&gt;
+&lt;h3 id="特征选择"&gt;特征选择
+&lt;/h3&gt;&lt;p&gt;一种特殊的模型选择方法被称为特征选择。设想一个监督学习问题，其特征数 $n$ 非常大（例如 $n \gg m$），但实际上只有一部分特征与任务相关。&lt;/p&gt;
+&lt;p&gt;在这样的背景下，我们可以使用特征选择算法减少特征数量。给定 $n$ 个特征，有 $2^n$ 个可能的特征子集，因此特征选择问题可以看作在 $2^n$ 个模型中选择。&lt;/p&gt;
+&lt;p&gt;由于 $2^n$ 通常非常大，我们使用启发式搜索算法，例如前向搜索：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;初始化 $\mathcal{F} = \emptyset$&lt;/li&gt;
+&lt;li&gt;重复：
+&lt;ul&gt;
+&lt;li&gt;对于 $i = 1, \ldots, n$，如果 $i \notin \mathcal{F}$，令 $\mathcal{F}_i = \mathcal{F} \cup {i}$，并使用交叉验证评估 $\mathcal{F}_i$&lt;/li&gt;
+&lt;li&gt;令 $\mathcal{F}$ 为表现最好的特征子集&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;输出整个过程中表现最好的特征子集&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;也可以使用反向搜索，从 $\mathcal{F} = {1, \ldots, n}$ 开始，每次移除一个特征。&lt;/p&gt;
+&lt;p&gt;包装器特征选择（wrapper methods）通常效果较好，但计算成本较高。&lt;/p&gt;
+&lt;p&gt;另一类方法是过滤式特征选择（filter methods），其计算成本更低。我们可以定义一个评分函数 $S(i)$ 来衡量特征 $x_i$ 的重要性，例如互信息：&lt;/p&gt;
+$$
+\mathrm{MI}(x_i, y) = \sum_{x_i \in \{0,1\}} \sum_{y \in \{0,1\}} p(x_i, y)\log \frac{p(x_i, y)}{p(x_i)p(y)}
+$$&lt;p&gt;互信息也可以表示为 KL 散度：&lt;/p&gt;
+$$
+\mathrm{MI}(x_i, y) = \mathrm{KL}(p(x_i, y) \,\|\, p(x_i)p(y))
+$$&lt;p&gt;KL 散度衡量两个分布的差异。如果 $x_i$ 与 $y$ 独立，则互信息为 0；否则互信息越大表示相关性越强。&lt;/p&gt;
+&lt;p&gt;最后，可以根据评分函数对特征排序，并选择前 $k$ 个特征。&lt;/p&gt;</description></item><item><title>CS229 Lecture 10</title><link>https://lunatide.tech/p/cs229-lecture-10/</link><pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-10/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-10/pic1.jpg" alt="Featured image of post CS229 Lecture 10" /&gt;&lt;h2 id="smo算法"&gt;SMO算法
+&lt;/h2&gt;&lt;p&gt;John Platt 发明的 SMO（序列最小优化）算法提供了一种有效的方法来解决由 SVM 的推导得到的对偶问题。部分是为了激发 SMO 算法，部分是因为它本身很有趣，让我们首先讨论坐标上升算法。&lt;/p&gt;
+&lt;h3 id="坐标上升"&gt;坐标上升
+&lt;/h3&gt;&lt;p&gt;考虑尝试解决无约束的优化问题：&lt;/p&gt;
+$$
+\max_{\alpha} W(\alpha_1, \alpha_2, \ldots, \alpha_m)
+$$&lt;p&gt;在这里，我们将 $W$ 视为参数 $\alpha_i$ 的某个函数，现在忽略此问题与 SVM 之间的任何关系。我们已经看到了两种优化算法，梯度上升和牛顿方法。我们将在这里考虑的新算法称为坐标上升：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;迭代直至收敛：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对 $i = 1, \ldots, m$，
+$$
+\alpha_i := \arg\max_{\hat{\alpha}_i} W(\alpha_1, \ldots, \alpha_{i-1}, \hat{\alpha}_i, \alpha_{i+1}, \ldots, \alpha_m)
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，在该算法的最内层循环中，除了一些固定的 $\alpha_j$ 之外，我们将保持所有变量，并且仅针对参数 $\alpha_i$ 重新优化 $W$。在这里给出的这个方法的版本中，内循环按 $\alpha_1, \alpha_2, \ldots, \alpha_m, \alpha_1, \alpha_2, \ldots$ 的顺序重新优化变量（一个更复杂的版本可能会选择其他顺序；例如，我们可以选择使 $W(\alpha)$ 获得最大增长的变量）。&lt;/p&gt;
+&lt;p&gt;当函数 $W$ 碰巧具有内循环中的 “arg max” 可以有效地执行的形式时，那么坐标上升是相当有效的算法。这是一张坐标上升的图片：&lt;/p&gt;
+&lt;img src="a.jpg" style="zoom:67%;" /&gt;
+&lt;h3 id="smo"&gt;SMO
+&lt;/h3&gt;&lt;p&gt;我们通过对 SMO 算法的简单推导来结束对 SVM 的讨论。&lt;/p&gt;
+&lt;p&gt;这是我们想要解决的（对偶）优化问题：&lt;/p&gt;
+$$
+\max_{\alpha} \; W(\alpha) = \sum_{i=1}^{m} \alpha_i - \frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_i \alpha_j \langle x^{(i)}, x^{(j)} \rangle
+$$$$
+\text{s.t. } 0 \le \alpha_i \le C,\; i = 1, \ldots, m \tag{18}
+$$$$
+\sum_{i=1}^{m} \alpha_i y^{(i)} = 0 \tag{19}
+$$&lt;p&gt;假设我们有一组满足约束条件 (18)–(19) 的 $\alpha_i$。现在，假设我们想要保持 $\alpha_2, \ldots, \alpha_m$ 固定，并采取坐标上升法，并关于 $\alpha_1$ 重新优化目标。我们可以取得任何进展吗？答案是否定的，因为约束 (19) 确保了&lt;/p&gt;
+$$
+\alpha_1 y^{(1)} = - \sum_{i=2}^{m} \alpha_i y^{(i)}
+$$&lt;p&gt;或者，通过将两边乘以 $y^{(1)}$，我们等价地有&lt;/p&gt;
+$$
+\alpha_1 = - y^{(1)} \sum_{i=2}^{m} \alpha_i y^{(i)}
+$$&lt;p&gt;（这一步使用了 $y^{(1)} \in {-1, 1}$ 因此 $(y^{(1)})^2 = 1$。所以如果我们保持保持 $\alpha_2, \ldots, \alpha_m$ 固定，那么 $\alpha_1$ 完全由其他 $\alpha_i$ 确定，那么我们就不能在不违反优化问题中的约束 (19) 的情况下对 $\alpha_1$ 进行任何改变。）&lt;/p&gt;
+&lt;p&gt;因此，如果我们想要更新 $\alpha_i$ 中某些项，我们必须同时更新它们中的至少两个以便保持满足约束。这激发了 SMO 算法，它简单地执行以下操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;重复直至收敛：
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;选择一对 $\alpha_i$ 和 $\alpha_j$ 进行下一次更新（选择在全局最大值上取得最大增量的两个坐标）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;关于 $\alpha_i$ 和 $\alpha_j$ 重新优化 $W(\alpha)$，同时保持所有其他 $\alpha_k\ (k \ne i,j)$ 固定。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为了测试该算法的收敛性，我们可以检查 KKT 条件（公式 14–16）是否在某个 tol 范围内满足。这里，tol 是收敛容差参数，并且通常设置为约 0.01 至 0.001。（有关详细信息，请参论文和伪代码。）&lt;/p&gt;
+&lt;p&gt;SMO 是一种有效算法的关键原因对 $\alpha_i, \alpha_j$ 的更新可以有效地进行。现在让我们简要推导高效更新的主要思路。&lt;/p&gt;
+&lt;p&gt;假设我们目前有一些 $\alpha_i$ 满足约束条件 (18)–(19)，并假设我们决定保持 $\alpha_3, \ldots, \alpha_m$ 固定，并且想要关于 $\alpha_1$ 和 $\alpha_2$（满足约束条件）重新优化 $W(\alpha_1, \alpha_2, \ldots, \alpha_m)$。由等式 (19)，我们有&lt;/p&gt;
+$$
+\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = - \sum_{i=3}^{m} \alpha_i y^{(i)}
+$$&lt;p&gt;由于右侧是固定的（因为我们已经固定了 $\alpha_3, \ldots, \alpha_m$），我们可以用某个常数 $\xi$ 表示这项：&lt;/p&gt;
+$$
+\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = \xi
+$$&lt;p&gt;因此，我们可以将对 $\alpha_1$ 和 $\alpha_2$ 的约束描述如下：&lt;/p&gt;
+&lt;img src="b.jpg" style="zoom:50%;" /&gt;
+&lt;p&gt;根据约束 (18)，我们知道 $\alpha_1$ 和 $\alpha_2$ 必须位于所示的框 $[0, C] \times [0, C]$ 内。还绘制了直线 $\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = \xi$，其中 $\alpha_1$ 和 $\alpha_2$ 必须在该直线上。还要注意，从这些约束中，我们知道 $L \le \alpha_2 \le H$；否则，$(\alpha_1, \alpha_2)$ 不能同时满足框和直线约束。在这个例子中，$L = 0$。但是根据直线 $\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = \xi$ 的样子，这不是必然的情况；但更一般地，在 $\alpha_2$ 的允许值上将存在某个下限 $L$ 和某个上限 $H$，这将确保 $\alpha_1, \alpha_2$ 位于框 $[0, C] \times [0, C]$ 内。&lt;/p&gt;
+&lt;p&gt;使用等式 (20)，我们也可以将 $\alpha_1$ 写为 $\alpha_2$ 的函数：&lt;/p&gt;
+$$
+\alpha_1 = (\xi - \alpha_2 y^{(2)}) y^{(1)}
+$$&lt;p&gt;（我们再次使用 $y^{(1)} \in {-1, 1}$ 的事实，因此 $(y^{(1)})^2 = 1$。）因此，可以写出目标函数 $W(\alpha)$：&lt;/p&gt;
+$$
+W(\alpha_1, \alpha_2, \ldots, \alpha_m) = W((\xi - \alpha_2 y^{(2)}) y^{(1)}, \alpha_2, \ldots, \alpha_m)
+$$&lt;p&gt;将 $\alpha_3, \ldots, \alpha_m$ 视为常数，可以验证这是关于 $\alpha_2$ 的二次函数。即，对于某些 $a, b, c$，可以以 $a\alpha_2^2 + b\alpha_2 + c$ 的形式表示。如果我们忽略“框”约束 (18)（或等效地，$L \le \alpha_2 \le H$），那么我们可以通过将其导数设为零并求解来轻松地最大化该二次函数。我们将 $\alpha_2^{\text{new, unclipped}}$ 表示 $\alpha_2$ 的结果值。如果我们想要相对于 $\alpha_2$ 最大化 $W$ 但受制于框约束，我们可以得到（利用二次函数的性质）：&lt;/p&gt;
+$$
+\alpha_2^{\text{new}} =
+\begin{cases}
+H &amp; \text{如果 } \alpha_2^{\text{new, unclipped}} &gt; H \\
+\alpha_2^{\text{new, unclipped}} &amp; \text{如果 } L \le \alpha_2^{\text{new, unclipped}} \le H \\
+L &amp; \text{如果 } \alpha_2^{\text{new, unclipped}} &lt; L
+\end{cases}
+$$&lt;p&gt;最后，找到了 $\alpha_2^{\text{new}}$，我们可以使用公式 (20) 找到 $\alpha_1^{\text{new}}$ 的最优值。&lt;/p&gt;
+&lt;p&gt;还有一些非常简单的细节，可以在 Platt 的论文中了解：一个是用于选择下一个 $\alpha_i, \alpha_j$ 进行更新的启发式选择；另一个是在运行 SMO 算法时如何更新 $b$。&lt;/p&gt;
+&lt;h2 id="学习理论"&gt;学习理论
+&lt;/h2&gt;&lt;h3 id="偏差方差的权衡"&gt;偏差/方差的权衡
+&lt;/h3&gt;&lt;p&gt;首先看下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs229-lecture-10/c.jpg"
+width="908"
+height="255"
+srcset="https://lunatide.tech/p/cs229-lecture-10/c_hu_7e8df5217b6de894.jpg 480w, https://lunatide.tech/p/cs229-lecture-10/c_hu_b751b1ac2079ce66.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="356"
+data-flex-basis="854px"
+&gt;&lt;/p&gt;
+&lt;p&gt;我们的目标函数是二次的，第一张图采用一次函数拟合，第三张图采用五次函数拟合，这两种情况下的泛化误差都很大，但是产生的原因是不同的。第一张图在训练集上误差就很大，并且无论训练集有多少数据，得到的效果都不会太好，因为一次函数很难捕捉二次函数的特点，这种情形称为欠拟合，偏差很大；第三张图中训练集上的误差为 0，这种情形往往是只捕捉到训练数据的模式，但是没有捕捉到 $x, y$ 更广泛的模式，如果我们计算不在训练集中的数据的损失函数，会发现损失往往非常大，这种情形称为过拟合，方差很大。在实际操作过程中，我们需要对偏差、方差进行权衡，既不能使用太简单的模型（欠拟合），也不能使用太复杂的模型（过拟合）。&lt;/p&gt;
+&lt;h3 id="预先准备"&gt;预先准备
+&lt;/h3&gt;&lt;p&gt;这里介绍两个后续讨论需要用到的引理&lt;/p&gt;
+&lt;h4 id="引理"&gt;引理
+&lt;/h4&gt;&lt;p&gt;$A_1, A_2, \ldots, A_k$ 是 $k$ 个不同事件，那么&lt;/p&gt;
+$$
+P(A_1 \cup \cdots \cup A_k) \le P(A_1) + \cdots + P(A_k)
+$$&lt;p&gt;
+非常熟悉的公理，不予证明&lt;/p&gt;
+&lt;h4 id="引理-1"&gt;引理
+&lt;/h4&gt;&lt;p&gt;设 $Z_1, \ldots, Z_m$ 是 $m$ 个独立同分布，服从伯努利分布 $b(1, \phi)$，即
+$P(Z_i = 1) = \phi,; P(Z_i = 0) = 1 - \phi$，令
+$\hat{\phi} = \frac{1}{m} \sum_{i=1}^{m} Z_i$，那么对任意固定 $\gamma &amp;gt; 0$，有&lt;/p&gt;
+$$
+P(|\hat{\phi} - \phi| &gt; \gamma) \le 2 \exp(-2\gamma^2 m)
+$$&lt;p&gt;这里老师没给出证明，我自己之前写过一个初等证明——传送门，后面会整理老师给的补充材料里的证明，这里先使用这个结论。&lt;/p&gt;
+&lt;p&gt;为了简化讨论，这里将问题限制在二元分类问题中，即 $y \in {0,1}$，假设训练集
+$S = {(x^{(i)}, y^{(i)}); i = 1, \ldots, m}$，$(x^{(i)}, y^{(i)})$ 来自同一分布 $\mathcal{D}$ 的样本，对于一个假设 $h$，定义训练误差（或经验风险）：&lt;/p&gt;
+$$
+\hat{\epsilon}(h) = \frac{1}{m} \sum_{i=1}^{m} 1\{h(x^{(i)}) \ne y^{(i)}\}
+$$&lt;p&gt;不难看出，上述量即为 $h$ 在训练集中误分类的比例。如果我们想明确表达 $\hat{\epsilon}(h)$ 和某个训练集 $S$ 的关系，我们可以写为 $\hat{\epsilon}_S(h)$。此外，我们还定义泛化误差为：&lt;/p&gt;
+$$
+\epsilon(h) = P_{(x,y)\sim \mathcal{D}}(h(x) \ne y)
+$$&lt;p&gt;即为从分布 $\mathcal{D}$ 中抽取一个样本 $(x,y)$，$h$ 分类错误的概率。我们的学习算法实际上是在做经验风险最小化（ERM），即找到&lt;/p&gt;
+$$
+\hat{h} = \arg\min_{h \in \mathcal{H}} \hat{\epsilon}(h)
+$$&lt;h2 id="有限个假设的情况"&gt;有限个假设的情况
+&lt;/h2&gt;&lt;p&gt;我们先开始考虑假设类有限的学习问题，假设 $\mathcal{H} = {h_1, \ldots, h_k}$ 有 $k$ 个将 $x$ 映射到 ${0,1}$ 的函数，经验风险最小化即为从 $k$ 个假设中选择训练误差最小的函数。&lt;/p&gt;
+&lt;p&gt;现在任取 $h_i \in \mathcal{H}$，对于 $\mathcal{D}$ 中样本 $(x,y)$，考虑伯努利随机变量
+$Z = 1{h_i(x) \ne y}$，类似地定义 $Z_j = 1{h_i(x^{(j)}) \ne y^{(j)}}$，&lt;/p&gt;
+&lt;p&gt;由于我们的样本是从 $\mathcal{D}$ 获得的独立同分布随机变量，所以 $Z, Z_j$ 同分布。此外，训练误差可以写为&lt;/p&gt;
+$$
+\hat{\epsilon}(h_i) = \frac{1}{m} \sum_{j=1}^{m} Z_j
+$$&lt;p&gt;因此，$\hat{\epsilon}(h_i)$ 是 $m$ 个随机变量的均值，这些随机变量独立同分布，都来自均值为 $\epsilon(h)$ 的伯努利分布，所以我们可以使用 Hoeffding 不等式，得到&lt;/p&gt;
+$$
+P(|\epsilon(h_i) - \hat{\epsilon}(h_i)| &gt; \gamma) \le 2 \exp(-2\gamma^2 m)
+$$&lt;p&gt;这说明对于某个特定的 $h_i$，当 $m$ 很大时，其训练误差和泛化误差非常接近。但是我们不仅仅希望 $\epsilon(h_i)$ 和 $\hat{\epsilon}(h_i)$ 很接近，我们希望对每个 $h \in \mathcal{H}$ 上述事实都成立。令 $A_i$ 表示事件
+$|\epsilon(h_i) - \hat{\epsilon}(h_i)| &amp;gt; \gamma$，我们已经证明了&lt;/p&gt;
+$$
+P(A_i) \le 2 \exp(-2\gamma^2 m)
+$$&lt;p&gt;因此使用第一个引理可得&lt;/p&gt;
+$$
+\begin{aligned}
+P(\exists h_i \in \mathcal{H}, |\epsilon(h_i) - \hat{\epsilon}(h_i)| &gt; \gamma)&amp;= P(A_1 \cup \cdots \cup A_k) \\&amp;\le \sum_{i=1}^{k} P(A_i) \\&amp;\le \sum_{i=1}^{k} 2 \exp(-2\gamma^2 m) \\&amp;\le 2k \exp(-2\gamma^2 m)
+\end{aligned}
+$$&lt;p&gt;两边同时减 1 得&lt;/p&gt;
+$$
+P(\forall h_i \in \mathcal{H}, |\epsilon(h_i) - \hat{\epsilon}(h_i)| \le \gamma)\ge 1 - 2k \exp(-2\gamma^2 m)
+$$&lt;p&gt;上述不等式的含义为，有至少 $1 - 2k \exp(-2\gamma^2 m)$ 的概率，对任意 $h \in \mathcal{H}$，$\epsilon(h)$ 落在 $\hat{\epsilon}(h)$ 附近的 $\gamma$ 范围内，这被称为一致收敛，因为上界对每个 $h \in \mathcal{H}$ 成立。注意上述结论中有 3 个重要的量——$m, \gamma$ 以及概率，其中一个量可以用另外两个量来约束。&lt;/p&gt;
+&lt;p&gt;例如考虑如下问题，给定 $\gamma, \delta$，$m$ 需要多大，才能保证至少有 $1 - \delta$ 概率使得训练误差在泛化误差 $\gamma$ 范围内，我们令&lt;/p&gt;
+$$
+1 - 2k \exp(-2\gamma^2 m) \ge 1 - \delta
+$$&lt;p&gt;可得&lt;/p&gt;
+$$
+2k \exp(-2\gamma^2 m) \le \delta\;\Rightarrow\;m \ge \frac{1}{2\gamma^2} \log \frac{2k}{\delta}
+$$&lt;p&gt;这说明当 $m \ge \frac{1}{2\gamma^2} \log \frac{2k}{\delta}$ 时，我们有 $1 - \delta$ 的概率使得训练误差在泛化误差 $\gamma$ 范围内。&lt;/p&gt;
+&lt;p&gt;类似的，我们可以固定 $m$ 和 $\delta$，在之前的问题中解出 $\gamma$，令&lt;/p&gt;
+$$
+1 - 2k \exp(-2\gamma^2 m) \ge 1 - \delta
+$$&lt;p&gt;可得&lt;/p&gt;
+$$
+\gamma \ge \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}}
+$$&lt;p&gt;取
+$\gamma = \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}}$，
+我们有 $1 - \delta$ 的概率使得
+&lt;/p&gt;
+$$
+|\epsilon(h) - \hat{\epsilon}(h)| \le \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}}
+$$&lt;p&gt;现在假设一致收敛成立，即 $|\epsilon(h) - \hat{\epsilon}(h)| \le \gamma$ 对每个 $h \in \mathcal{H}$，接下来证明 $\hat{h} = \arg\min_{h \in \mathcal{H}} \hat{\epsilon}(h)$ 的泛化误差上界。定义 $h&amp;rsquo; = \arg\min_{h \in \mathcal{H}} \epsilon(h)$，注意 $h&amp;rsquo;$ 为最优假设，那么&lt;/p&gt;
+$$
+\begin{aligned}
+\epsilon(\hat{h})&amp;\le \hat{\epsilon}(\hat{h}) + \gamma \\&amp;\le \hat{\epsilon}(h') + \gamma \\&amp;\le \epsilon(h') + 2\gamma
+\end{aligned}
+$$&lt;p&gt;第一个和第三个不等号是因为 $|\epsilon(h) - \hat{\epsilon}(h)| \le \gamma$ 对每个 $h \in \mathcal{H}$ 都成立，第二个不等号是因为 $\hat{h} = \arg\min_{h \in \mathcal{H}} \hat{\epsilon}(h)$，所以如果一致收敛成立，那么 $\hat{h}$ 的泛化误差最多和最优假设相差 $2\gamma$。&lt;/p&gt;
+&lt;p&gt;将以上内容总结为定理：&lt;/p&gt;
+&lt;h3 id="定理"&gt;定理
+&lt;/h3&gt;&lt;p&gt;令 $|\mathcal{H}| = k$，$m$ 和 $\delta$ 为任意固定值，那么至少有 $1 - \delta$ 的概率，我们有：&lt;/p&gt;
+$$
+\epsilon(\hat{h}) \le \left( \min_{h \in \mathcal{H}} \epsilon(h) \right)+ 2 \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}}
+$$&lt;p&gt;结合之前的讨论，固定 $\gamma, \delta$，当
+$m \ge \frac{1}{2\gamma^2} \log \frac{2k}{\delta}$ 时，一致收敛成立，因此：
+&lt;/p&gt;
+$$
+\epsilon(\hat{h}) \le \left( \min_{h \in \mathcal{H}} \epsilon(h) \right) + 2\gamma
+$$&lt;h3 id="推论"&gt;推论
+&lt;/h3&gt;&lt;p&gt;令 $|\mathcal{H}| = k$，$\gamma$ 和 $\delta$ 为任意的固定值，那么要使&lt;/p&gt;
+$$
+\epsilon(\hat{h}) \le \left( \min_{h \in \mathcal{H}} \epsilon(h) \right) + 2\gamma
+$$&lt;p&gt;有大于等于 $1 - \delta$ 的概率发生，只要有&lt;/p&gt;
+$$
+m \ge \frac{1}{2\gamma^2} \log \frac{2k}{\delta}= O\left(\frac{1}{\gamma^2} \log \frac{k}{\delta}\right)
+$$</description></item><item><title>CS229 Lecture 9</title><link>https://lunatide.tech/p/cs229-lecture-9/</link><pubDate>Mon, 09 Mar 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-9/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-9/pic1.jpg" alt="Featured image of post CS229 Lecture 9" /&gt;&lt;h2 id="贝叶斯统计和正则化"&gt;贝叶斯统计和正则化
+&lt;/h2&gt;&lt;p&gt;在这个部分中，我们将讨论另一个对抗过拟合的工具。&lt;/p&gt;
+&lt;p&gt;在本章开始的时候，我们利用最大似然估计讨论参数拟合，利用如下方式选择参数：&lt;/p&gt;
+$$
+\theta_{\mathrm{ML}} = \arg\max_{\theta} \prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}; \theta)
+$$&lt;p&gt;在随后的讨论中，我们将 $\theta$ 视为一个未知的参数，这种将 $\theta$ 看成恒定但是未知的值是频率学派的观点。而另一种进行参数估计的方法是使用贝叶斯的视角，将 $\theta$ 视为一个未知的随机变量，在这种方法下，我们要给 $\theta$ 一个先验分布 $p(\theta)$，用来表达该参数的先验信息。给定训练集 ${(x^{(i)}, y^{(i)})}_{i=1}^{m}$，当我们需要对一个新的值进行预测的时候，我们可以计算参数的后验分布：&lt;/p&gt;
+$$
+p(\theta \mid S)= \frac{p(S \mid \theta)p(\theta)}{p(S)}= \frac{\left(\prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}, \theta)\right)p(\theta)}
+{\int_{\theta}\left(\prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}, \theta)\right)p(\theta)\, d\theta}
+\tag{1}
+$$&lt;p&gt;上述等式中，$\prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}, \theta)$ 来自你使用的机器学习模型。&lt;/p&gt;
+&lt;p&gt;如果有一个新的测试样本 $x$，然后要求我们对这个样本进行预测，我们可以用 $\theta$ 的后验分布计算每个分类标签的后验分布：&lt;/p&gt;
+$$
+p(y \mid x, S) = \int_{\theta} p(y \mid x, \theta)\, p(\theta \mid S)\, d\theta
+\tag{2}
+$$&lt;p&gt;其中 $p(y \mid x, \theta)$ 可以利用之前的等式计算出来。因此，如果我们的目标是预测给定 $x$，$y$ 的期望，那么我们将输出&lt;/p&gt;
+$$
+\mathbb{E}[y \mid x, S] = \int_y y p(y \mid x, S)\, dy
+$$&lt;p&gt;我们叙述的过程可以被认为是在做“完全贝叶斯”预测，其中我们的预测是根据后验分布 $p(\theta \mid S)$ 计算均值得到的。不幸的是，这种后验分布的计算是非常困难的。这是因为需要在等式（1）中对（通常是高维的）$\theta$ 进行积分，通常不能以闭合形式完成。&lt;/p&gt;
+&lt;p&gt;因此，在实际中我们常用点估计代替 $p(y \mid x, S)$。$\theta$ 的最大后验估计由下公式给出：&lt;/p&gt;
+$$
+\theta_{\mathrm{MAP}} = \arg\max_{\theta} \prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)}, \theta)\, p(\theta)
+\tag{3}
+$$&lt;p&gt;注意到这个公式和最大似然估计的公式基本相同，除了最后增加了先验分布 $p(\theta)$。&lt;/p&gt;
+&lt;p&gt;在实际中，$\theta$ 先验分布的常见选择是假设 $\theta \sim \mathcal{N}(0, \tau^2 I)$。使用这样的先验分布，拟合出来的参数 $\theta_{\mathrm{MAP}}$ 的范数将比用极大似然估计得到的参数 $\theta_{\mathrm{ML}}$ 小。在实际中，这使得贝叶斯最大后验估计相比较于最大似然估计更容易避免过拟合。&lt;/p&gt;
+&lt;h2 id="感知机和大型边界分类器"&gt;感知机和大型边界分类器
+&lt;/h2&gt;&lt;p&gt;在学习理论的最后一部分，我们将介绍一种不同的机器学习模型。在之前的内容中，我们考虑的都是批量学习，即给我们训练集去学习，然后在测试集上评估假设 $h$。在这一部分中，我们将考虑在线学习，这种算法会在学习的过程中给出预测。&lt;/p&gt;
+&lt;p&gt;回顾感知机算法，参数为 $\theta \in \mathbb{R}^{n+1}$，根据如下公式预测&lt;/p&gt;
+$$
+h_{\theta}(x) = g(\theta^T x)
+\tag{1}
+$$&lt;p&gt;其中&lt;/p&gt;
+$$
+g(z)=
+\begin{cases}1, &amp; \text{if } z \ge 0 \\-1, &amp; \text{if } z &lt; 0
+\end{cases}
+$$&lt;p&gt;给定一个训练样本 $(x,y)$，感知机学习法则根据如下规则更新参数。如果 $h_{\theta}(x)=y$，那么不更新参数。否则，按如下方式更新参数&lt;/p&gt;
+$$
+\theta := \theta + yx
+$$&lt;p&gt;这里 $y \in {+1,-1}$。&lt;/p&gt;
+&lt;p&gt;下面一个定理给出感知机算法的误差上界，注意这个上界和样本序列个数 $m$ 以及数据维度 $n$ 没有明确地关系。&lt;/p&gt;
+&lt;h3 id="定理"&gt;定理
+&lt;/h3&gt;&lt;p&gt;设有一个样本序列 $(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}) \ldots (x^{(m)}, y^{(m)})$，假设对每个 $i$ 都有 $|x^{(i)}| \le D$，此外存在单位长度的向量 $u$（$|u|_2 = 1$）使得对序列中每个样本都有 $y^{(i)} \cdot (u^T x^{(i)}) \ge \gamma$，（例如，$u^T x^{(i)} \ge \gamma$，如果 $y^{(i)}=1$，并且 $u^T x^{(i)} \le -\gamma$，如果 $y^{(i)}=-1$，因此以至少 $\gamma$ 的距离分开样本数据）。那么感知机算法在序列上给出错误总数最多是 $(D/\gamma)^2$。&lt;/p&gt;
+&lt;p&gt;证明：感知机只在犯错误的样本上更新权重。令 $\theta^{(k)}$ 为犯第 $k$ 个错误时候的权重。则 $\theta^{(1)}=\vec{0}$（因为权重被初始化为 0），并且如果第 $k$ 个错误发生在样本 $(x^{(i)}, y^{(i)})$ 上，那么 $g((x^{(i)})^T \theta^{(k)}) \ne y^{(i)}$，这意味着&lt;/p&gt;
+$$
+(x^{(i)})^T \theta^{(k)} y^{(i)} \le 0
+\tag{2}
+$$&lt;p&gt;另外根据感知机的学习法则，我们有 $\theta^{(k+1)} = \theta^{(k)} + y^{(i)}x^{(i)}$，所以&lt;/p&gt;
+$$
+\begin{aligned}
+(\theta^{(k+1)})^T u&amp;= (\theta^{(k)})^T u + y^{(i)}(x^{(i)})^T u \\&amp;\ge (\theta^{(k)})^T u + \gamma
+\end{aligned}
+$$&lt;p&gt;利用归纳法可得&lt;/p&gt;
+$$
+(\theta^{(k+1)})^T u \ge k\gamma
+\tag{3}
+$$&lt;p&gt;另外，我们有&lt;/p&gt;
+$$
+\begin{aligned}
+\|\theta^{(k+1)}\|^2&amp;= \|\theta^{(k)} + y^{(i)}x^{(i)}\|^2 \\&amp;= \|\theta^{(k)}\|^2 + \|x^{(i)}\|^2 + 2y^{(i)}(x^{(i)})^T \theta^{(k)} \\&amp;\le \|\theta^{(k)}\|^2 + \|x^{(i)}\|^2 \\&amp;\le \|\theta^{(k)}\|^2 + D^2
+\end{aligned}
+\tag{4}
+$$&lt;p&gt;其中第一个不等号是因为公式（2），利用归纳法可得&lt;/p&gt;
+$$
+\|\theta^{(k+1)}\|^2 \le kD^2
+\tag{5}
+$$&lt;p&gt;结合（3）和（4）可得&lt;/p&gt;
+$$
+\begin{aligned}
+\sqrt{k}D&amp;\ge \|\theta^{(k+1)}\| \\&amp;\ge (\theta^{(k+1)})^T u \\&amp;\ge k\gamma
+\end{aligned}
+$$&lt;p&gt;第二个不等号是因为 $u$ 是单位向量（并且 $z^T u = |z| \cdot |u| \cos \theta \le |z| \cdot |u|$，其中 $\theta$ 是 $z$ 和 $u$ 的夹角）。上述结果表明&lt;/p&gt;
+$$
+k \le (D/\gamma)^2
+$$&lt;p&gt;因此，如果感知机犯了第 $k$ 个错误，那么必有 $k \le (D/\gamma)^2$。&lt;/p&gt;</description></item><item><title>CS229 Lecture 8</title><link>https://lunatide.tech/p/cs229-lecture-8/</link><pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-8/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-8/pic1.jpg" alt="Featured image of post CS229 Lecture 8" /&gt;&lt;h2 id="核方法"&gt;核方法
 &lt;/h2&gt;&lt;p&gt;回到我们对线性回归的讨论中，我们遇到了一个问题，其中输入 $x$ 是房子的生活区域。我们考虑使用特征 $x^2$ 和 $x^3$ 进行回归以获得二次函数。为了区分这两组变量，我们将“原始”输入值称为问题的输入属性（在本例中为 $x$，生活区域）。当它被映射到一组新的最终传递给学习算法时，我们将这些新的量称为输入特征。（不幸的是，不同的作者使用不同的术语来描述这两件事，但是我们将在这份讲义中一致地使用这个术语。）我们还将 $\phi$ 表示特征映射，它将属性映射到特征。例如，在我们的例子中，我们有：&lt;/p&gt;
 $$
 \phi(x) =
