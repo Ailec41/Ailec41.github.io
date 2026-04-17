@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 12</title><link>https://lunatide.tech/p/cs229-lecture-12/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-12/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-12/pic1.jpg" alt="Featured image of post CS229 Lecture 12" /&gt;&lt;h3 id="k均值聚类算法"&gt;$k$均值聚类算法
-&lt;/h3&gt;&lt;p&gt;在聚类问题中，我们得到训练集 ${x^{(i)}, \ldots, x^{(m)}}$，然后想把数据分成几个相关的“簇”。这里 $x^{(i)} \in \mathbb{R}^n$，但是没有有 $y^{(i)}$。所以这是个非监督学习问题。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on LunaTide's Blog</title><link>https://lunatide.tech/categories/deep-learning/</link><description>Recent content in Deep Learning on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>CS229 Lecture 12</title><link>https://lunatide.tech/p/cs229-lecture-12/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs229-lecture-12/</guid><description>&lt;img src="https://lunatide.tech/p/cs229-lecture-12/pic1.jpg" alt="Featured image of post CS229 Lecture 12" /&gt;&lt;h2 id="k-均值聚类算法"&gt;$k$ 均值聚类算法
+&lt;/h2&gt;&lt;p&gt;在聚类问题中，我们得到训练集 ${x^{(i)}, \ldots, x^{(m)}}$，然后想把数据分成几个相关的“簇”。这里 $x^{(i)} \in \mathbb{R}^n$，但是没有有 $y^{(i)}$。所以这是个非监督学习问题。&lt;/p&gt;
 &lt;p&gt;$k$ 均值聚类算法如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -43,8 +43,8 @@ $$
 J(c,\mu) = \sum_{i=1}^{m} \|x^{(i)} - \mu_{c^{(i)}}\|^2
 $$&lt;p&gt;因此，$J$ 衡量每个训练样本 $x^{(i)}$ 和其聚类中心 $\mu_{c^{(i)}}$ 距离的平方和。可以看出 $k$ 均值聚类算法就是 $J$ 坐标下降的过程。特别地，$k$ 均值聚类算法内层的循环重复对 $J$ 进行最小化，先固定 $\mu$，根据 $c$ 来最小化 $J$，再固定 $c$，根据 $\mu$ 来进行最小化。因此 $J$ 一定单调递减，并且 $J$ 的值一定收敛。&lt;/p&gt;
 &lt;p&gt;损失函数 $J$ 是一个非凸函数，所以 $J$ 的坐标下降法无法保证收敛到全局最小值。换句话说，$k$ 均值聚类可能只是局部最优。尽管如此，$k$ 均值聚类通常效果很好并且给出很好地聚类。但是如果你担心陷入比较差的局部最小值，一种常用的方法是多次运行 $k$ 均值聚类（对聚类中心 $\mu_j$ 使用不同的随机初始值）。然后，从所有不同的聚类结果中选择提供最小损失函数的 $J(c,\mu)$ 的聚类。&lt;/p&gt;
-&lt;h3 id="高斯混合模型和-em-算法"&gt;高斯混合模型和 EM 算法
-&lt;/h3&gt;&lt;p&gt;在这部分的讲义中，我们将使用 EM（Expectation-Maximization）算法进行密度估计。&lt;/p&gt;
+&lt;h2 id="高斯混合模型和-em-算法"&gt;高斯混合模型和 EM 算法
+&lt;/h2&gt;&lt;p&gt;在这部分的讲义中，我们将使用 EM（Expectation-Maximization）算法进行密度估计。&lt;/p&gt;
 &lt;p&gt;假设我们像往常一样给定训练集 ${x^{(i)}, \ldots, x^{(m)}}$。因为我们在讨论非监督学习，这些数据点没有标签。&lt;/p&gt;
 &lt;p&gt;我们希望用特定的联合分布 $p(x^{(i)}, z^{(i)}) = p(x^{(i)} \mid z^{(i)})p(z^{(i)})$ 来对数据进行建模。这里，$z^{(i)} \sim$ 多项分布 $(\phi)$（其中 $\phi_j \ge 0, \sum_{j=1}^{k} \phi_j = 1$，参数 $\phi_j = p(z^{(i)} = j)$），$x^{(i)} \mid z^{(i)} = j \sim \mathcal{N}(\mu_j, \Sigma_j)$。令 $k$ 表示 $z^{(i)}$ 可以取值的数量。因此，我们的模型假定每个 $x^{(i)}$ 是按如下方式生成的：从 ${1, \ldots, k}$ 中随机选择 $z^{(i)}$，然后 $x^{(i)}$ 是从依赖 $z^{(i)}$ 的 $k$ 个高斯分布中得到的。这个模型被称为高斯混合模型。此外，注意到 $z^{(i)}$ 是隐藏变量，这意味着他们是不可见的。这将使我们的估计问题更加困难。&lt;/p&gt;
 &lt;p&gt;我们模型的参数是 $\phi, \mu$ 和 $\Sigma$。为了估计他们，我们可以把数据的似然函数按如下方式写出：&lt;/p&gt;
