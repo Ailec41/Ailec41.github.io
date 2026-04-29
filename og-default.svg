@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101418"/>
+      <stop offset="1" stop-color="#1b1d1f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8bb7e8"/>
+      <stop offset="1" stop-color="#a8c8ec"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="930" cy="180" r="140" fill="#151515" opacity="0.65"/>
+  <circle cx="975" cy="150" r="70" fill="url(#accent)" opacity="0.9"/>
+  <rect x="96" y="96" width="1008" height="438" rx="28" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+  <text x="140" y="250" fill="#d8d8d8" font-size="64" font-family="Georgia, 'Times New Roman', 'Noto Serif SC', serif" font-weight="500">
+    LunaTide
+  </text>
+  <text x="140" y="320" fill="#9a9a9a" font-size="34" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    Notes on technology, learning, and life
+  </text>
+  <rect x="140" y="360" width="200" height="6" rx="99" fill="url(#accent)" opacity="0.75"/>
+  <text x="140" y="470" fill="#707070" font-size="26" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    lunatide.tech
+  </text>
+</svg>

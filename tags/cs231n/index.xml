@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS231n on LunaTide's Blog</title><link>https://lunatide.tech/tags/cs231n/</link><description>Recent content in CS231n on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Sun, 28 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/tags/cs231n/index.xml" rel="self" type="application/rss+xml"/><item><title>CS231 第六讲 CNN架构</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</link><pubDate>Sun, 28 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/pic1.jpg" alt="Featured image of post CS231 第六讲 CNN架构" /&gt;&lt;h2 id="cnn架构"&gt;CNN架构
+&lt;/h2&gt;&lt;h3 id="常用的层"&gt;常用的层
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;归一层&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;归一层的工作原理分为两个部分，第一步是将输入数据归一化为标准正态分布，均值为0，标准差为1，然后进行缩放和偏移，通过乘以某个值调整中心偏差，再进行偏移以改变均值位置，所有归一化层都采用这样的技术，它们之间的区别在于如何计算统计量，均值和标准差，以及将这些统计量应用到哪些值&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;层归一化&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这是最常用的归一化层，如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p1.jpg"
+width="2658"
+height="1236"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p1_hu_8e5b8c14f46507c5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p1_hu_6125d2d72a95eac4.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="215"
+data-flex-basis="516px"
+&gt;&lt;/p&gt;
+&lt;p&gt;下面的图片展示了几种不同的归一化方法和它们各自张量的哪些维度上计算均值和方差&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p2.jpg"
+width="2678"
+height="1124"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p2_hu_8c8070081479b484.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p2_hu_e118f457702eaa3a.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="238"
+data-flex-basis="571px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dropout层&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Dropout层的核心思想是在训练时添加随机性，而在测试时移除，目的是让模型难以过拟合训练数据，但会提升泛化能力，具体实现如下图，我们实际上随机将某些输出或激活值归零&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p3.jpg"
+width="2300"
+height="1066"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p3_hu_d4416d654f911647.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p3_hu_668e2bc786b2af24.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="215"
+data-flex-basis="517px"
+&gt;&lt;/p&gt;
+&lt;p&gt;下面是伪代码&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&amp;#34; Vanilla Dropout: Not recommended implementation (see notes below) &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt; &lt;span class="c1"&gt;# probability of keeping a unit active. higher = less dropout&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;train_step&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;&amp;#34;&amp;#34; X contains the data &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# forward pass for example 3-layer neural network&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;U1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;H1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="c1"&gt;# first dropout mask&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H1&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="n"&gt;U1&lt;/span&gt; &lt;span class="c1"&gt;# drop!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;U2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;H2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="c1"&gt;# second dropout mask&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H2&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="n"&gt;U2&lt;/span&gt; &lt;span class="c1"&gt;# drop!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# backward pass: compute gradients... (not shown)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# perform parameter update... (not shown)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;predict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# ensembled forward pass&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="c1"&gt;# NOTE: scale the activations&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="c1"&gt;# NOTE: scale the activations&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上述方法需要注意一点：在预测的时候要乘以dropout概率$p$，这是因为假设输入为$x$，其期望输出为$px$，所以为了保持一致，预测时要乘以dropout概率$p$。这要会产生一个问题：预测时增加了运算量，一个改进方式如下&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt;Inverted Dropout: Recommended implementation example.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt;We drop and scale at train time and don&amp;#39;t do anything at test time.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt; &lt;span class="c1"&gt;# probability of keeping a unit active. higher = less dropout&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;train_step&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# forward pass for example 3-layer neural network&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;U1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;H1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="c1"&gt;# first dropout mask. Notice /p!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H1&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="n"&gt;U1&lt;/span&gt; &lt;span class="c1"&gt;# drop!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;U2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;H2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="c1"&gt;# second dropout mask. Notice /p!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H2&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="n"&gt;U2&lt;/span&gt; &lt;span class="c1"&gt;# drop!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# backward pass: compute gradients... (not shown)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# perform parameter update... (not shown)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;predict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# ensembled forward pass&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# no scaling necessary&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;H2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;H2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="激活函数"&gt;激活函数
+&lt;/h3&gt;&lt;p&gt;激活函数的核心作用是为模型引入非线性&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;sigmoid函数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;sigmoid函数的表达式如下
+&lt;/p&gt;
+$$
+\sigma(x)=1/(1+e^{-x})
+$$&lt;p&gt;
+&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p4.jpg"
+width="894"
+height="764"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p4_hu_b57a1845e02d9f2b.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p4_hu_ba4f7b2f039043ca.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="117"
+data-flex-basis="280px"
+&gt;&lt;/p&gt;
+&lt;p&gt;sigmoid函数主要有以下的问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;经过多层sigmoid后，反向传播时梯度会越来越小&lt;/li&gt;
+&lt;li&gt;由于Sigmoid函数输出结果都大于0，由乘法门的含义可知，这会导致梯度的符号都相同，这也不利于训练。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;ReLU&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;ReLU的表达式如下
+&lt;/p&gt;
+$$
+f(x)=max(0,x)
+$$&lt;p&gt;
+&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p5.jpg"
+width="862"
+height="556"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p5_hu_186f2a0b5a4d924d.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p5_hu_e3c81398522eaa.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="155"
+data-flex-basis="372px"
+&gt;&lt;/p&gt;
+&lt;p&gt;ReLU在正区域不会出现梯度消失的情况，但是在负区域还是会出现梯度为0的情况，所以我们基本上覆盖了输入域的一半，这个肯定比sigmoid函数牛逼，并且只需要计算0和x的最大值也比sigmoid函数效率更高&lt;/p&gt;
+&lt;p&gt;但是还是有上面的问题，对于任何负输入，会得到零梯度&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GELU&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;GELU的表达式如下
+&lt;/p&gt;
+$$
+f(x)=x*\phi(x)
+$$&lt;p&gt;
+&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6.jpg"
+width="778"
+height="620"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6_hu_8a2ef6b94e0307da.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p6_hu_bee4dcedc10f4dbf.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="125"
+data-flex-basis="301px"
+&gt;&lt;/p&gt;
+&lt;p&gt;GELU在接近零的邻域内保留激活函数的非平坦区域，核心思想就是平滑0处的非连续跳跃&lt;/p&gt;
+&lt;p&gt;那么这些CNN中的激活函数在哪里用&lt;/p&gt;
+&lt;p&gt;答：通常放在线性算子之后（比如全连接层，卷积层）&lt;/p&gt;
+&lt;h3 id="残差网络"&gt;残差网络
+&lt;/h3&gt;&lt;p&gt;如果在普通CNN网络上不断堆叠更深的层，不断叠加新层，让网络变得越来越大，会发生什么年？&lt;/p&gt;
+&lt;p&gt;他们发现二十层模型的测试误差实际上低于56层模型，你可能会认为这是过拟合导致的，但是其实当我们看训练误差，20层模型的训练误差也更低，如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p7.jpg"
+width="1808"
+height="928"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p7_hu_4ae60adbd6d07ff5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p7_hu_fdda0a8249a2e219.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="194"
+data-flex-basis="467px"
+&gt;&lt;/p&gt;
+&lt;p&gt;所以为什么会56层模型表现不如20层模型，更深的模型有更强的表示能力，理论上它们能表示浅层网络能处理的所有模型，因此可能的输入与输出之间的映射关系对于大型网络时小型网络的超集，因为从理论上讲，你可以想象将某些层设置为恒等函数，这些层不做任何操作，如果你将一半的层设置为无操作，你拥有的表示能力与模型完全相同，大小减半，所以说不是这些模型更差，但在表示能力方便，它们实际上更难优化，因为深层网络的可能模型集合更大，并且包含所有浅层网络可能学习到的模型&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p8.jpg"
+width="1302"
+height="504"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p8_hu_a95c3166ff23aa69.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p8_hu_f64b8a8f1ae25326.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="258"
+data-flex-basis="620px"
+&gt;&lt;/p&gt;
+&lt;p&gt;那么深层模型如何至少与浅层模型一样好，如下图，我们有一个一层模型和一个两层模型，如果我们让其中一个层几乎成为单位矩阵，模型至少应该和浅层模型一样好&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p9.jpg"
+width="1746"
+height="832"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p9_hu_c6caf2ef4c9ba2c5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p9_hu_5782450a2169eb04.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="503px"
+&gt;&lt;/p&gt;
+&lt;p&gt;那么我们如何将这种直觉融入模型，我们希望它可以和浅层模型一样优秀，我们通过拟合来实现，所谓的残差映射，而非直接拟合底层映射&lt;/p&gt;
+&lt;p&gt;直觉是一种观察到的现象，这些大型网络在训练和测试误差上表现更差，因为它们难以优化，因此直觉是我们需要构建能够轻松模拟浅层网络的模型，使其至少与浅层模型一样好，它们通过添加残差连接实现了这一点，以便轻松复制值，将其融入架构本身，而不是在卷积层之间学习恒等映射&lt;/p&gt;
+&lt;h3 id="如何初始化各层的权重值"&gt;如何初始化各层的权重值
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Kaiming初始化&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;dims&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;hs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;dims&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;Din&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;Dout&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dims&lt;/span&gt;&lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;dims&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:]):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;W&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Din&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;Dout&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Din&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;maximum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;hs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;图像归一化要点总结&lt;/strong&gt;：对每个通道进行居中和缩放&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对每个通道减去均值&lt;/li&gt;
+&lt;li&gt;再除以每个通道的标准差（每个通道各自统计，共 三个数）&lt;/li&gt;
+&lt;li&gt;需要预先计算：针对你的数据集，为每个像素通道计算均值和标准差&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;norm_pixel[i,j,c] = (pixsl[i,j,c] - np.mean(pixel[:,:,c])) / np.std(pixel[:,:,c])&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;正则化&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;训练：加入某种形式的随机性
+&lt;/p&gt;
+$$
+y = f_w(x, z)
+$$&lt;p&gt;测试：对随机性取平均
+&lt;/p&gt;
+$$
+y = f(x) = E_z [ f(x, z) ] = \int p(z) f(x, z) dz
+$$&lt;p&gt;
+&lt;strong&gt;数据增强&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.水平翻转&lt;/p&gt;
+&lt;p&gt;这对日常物体很有用，因为大多数物体具有对称性&lt;/p&gt;
+&lt;p&gt;2.调整大小和缩减，方案如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p10.jpg"
+width="1758"
+height="892"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p10_hu_48b27289ba26a653.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%85%AD%E8%AE%B2-cnn%E6%9E%B6%E6%9E%84/p10_hu_1dec8882eec0268.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;</description></item><item><title>CS231 第五讲 基于CNN的图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第五讲 基于CNN的图像分类" /&gt;&lt;h2 id="卷积神经网络"&gt;卷积神经网络
+&lt;/h2&gt;&lt;p&gt;我们需要做的就是添加几个可以适合我们的计算图的新类型的节点，具体来说，我们只需要讨论两个运算符就可以构建更强大的网络，就是卷积层，然后是池化层，这是我们在处理图像时经常使用的另一个层&lt;/p&gt;
+&lt;p&gt;我们之前介绍的神经网络每层被称作全连接层，它是将图像的像素展平为一个大向量，进行矩阵乘法，进行ReLU，一个大问题是它破坏了图像的空间结构，比如说，图像实际上不是一维物体，是二维得到，二维结构对于这些图像的内容很重要，当你通过将原始像素拉伸称为一个大向量来构建线性分类器时，你基本上忽略了神经网络架构设计中输入数据的重要因素，所以当考虑为图像设计神经网络架构的时候，我们尤其要思考我们的网络还有哪些设计，我们可以将哪些其他计算原语插入到我们的计算图中&lt;/p&gt;
+&lt;p&gt;这就引出了卷积神经网络，所以卷积神经网络基本上是一类神经网络架构，它由线性层，非线性层，卷积层，池化层构成，有时还会将其他几个层拼接在一起形成这些神经网络架构，输入原始像素值，，然后输出图像的一些预测或者分数&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1.jpg"
+width="1884"
+height="920"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_7f484792e3d5a2bd.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_c04c426c947ddfac.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="204"
+data-flex-basis="491px"
+&gt;&lt;/p&gt;
+&lt;p&gt;它们的一般结构通常会有一些前缀，一些网络主体，即卷积层，池化层和非线性的一些交错序列，可以被认为是为图像提取一些有用的特征表示，在此基础上，它们通常会是一些全连接层，有时候只有一层，有时候不止一层，可以将其视作多重感知器完全连接的网络分类器，它位于网络卷积部分的顶部，并从中获取特征&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2.jpg"
+width="1842"
+height="780"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_6ebd7abbac36a606.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_8194f7fd1119a775.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="236"
+data-flex-basis="566px"
+&gt;&lt;/p&gt;
+&lt;p&gt;至关重要的是，通过最小化训练数据集的损失，整个系统通过梯度下降进行端到端调整&lt;/p&gt;
+&lt;p&gt;全连接层如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3.jpg"
+width="1856"
+height="864"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_8f108b048ce14fb1.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_fc50cc9854d0998f.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="214"
+data-flex-basis="515px"
+&gt;&lt;/p&gt;
+&lt;p&gt;卷积层如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4.jpg"
+width="1860"
+height="942"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_a5534140f8f69ad6.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_22c3bf3dbba2b659.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;
+&lt;p&gt;也就是说我们不会把图像拉伸成一个大向量，而是要保持图像的3D空间结构&lt;/p&gt;
+&lt;h3 id="卷积层"&gt;卷积层
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5.jpg"
+width="1898"
+height="950"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_50afeb2575b26d79.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_bf9139844d4782b3.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="199"
+data-flex-basis="479px"
+&gt;&lt;/p&gt;
+&lt;p&gt;因此，如上图，我们将卷积滤波器放到图像的某个块上，这个5x5x3滤波器和该空间位置上的某个5x5x3的图像块对其，然后计算两者之间的内积，这将为我们提供一个标量数，告诉我们该图像块和模版的对齐程度&lt;/p&gt;
+&lt;p&gt;然后我们重复这个过程并且将该模块滑动到图像中的任何位置，把模版放在每个地方，我们将再次计算模版的匹配分数，该分数表示该图像部分与该模版的匹配程度，然后我们把得到的 匹配分数放在一个平面上，现在这平面是一个二维平面，基本上每个点都对应着平面上每个点与输入图像对应部分和滤波器的对齐程度&lt;/p&gt;
+&lt;p&gt;而实际中的运算我们需要多个滤波器，输出如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6.jpg"
+width="1868"
+height="946"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_9e0ed8521290e798.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_7ed72043e8a79128.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;填充&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在进行卷积的时候，特征图的空间尺寸会缩小，我们想让所有东西保持相同的尺寸，所以一个技巧就是填充&lt;/p&gt;
+&lt;p&gt;在计算卷积运算符之前，会在周围添加额外的零，效果如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p7.jpg"
+width="1888"
+height="938"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p7_hu_4df61768fc591fd2.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p7_hu_521c56bdb1716611.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="483px"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;感受野&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在考虑单个卷积时，每个输出都在查看输入的这个局部区域，因第一层卷积的输出只能查看图像的一部分，其大小与正在学习的卷积核相同&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p8.jpg"
+width="1892"
+height="966"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p8_hu_281d99955ecceb95.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p8_hu_51ab310e9a941e27.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="195"
+data-flex-basis="470px"
+&gt;&lt;/p&gt;
+&lt;p&gt;但是如果我们构建了一个将多个卷积堆叠在一起的ConvNet，如上图，这些感受野就会通过网络被放大，这里的每个条目都依赖于它之前一层的局部区域，因此，当有这些卷积时，即使每个单独的卷积都在查看它之前层中的局部邻域，当在多个层中堆叠卷积时，每个卷积所查看的原始输入的有效大小都会在网络的过程中增长，我们称之为有效感受野，所以卷积的有效感受野基本就是原始图像中有多少像素有机会影响下游网络的一次激活，这个有效感受野基本上随着卷积层的数量线性增长&lt;/p&gt;
+&lt;p&gt;有一个问题，当我们最终在网络末端做出分类决策时，我们希望我们的分类决策基本上能够汇总整个图像的全局信息，但是要很多卷积层才能做到这点，所以这里的技巧就是添加一些方法来更快增加有效感受野&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;步幅&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;上面的例子中，我们每次移动一个单位，而实际中可以移动多个单位，每次移动的单位数量就叫做步长，记作S，输出如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p9.jpg"
+width="1866"
+height="912"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p9_hu_b8c2eb236a09fcae.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p9_hu_bad6e35a193f2c37.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="204"
+data-flex-basis="491px"
+&gt;&lt;/p&gt;
+&lt;h3 id="池化层"&gt;池化层
+&lt;/h3&gt;&lt;p&gt;池化层基本上是神经网络内部下采样的另一种方法，因此，我们看到，步幅卷积是我们可以在神经网络内部进行下采样的一种方法，下蔡样可以让我们在深入网络时更快地建立感受场，池化层是一种廉价的下采样方法，不需要花费太多的计算。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p10.jpg"
+width="1836"
+height="836"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p10_hu_64bf9648fa2bb8e4.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p10_hu_df4dffc9c8996704.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="219"
+data-flex-basis="527px"
+&gt;&lt;/p&gt;
+&lt;p&gt;我们采用了几种不同的下采样机制，最常用的实际上是最大值，被称为最大池化，因此，在最大池化中，我们要做的是取单个深度切片，将其划分为不重叠的区域&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p11.jpg"
+width="1818"
+height="922"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p11_hu_d5481af0e5f64666.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%9F%BA%E4%BA%8Ecnn%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p11_hu_2e5489d313549c7f.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;
+&lt;p&gt;所以池化的目的是降低数据维度，图片展示的是最大值池化，实际中还有平均值池化&lt;/p&gt;
+&lt;p&gt;池化层也有对应的步长，填充参数，计算维度的方式和之前相同&lt;/p&gt;</description></item><item><title>CS231 第四讲 神经网络与反向传播</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/pic1.jpg" alt="Featured image of post CS231 第四讲 神经网络与反向传播" /&gt;&lt;h2 id="反向传播"&gt;反向传播
+&lt;/h2&gt;&lt;p&gt;反向传播是计算梯度的一种方法，这种方法需要利用计算图，计算图的每个节点表示我们执行的每一步计算，例如上一讲讲的损失函数的计算图如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1.jpg"
+width="1656"
+height="822"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1_hu_aad3f6f24ba91cf5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p1_hu_ca20441b05b28d.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="483px"
+&gt;&lt;/p&gt;
+&lt;p&gt;第一个节点计算得分s，第二个节点计算折页损失，最后一个节点计算总损失（加上正则项）&lt;/p&gt;
+&lt;p&gt;计算图的计算步骤分为前向传播以及反向传播，刚刚描述的步骤为前向传播，现在我们结合下图理解反向传播计算梯度的思路&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2.jpg"
+width="1700"
+height="860"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_f3a6d3794d241d32.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p2_hu_88d45fae6ec3b452.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="474px"
+&gt;&lt;/p&gt;
+&lt;p&gt;对于每个节点，假设我们已知输出的梯度$\frac{\partial L}{\partial z}$，现在我们要计算输入的梯度$\frac{\partial L}{\partial x}$,$\frac{\partial L}{\partial y}$，计算的思路很简单，利用链式法则，首先计算“局部梯度”$\frac{\partial z}{\partial x}$,$\frac{\partial z}{\partial y}$，然后利用链式法则可得
+&lt;/p&gt;
+$$
+\frac{\partial L}{\partial x}
+=\frac{\partial L}{\partial z}\,\frac{\partial z}{\partial x}\,\frac{\partial L}{\partial y}
+=\frac{\partial L}{\partial z}\,\frac{\partial z}{\partial y}
+$$&lt;p&gt;
+计算过程如下图所示&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3.jpg"
+width="1776"
+height="926"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_d912d6d39e3633e0.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/p3_hu_3a0d14b51fa5ba50.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="191"
+data-flex-basis="460px"
+&gt;&lt;/p&gt;
+&lt;p&gt;如果节点有多个输出$z_j$，那么输入的梯度$\frac{\partial L}{\partial x}$,$\frac{\partial L}{\partial y}$需要累加，具体公式为
+&lt;/p&gt;
+$$
+\frac{\partial L}{\partial x}
+= \sum_{j} \frac{\partial L}{\partial z_{j}} \,\frac{\partial z_{j}}{\partial x},
+\qquad
+\frac{\partial L}{\partial y}
+= \sum_{j} \frac{\partial L}{\partial z_{j}} \,\frac{\partial z_{j}}{\partial y}
+$$&lt;p&gt;
+计算过程如下图所示&lt;/p&gt;</description></item><item><title>CS231 第三讲 正则化与优化</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</link><pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/pic1.jpg" alt="Featured image of post CS231 第三讲 正则化与优化" /&gt;&lt;h2 id="损失函数"&gt;损失函数
+&lt;/h2&gt;&lt;p&gt;给定一个图片数据集 ${(x_i, y_i)}_{i=1}^N$，$x_i$ 为图片，$y_i$ 为标签，损失为
+&lt;/p&gt;
+$$
+L = \frac{1}{N} \sum_i L_i(f(x_i, W), y_i) \tag{1}
+$$&lt;p&gt;
+这是一种衡量模型预测与训练数据匹配程度的损失，我们希望这个值越低越好，这代表模型很好地拟合了训练数据&lt;/p&gt;
+&lt;h3 id="多类svm损失"&gt;多类SVM损失
+&lt;/h3&gt;&lt;p&gt;给一个$s=f(x_i,W)$&lt;/p&gt;
+&lt;p&gt;SVM损失定义为
+&lt;/p&gt;
+$$
+\begin{aligned}
+L_i &amp;= \sum_{j \neq y_i} \begin{cases} 0 &amp; \text{如果} s_{y_i} \ge s_j + 1 \\ s_j - s_{y_i} + 1 &amp; \text{其他} \end{cases} \\
+&amp;= \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + 1)
+\end{aligned}\tag{2}
+$$&lt;p&gt;
+SVM损失函数的形式如下
+&lt;/p&gt;
+$$
+L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + 1)\tag{3}
+$$&lt;p&gt;
+&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4.jpg"
+width="440"
+height="330"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_9fcac2f2d3d5b1c2.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p4_hu_34019f7dfcff4d05.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+&gt;&lt;/p&gt;
+&lt;h3 id="softmax分类器"&gt;Softmax分类器
+&lt;/h3&gt;&lt;p&gt;首先定义如下概率&lt;/p&gt;
+$$
+P(Y = k | X = x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}} \quad s = f(x_i; W)\tag{4}
+$$&lt;p&gt;我们想最大化对数似然函数，而这也等价于最小化如下式子&lt;/p&gt;
+$$
+L_i = -\log P(Y = y_i | X = x_i) = -\log \left( \frac{e^{s_{y_i}}}{\sum_j e^{s_j}} \right)\tag{5}
+$$&lt;p&gt;
+&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2.jpg"
+width="1914"
+height="926"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_d9c6bf83bdcdc52d.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p2_hu_e056fde0d5beac53.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="206"
+data-flex-basis="496px"
+&gt;&lt;/p&gt;
+&lt;h3 id="损失函数的正则化项"&gt;损失函数的正则化项
+&lt;/h3&gt;$$
+L(W) = \frac{1}{N} \sum_{i=1}^{N} L_i(f(x_i, W), y_i) + \lambda R(W)\tag{6}
+$$&lt;p&gt;它的作用是防止模型在训练数据上表现过好，因此正则化的目的就是让它在训练数据表现更差，在测试集表现更好，关于这里的$\lambda$，这是正则化强度，这也是一个超参数，这个参数用于控制模型对训练数据的拟合程度&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1.jpg"
+width="1842"
+height="904"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_7d2528d4f1142dc1.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p1_hu_194156a355770f94.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="203"
+data-flex-basis="489px"
+&gt;&lt;/p&gt;
+&lt;p&gt;上图是一个例子，目标是拟合这些数据点，有f1和f2两种模型，f1穿过了所有数据点，所以训练或数据损失会很低，因为几乎完美拟合，但是在测试新数据上，f2可能表现更好，因此不要过度拟合数据，越简单的模型可能效果更好&lt;/p&gt;
+&lt;p&gt;比较常见的正则化项如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3.jpg"
+width="1046"
+height="310"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_cfd19289c5b397a7.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p3_hu_7a61ce87cfb6465b.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="337"
+data-flex-basis="809px"
+&gt;&lt;/p&gt;
+&lt;p&gt;所以为什么我们要对模型正则化：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;它允许我们对于权重表达某种偏好&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;让模型更简单从而在测试数据上表现更好&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;通过增加曲率改进优化&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="优化"&gt;优化
+&lt;/h2&gt;&lt;h3 id="梯度下降"&gt;梯度下降
+&lt;/h3&gt;&lt;p&gt;这个我们非常熟悉了，只要跟随梯度，所以计算梯度就可以了
+&lt;/p&gt;
+$$
+\nabla_W L = \frac{1}{N} \sum_{i=1}^{N} \nabla_W L_i(f(x_i, W), y_i) + \lambda \nabla_W R(W)\tag{7}
+$$&lt;h3 id="随机梯度下降sgd"&gt;随机梯度下降(SGD)
+&lt;/h3&gt;&lt;p&gt;我们之前说过可以通过遍历整个训练集，对每个i计算损失$L_i$并且汇总整个训练集，但是这样计算量太大，SGD的核心是查看一个子集代替整个训练集，每次称为一个小批量或者一批数据&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5.jpg"
+width="1376"
+height="668"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5_hu_17e8f542392f8e9e.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p5_hu_f325946cb45eab60.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="205"
+data-flex-basis="494px"
+&gt;&lt;/p&gt;
+&lt;p&gt;但是我们会遇到一些问题，当在鞍点或者局部最优点的时候，直观点如下图&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6.jpg"
+width="1008"
+height="328"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6_hu_48aa6e57c10c8b4d.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p6_hu_9f2538d26c4103f2.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="307"
+data-flex-basis="737px"
+&gt;&lt;/p&gt;
+&lt;p&gt;所以我们就引入了动量，你可以用高中物理学过的知识想象一下，动不了了给个动量他就能朝着预期方向继续前行&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7.jpg"
+width="1858"
+height="870"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7_hu_f73ff6a0bbf75e03.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p7_hu_4c65c1396d9622dd.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="213"
+data-flex-basis="512px"
+&gt;&lt;/p&gt;
+&lt;h3 id="rmsprop优化器"&gt;RMSProp优化器
+&lt;/h3&gt;&lt;p&gt;在梯度下降中，很容易出现参数更新不稳定，也就是振荡很大的情况，RMSProp就是改进了这个问题，维护了一个梯度平方的“指数加权移动平均”，说的直白点，它可以自适应学习率，在剧烈变化的方向降低学习率&lt;/p&gt;
+&lt;h3 id="adam优化器"&gt;Adam优化器
+&lt;/h3&gt;&lt;p&gt;Adam优化器是现在最流行的，它实际上是带动量动量的RMSProp&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8.jpg"
+width="1896"
+height="884"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8_hu_17e9a99e4b7d774.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%B8%89%E8%AE%B2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96/p8_hu_a44f7510cc853f0c.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="214"
+data-flex-basis="514px"
+&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;first_moment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="c1"&gt;# 一阶矩初始化&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;second_moment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="c1"&gt;# 二阶矩初始化为&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;num_iterations&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;dx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;compute_gradient&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# 当前参数 x 的梯度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;first_moment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;beta1&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;first_moment&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;beta1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;dx&lt;/span&gt; &lt;span class="c1"&gt;# 动量，对梯度做指数平均让梯度更平滑&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;second_moment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;beta2&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;second_moment&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;beta2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;dx&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;dx&lt;/span&gt; &lt;span class="c1"&gt;# RMSProp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# 因为 m_0=0，所以前几步的 m_t 偏小，用 1 - β1^t 修正&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;first_unbias&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first_moment&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;beta1&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;second_unbias&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;second_moment&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;beta2&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="n"&gt;learning_rate&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;first_unbias&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;second_unbias&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title>CS231 第二讲 图像分类</title><link>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</guid><description>&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/pic1.jpg" alt="Featured image of post CS231 第二讲 图像分类" /&gt;&lt;p&gt;开始学cs231n了，期望是一周3-4节，尽量4周完成掉&lt;/p&gt;
+&lt;p&gt;课程主页:https://cs231n.stanford.edu/&lt;/p&gt;
+&lt;p&gt;作业:https://cs231n.stanford.edu/schedule.html&lt;/p&gt;
+&lt;h2 id="图像分类"&gt;图像分类
+&lt;/h2&gt;&lt;p&gt;图像通常由数据矩阵定义，更一般地说是数据张量，识别图像对于机器来说是个很大的挑战，举个例子，人类不管从什么角度看一个物体他都是一样的，但是当一个摄像机对准一个物体并转动，像素值实时都在改变，除此之外，光照，物体遮挡等等对于图像的识别来说都是挑战&lt;/p&gt;
+&lt;p&gt;机器学习采用了数据驱动的方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;收集图像及其标签的数据集&lt;/li&gt;
+&lt;li&gt;使用机器学习算法训练分类器&lt;/li&gt;
+&lt;li&gt;在新图像上评估分类器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面是分别对应步骤2和3的接口&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1.jpg"
+width="1854"
+height="880"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_3e9bd396b0bdb806.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p1_hu_261c4bfc88a957fb.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="210"
+data-flex-basis="505px"
+&gt;&lt;/p&gt;
+&lt;h3 id="nearest-neighbor-classifier"&gt;Nearest Neighbor Classifier
+&lt;/h3&gt;&lt;p&gt;设定一个距离函数，对于一对图像（query data和training data），返回一个定义两者相似度的值&lt;/p&gt;
+&lt;p&gt;下面是两种常见的计算距离的方式&lt;/p&gt;
+&lt;p&gt;首先是L1距离，定义为两个图像所有像素差绝对值的总和&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2.jpg"
+width="1894"
+height="938"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_db923737d54a3ba5.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p2_hu_106a6601c2dedb01.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="484px"
+&gt;&lt;/p&gt;
+&lt;p&gt;不过我们不难发现，训练函数是$O(1)$的，而预测函数是$O(n)$的，这并不是我们想要的&lt;/p&gt;
+&lt;p&gt;因此我们把Nearest Neighbor自然推广到k-Nearest Neighbor，k值该如何选择才比较合适，以及距离函数该如何选择，这两个量就被称作超参数，也就是需要决策的变量Ruhr设置超参数有很多办法，第一种方法是把部分训练数据作为验证集，在训练集上训练模型，然后通过验证集的效果来选择超参数，然后用超参数对测试集进行结果复现，并在测试集验证&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3.jpg"
+width="1760"
+height="254"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_f86f9e48c99f29ae.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p3_hu_dfe8be4051b98bf4.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="692"
+data-flex-basis="1662px"
+&gt;&lt;/p&gt;
+&lt;p&gt;更好的方法是用交叉验证设置超参数，把训练数据分成若干分区，然后每个分区轮流作为验证集，在一组数据上训练数据然后再下一组数据评估模型，迭代，最后取结果的评估值作为结果&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4.jpg"
+width="1880"
+height="952"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_54295db4767449af.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p4_hu_5a2b131c36886179.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="197"
+data-flex-basis="473px"
+&gt;&lt;/p&gt;
+&lt;p&gt;在实际中，k Nearest Neighbor从来不用，首先因为效率太低，其次它的距离是按照每个像素点之间来计算的，因此很容易识别错误，例如把颜色相近的猫识别成老虎，亦或者当有物体遮挡的时候，你去计算他的L2距离是相等的，但是实际上差别却很大，最后，当数据的维度很大的时候，计算会非常的慢&lt;/p&gt;
+&lt;h3 id="线性分类器"&gt;线性分类器
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5.jpg"
+width="1814"
+height="930"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_b4abae43c7a8c598.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p5_hu_7bb20d3e6bc9b7ae.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="195"
+data-flex-basis="468px"
+&gt;&lt;/p&gt;
+&lt;p&gt;线性分类器就是给定一张图片，转换成向量然后计算
+&lt;/p&gt;
+$$
+f(x,W)=Wx + b\tag{1}
+$$&lt;p&gt;
+这里输出结果是10维向量，然后根据分量决定图片属于哪一类&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6.jpg"
+width="1846"
+height="918"
+srcset="https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_3303b58d1e787dcc.jpg 480w, https://lunatide.tech/p/cs231-%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/p6_hu_f286048cfe01c24a.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="482px"
+&gt;&lt;/p&gt;
+&lt;p&gt;但是线性分类器并不是所有东西都能解决（就比如上图，根据结果图片是狗，😓），对于无法分类大量分离的数据实例就无法解决&lt;/p&gt;</description></item></channel></rss>
