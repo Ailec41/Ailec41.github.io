@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Demo on LunaTide's Blog</title><link>https://lunatide.tech/tags/demo/</link><description>Recent content in Demo on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Thu, 01 Jan 2099 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/tags/demo/index.xml" rel="self" type="application/rss+xml"/><item><title>Sample Post (Pinned in Recently Updated)</title><link>https://lunatide.tech/p/sample-post/</link><pubDate>Thu, 30 Apr 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/sample-post/</guid><description>&lt;p&gt;This is a sample post used to validate styling and the sidebar.&lt;/p&gt;
+&lt;aside class="admonition admonition--definition" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Definition&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+An &lt;strong&gt;admonition block&lt;/strong&gt; is a styled container for structured content.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--theorem" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Theorem&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+If the &lt;code&gt;lastmod&lt;/code&gt; of a post is the newest, it will appear first in &lt;strong&gt;Recently Updated&lt;/strong&gt;.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--proof" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Proof&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+The sidebar sorts pages by &lt;code&gt;.Lastmod&lt;/code&gt; in descending order.
+&lt;/div&gt;
+&lt;/aside&gt;</description></item></channel></rss>

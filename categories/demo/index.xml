@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Demo on LunaTide's Blog</title><link>https://lunatide.tech/categories/demo/</link><description>Recent content in Demo on LunaTide's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>LunaTide's Blog</copyright><lastBuildDate>Thu, 01 Jan 2099 00:00:00 +0000</lastBuildDate><atom:link href="https://lunatide.tech/categories/demo/index.xml" rel="self" type="application/rss+xml"/><item><title>Sample Post (Pinned in Recently Updated)</title><link>https://lunatide.tech/p/sample-post/</link><pubDate>Thu, 30 Apr 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/sample-post/</guid><description>&lt;p&gt;This is a sample post used to validate styling and the sidebar.&lt;/p&gt;
+&lt;aside class="admonition admonition--definition" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Definition&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+An &lt;strong&gt;admonition block&lt;/strong&gt; is a styled container for structured content.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--theorem" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Theorem&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+If the &lt;code&gt;lastmod&lt;/code&gt; of a post is the newest, it will appear first in &lt;strong&gt;Recently Updated&lt;/strong&gt;.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--proof" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Proof&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+The sidebar sorts pages by &lt;code&gt;.Lastmod&lt;/code&gt; in descending order.
+&lt;/div&gt;
+&lt;/aside&gt;</description></item><item><title>Admonition Playground</title><link>https://lunatide.tech/p/admonition-playground/</link><pubDate>Wed, 29 Apr 2026 00:00:00 +0000</pubDate><guid>https://lunatide.tech/p/admonition-playground/</guid><description>&lt;h1 id="admonition-playground"&gt;Admonition Playground
+&lt;/h1&gt;&lt;p&gt;This page demonstrates &lt;strong&gt;colored admonition blocks&lt;/strong&gt; using pure Markdown fenced blocks.&lt;/p&gt;
+&lt;p&gt;You can mix:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;inline math like \(\hat{\epsilon}_S(h)\)&lt;/li&gt;
+&lt;li&gt;display math&lt;/li&gt;
+&lt;li&gt;lists and nested lists&lt;/li&gt;
+&lt;li&gt;normal code blocks&lt;/li&gt;
+&lt;li&gt;links and references&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="1-definition--inline-math"&gt;1. Definition + inline math
+&lt;/h2&gt;&lt;aside class="admonition admonition--definition" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Definition (Empirical Risk)&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+&lt;p&gt;Given a hypothesis \(h\), a dataset
+\(S=\{(x^{(i)},y^{(i)})\}_{i=1}^m\), define the empirical error:&lt;/p&gt;
+\[
+\hat{\epsilon}_S(h) \;=\; \frac{1}{m}\sum_{i=1}^m \mathbf{1}\{h(x^{(i)}) \neq y^{(i)}\}.
+\]&lt;p&gt;We will also write \(\hat{\epsilon}(h)\) when \(S\) is clear from context.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;&lt;hr&gt;
+&lt;h2 id="2-theorem--proof-with-steps"&gt;2. Theorem + proof (with steps)
+&lt;/h2&gt;&lt;aside class="admonition admonition--theorem" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Concentration of Bernoulli Mean&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+&lt;p&gt;Let \(Z_1,\dots,Z_m\) be i.i.d. Bernoulli random variables with mean \(\phi\), and let&lt;/p&gt;
+\[
+\hat{\phi}=\frac{1}{m}\sum_{i=1}^m Z_i.
+\]&lt;p&gt;Then for any \(\gamma&gt;0\), \(\hat{\phi}\) concentrates around \(\phi\) as \(m\) grows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--proof" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Proof Sketch&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+&lt;ol&gt;
+&lt;li&gt;View \(\hat{\phi}\) as the average of bounded i.i.d. random variables.&lt;/li&gt;
+&lt;li&gt;Apply a concentration inequality (e.g. Hoeffding).&lt;/li&gt;
+&lt;li&gt;Rearrange the bound into the form “probability of deviation ≤ something”.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This is a sketch; details depend on the exact inequality you choose.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;&lt;hr&gt;
+&lt;h2 id="3-proposition--corollary"&gt;3. Proposition + Corollary
+&lt;/h2&gt;&lt;aside class="admonition admonition--proposition" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Overfitting Indicator&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+If a model has &lt;strong&gt;very low training error&lt;/strong&gt; but &lt;strong&gt;high validation error&lt;/strong&gt;, it likely has high variance (overfitting).
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--corollary" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Model Selection&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+Cross-validation is a practical tool to estimate generalization error and select model complexity.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;hr&gt;
+&lt;h2 id="4-example--list--nested-list"&gt;4. Example + list + nested list
+&lt;/h2&gt;&lt;aside class="admonition admonition--example" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;k-fold Cross Validation&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+&lt;p&gt;To run \(k\)-fold cross validation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Split the dataset into \(k\) folds: \(S_1,\dots,S_k\).&lt;/li&gt;
+&lt;li&gt;For each fold \(j\):
+&lt;ul&gt;
+&lt;li&gt;Train on \(S \setminus S_j\)&lt;/li&gt;
+&lt;li&gt;Evaluate on \(S_j\)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Average the \(k\) validation errors.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A typical choice is \(k=10\).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;&lt;hr&gt;
+&lt;h2 id="5-note--link--inline-code"&gt;5. Note + link + inline code
+&lt;/h2&gt;&lt;aside class="admonition admonition--note" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Misc Tips&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+&lt;ul&gt;
+&lt;li&gt;You can include links like &lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+&gt;Hugo&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;You can include inline code like &lt;code&gt;hugo server -D&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;You can include inline math: \(m=0.7n\), \(2^n\), \(\log n\).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/aside&gt;&lt;hr&gt;
+&lt;h2 id="6-tip--info"&gt;6. Tip / Info
+&lt;/h2&gt;&lt;aside class="admonition admonition--tip" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Best Practice&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+Keep your tag set small and consistent. Prefer a few stable tags over many one-off tags.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--info" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Implementation Note&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+This theme renders these admonitions via a Hugo &lt;code&gt;render-codeblock.html&lt;/code&gt; hook.&lt;br&gt;
+No shortcode is required.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;hr&gt;
+&lt;h2 id="7-warning--caution--danger"&gt;7. Warning / Caution / Danger
+&lt;/h2&gt;&lt;aside class="admonition admonition--warning" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Math Rendering&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+If one LaTeX expression is malformed, KaTeX may skip rendering that expression.
+(We configured it to avoid breaking the whole page.)
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--caution" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Markdown Pitfall&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+Avoid mixing &lt;code&gt;$...$&lt;/code&gt; math with code spans like &lt;code&gt;`$x$`&lt;/code&gt;.&lt;br&gt;
+KaTeX ignores code blocks by default.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;aside class="admonition admonition--danger" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Security&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+Do not publish secrets (tokens/keys) in Markdown posts.
+&lt;/div&gt;
+&lt;/aside&gt;&lt;hr&gt;
+&lt;h2 id="8-admonition-with-a-code-block-inside"&gt;8. Admonition with a code block inside
+&lt;/h2&gt;&lt;aside class="admonition admonition--example" data-collapsed="false"&gt;
+&lt;div class="admonition__title"&gt;Code Inside Admonition&lt;/div&gt;
+&lt;div class="admonition__content"&gt;
+&lt;p&gt;Here is a normal code block &lt;strong&gt;inside&lt;/strong&gt; an admonition:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;math&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;sigmoid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;float&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;float&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/aside&gt;&lt;p&gt;And here is some math below it:&lt;/p&gt;
+\[
+\sigma(x) = \frac{1}{1 + e^{-x}}
+\]&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;## 9. A plain section after admonitions
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;This is normal Markdown text again.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- Item A
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- Item B
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- Item C
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Inline math still works:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\[
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\hat{h}=\arg\min_{h\in\mathcal{H}}\hat{\epsilon}(h)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item></channel></rss>
